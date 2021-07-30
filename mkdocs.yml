@@ -21,6 +21,7 @@ theme:
         name: Switch to light mode
 
 markdown_extensions:
+  - meta
   - pymdownx.highlight
   - pymdownx.superfences
 
@@ -71,6 +72,3 @@ extra:
   analytics:
     provider: google
     property: UA-165274631-2
-
-plugins:
-  - social

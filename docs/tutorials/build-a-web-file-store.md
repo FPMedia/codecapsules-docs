@@ -1,3 +1,18 @@
+{% block extrahead %}
+  {% set title = config.site_name %}
+  {% if page and page.meta and page.meta.title %}
+    {% set title = title ~ " - " ~ page.meta.title %}
+  {% elif page and page.title and not page.is_homepage %}
+    {% set title = title ~ " - " ~ page.title | striptags %}
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="Code Capsules" />
+  <meta name="twitter:creator" content="Code Capsules" />
+  <meta name="twitter:title" content="{{ title }}" />
+  <meta name="twitter:description" content="{{ config.site_description }}" />
+  <meta name="twitter:image" content="../assets/tutorials/build-a-web-file-store/web_file_store.png" />
+{% endblock %}
+
 # Building a Web File Store
 
 ![Building Web file store Cover](../assets/tutorials/build-a-web-file-store/web_file_store.png)
