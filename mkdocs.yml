@@ -21,7 +21,6 @@ theme:
         name: Switch to light mode
 
 markdown_extensions:
-  - meta
   - pymdownx.highlight
   - pymdownx.superfences
 
