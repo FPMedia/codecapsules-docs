@@ -3,7 +3,7 @@
 <meta name="twitter:creator" content="Code Capsules" />
 <meta name="twitter:title" content="Web File Store" />
 <meta name="twitter:description" content="{{ config.site_description }}" />
-<meta name="twitter:image" content="../../assets/tutorials/build-a-web-file-store/web_file_store.png" />
+<meta name="twitter:image" content="https://codecapsules-docs-hfyqjc.codecapsules.co.za/assets/tutorials/build-a-web-file-store/web_file_store.png" />
 
 # Building a Web File Store
 
