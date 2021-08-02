@@ -6,6 +6,7 @@ theme:
     - navigation.tabs
     - navigation.sections
   name: material
+  custom_dir: overrides
   logo: assets/cclogo.png
 
   palette:
