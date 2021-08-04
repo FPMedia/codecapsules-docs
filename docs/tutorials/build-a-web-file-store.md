@@ -1,6 +1,6 @@
 # Building a Web File Store
 
-![Building Web file store Cover](../assets/tutorials/build-a-web-file-store/web_file_store.png)
+![Building Web file store Cover](../assets/tutorials/build-a-web-file-store/web_file_store.jpg)
 
 An online file storage drive you can access from all your devices is a very useful tool. It's the basis of services like Dropbox and Google Drive. 
 
