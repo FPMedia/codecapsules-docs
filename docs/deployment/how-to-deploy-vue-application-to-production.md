@@ -78,7 +78,7 @@ To deploy the Vue application, go back to the _Spaces_ tab. Next, click on the S
 
 After creating the Capsule, the Capsule will build the Vue application. You can view the build logs by clicking the "Logs" tab in the Capsule. 
 
-![Build logs](../assets/deployment/vue/frontend-capsule-build-logs.png)
+![Build logs](../assets/deployment/vue/frontend-capsule-build-logs.gif)
 
 Once built, navigate to the _Overview_ tab. Code Capsules provides a default URL for viewing applications; you can find this under "domains". Click the URL to view the application.
 

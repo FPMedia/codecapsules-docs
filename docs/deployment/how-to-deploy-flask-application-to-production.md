@@ -81,7 +81,7 @@ We can deploy our Flask application to Code Capsules by clicking the "Create a N
 
 While the Capsule is building, you can view its logs under the "Build and Deploy" tab in the Capsule. Once built, you can navigate to the "Overview" tab and click on the provided URL to view the application. 
 
-![Build logs](../assets/deployment/python/backend-capsule-build-logs.png)
+![Build logs](../assets/deployment/python/backend-capsule-build-logs.gif)
 
 For a better understanding of Capsules, take a look at [this explanation](https://codecapsules.io/docs/faq/what-is-a-capsule).
 

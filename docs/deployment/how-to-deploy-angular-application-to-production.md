@@ -74,7 +74,7 @@ It's time to create a [Capsule](https://codecapsules.io/docs/faq/what-is-a-capsu
 
 You can view the build logs under the _Build and Deploy_ tab in your Capsule. When the Capsule builds, navigate to the _Overview_ tab and click on the provided URL to view the application. 
 
-![Build logs](../assets/deployment/angular/frontend-capsule-build-logs.png)
+![Build logs](../assets/deployment/angular/frontend-capsule-build-logs.gif)
 
 For a better understanding of Capsules, [read this explanation on Capsules](https://codecapsules.io/docs/faq/what-is-a-capsule/).
 

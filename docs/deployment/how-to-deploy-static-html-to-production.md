@@ -71,6 +71,6 @@ The next step is to create a [Capsule](https://codecapsules.io/docs/faq/what-is-
 
 While the Capsule is building, you can view its logs under the "Build and Deploy" tab in the Capsule. 
 
-![Build logs](../assets/deployment/html/frontend-capsule-build-logs.png)
+![Build logs](../assets/deployment/html/frontend-capsule-build-logs.gif)
 
 Once built, you can navigate to the _Overview_ tab and click on the provided URL to view the application. For a better understanding of Capsules, [read this explanation on Capsules](https://codecapsules.io/docs/faq/what-is-a-capsule/).
