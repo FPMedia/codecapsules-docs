@@ -1,3 +1,9 @@
+---
+title: Develop a Persistent Sleep Tracker 
+description: Final part in a two-part series that takes you through creating a web application to monitor sleep patterns of registered users and display them graphically. 
+image: assets/tutorials/develop-persistent-sleep-tracker-part-1/code_capsules_sleep_tracker.jpg
+---
+
 # Developing a Persistent Sleep Tracker Part 2: Tracking and Graphing Sleep Data
 
 This is the second part of our sleep tracker web application tutorial, covering the creation of the sleep tracker interface.

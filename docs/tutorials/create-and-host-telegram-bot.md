@@ -1,3 +1,8 @@
+---
+title: Create a Telegram Bot 
+description: Learn how to build a Telegram bot that messages you exchange rate data and weather forecasts for areas of your choosing.
+image: assets/tutorials/create-and-host-telegram-bot/telegram-bot-cover.jpg
+---
 
 # How to Create and Host a Telegram Bot on Code Capsules
 

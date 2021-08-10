@@ -1,3 +1,9 @@
+---
+title: Create a Flask API 
+description: Build a personal API that lets you access up to the minute exchange rates and weather data for cities of your choosing.
+image: assets/tutorials/creating-and-hosting-a-flask-api/creating-flask-api-cover.jpg
+---
+
 # Creating and Hosting an API with Flask and Code Capsules
 
 ![Creating Flask API Cover](../assets/tutorials/creating-and-hosting-a-flask-api/creating-flask-api-cover.jpg)

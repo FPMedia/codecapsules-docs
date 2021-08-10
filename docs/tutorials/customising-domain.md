@@ -1,3 +1,9 @@
+---
+title: Customise Your Domain on Code Capsules 
+description: Take a look at how to customise your application's default Code Capsules domain to a personal one tailored to your app's purpose. 
+image: assets/tutorials/customising-domain/customising-domain-cover.jpg
+---
+
 # Customising Your Domain on Code Capsules
 
 ![Customising Domain Cover](../assets/tutorials/customising-domain/customising-domain-cover.jpg)

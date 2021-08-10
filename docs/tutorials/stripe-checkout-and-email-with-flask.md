@@ -1,3 +1,9 @@
+---
+title: Stripe Checkout and Email Subscription 
+description: Add a payment method to your web app using Stripe checkout and set up email subscriptions with Flask.
+image: assets/tutorials/stripe-checkout-and-email-with-flask/stripe-checkout-cover.jpg
+---
+
 # Adding Functionality to Your Web Application: Setting up Stripe Checkout and Email Subscription with Flask and Code Capsules
 
 ![Creating Flask API Cover](../assets/tutorials/stripe-checkout-and-email-with-flask/stripe-checkout-cover.jpg)

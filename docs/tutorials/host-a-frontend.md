@@ -1,3 +1,9 @@
+---
+title: Build and Deploy Portfolio
+description: Build and personalize your portfolio to showcase your skills in a unique way. Take a look at how to deploy the end product to Code Capsules. 
+image: assets/tutorials/host-a-frontend/portfolio-1.jpg
+---
+
 # Hosting a Front-end: Building and Deploying Your Portfolio to Code Capsules
 
 ![Portfolio Cover Image](../assets/tutorials/host-a-frontend/portfolio-1.jpg)

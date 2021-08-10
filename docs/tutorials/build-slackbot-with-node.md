@@ -1,3 +1,9 @@
+---
+title: Build a Slackbot
+description: Create a bot that monitors the state of your applications and reports any status changes via Slack.
+image: assets/tutorials/build-slackbot-with-node/CodeCapsules_SlackBot.jpg
+---
+
 # Build a Slackbot with Node.js to Monitor your Applications
 
 ![Building Slackbot Cover](../assets/tutorials/build-slackbot-with-node/CodeCapsules_SlackBot.jpg)

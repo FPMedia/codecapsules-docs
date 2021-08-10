@@ -1,3 +1,9 @@
+---
+title: Building a Web File Store
+description: Create a cloud application with persistent data storage that you can easily access from your devices.
+image: assets/tutorials/build-a-web-file-store/web_file_store.png
+---
+
 # Building a Web File Store
 
 ![Building Web file store Cover](../assets/tutorials/build-a-web-file-store/web_file_store.png)

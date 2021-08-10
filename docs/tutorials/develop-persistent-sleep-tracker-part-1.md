@@ -1,3 +1,9 @@
+---
+title: Develop a Persistent Sleep Tracker 
+description: First part in a two-part series that takes you through creating a web application to monitor sleep patterns of registered users and display them graphically. 
+image: assets/tutorials/develop-persistent-sleep-tracker-part-1/code_capsules_sleep_tracker.jpg
+---
+
 # Developing a Persistent Sleep Tracker Part 1: Handling Users with Flask-Login
 
 ![Sleep Tracker Cover](../assets/tutorials/develop-persistent-sleep-tracker-part-1/code_capsules_sleep_tracker.jpg)
