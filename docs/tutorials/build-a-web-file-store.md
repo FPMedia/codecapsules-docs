@@ -1,3 +1,9 @@
+---
+title: Test title Lorem ipsum dolor sit amet
+description: Test Description 1 2 3
+image: assets/tutorials/build-a-web-file-store/web_file_store.png
+---
+
 # Building a Web File Store
 
 ![Building Web file store Cover](../assets/tutorials/build-a-web-file-store/web_file_store.png)
