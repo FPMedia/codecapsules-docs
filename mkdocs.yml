@@ -45,6 +45,7 @@ nav:
   - Reference: 
     - Overview: reference/index.md
     - Custom Domains: reference/custom_domains.md
+    - File Data Capsule: reference/set-up-file-data-capsule.md
     - MongoDB Data Capsule: reference/set-up-mongodb-data-capsule.md 
     - MySQL Data Capsule: reference/set-up-mysql-data-capsule.md
   - Tutorials: 
