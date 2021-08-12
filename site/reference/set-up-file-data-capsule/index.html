@@ -6,12 +6,12 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The documentation for Code Capsules, the easiest deployment platform that lets you pull your code directly from your Github repository  and build it inside the correct container, ensuring security and performance. ">
+        <meta name="description" content="A simple yet comprehensive guide on how to create and use a file data capsule in Code Capsules.">
       
       
       
       
-        <link rel="canonical" href="https://codecapsules.co.za/docs/reference/custom_domains/">
+        <link rel="canonical" href="https://codecapsules.co.za/docs/reference/set-up-file-data-capsule/">
       
       
         
@@ -21,7 +21,7 @@
     
     
       
-        <title>Custom Domains - Code Capsules</title>
+        <title>Set Up Persistent File Data Storage - Code Capsules</title>
       
     
     
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#custom-domains" class="md-skip">
+        <a href="#how-to-set-up-a-persistent-file-data-capsule" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Custom Domains
+              Set Up Persistent File Data Storage
             
           </span>
         </div>
@@ -575,6 +575,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -587,12 +601,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Custom Domains
+          File Data Capsule
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Custom Domains
+        File Data Capsule
       </a>
       
         
@@ -610,83 +624,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-add-a-custom-domain" class="md-nav__link">
-    How to Add a Custom Domain
+  <a href="#create-a-file-data-capsule" class="md-nav__link">
+    Create a File Data Capsule
   </a>
   
-    <nav class="md-nav" aria-label="How to Add a Custom Domain">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binding-a-data-capsule-to-a-backend-capsule" class="md-nav__link">
+    Binding a Data Capsule to a Backend Capsule
+  </a>
+  
+    <nav class="md-nav" aria-label="Binding a Data Capsule to a Backend Capsule">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#creating-an-a-record" class="md-nav__link">
-    Creating an A record
+  <a href="#connecting-to-a-file-data-capsule-from-a-python-application" class="md-nav__link">
+    Connecting to a File Data Capsule From a Python Application
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-a-file-data-capsule-from-a-nodejs-application" class="md-nav__link">
+    Connecting to a File Data Capsule From a Node.js Application
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-add-a-subdomain" class="md-nav__link">
-    How to Add a Subdomain
-  </a>
-  
-    <nav class="md-nav" aria-label="How to Add a Subdomain">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creating-cname-records" class="md-nav__link">
-    Creating CNAME Records
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#removing-domains-and-subdomains" class="md-nav__link">
-    Removing Domains and Subdomains
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#glossary-of-terms-concepts" class="md-nav__link">
-    Glossary of Terms &amp; Concepts
-  </a>
-  
-    <nav class="md-nav" aria-label="Glossary of Terms &amp; Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#makeup-of-a-url" class="md-nav__link">
-    Makeup of a URL
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dns-records" class="md-nav__link">
-    DNS records
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#http-and-ssl" class="md-nav__link">
-    HTTP and SSL
-  </a>
   
 </li>
       
@@ -694,20 +661,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../set-up-file-data-capsule/" class="md-nav__link">
-        File Data Capsule
-      </a>
     </li>
   
 
@@ -1243,83 +1196,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-add-a-custom-domain" class="md-nav__link">
-    How to Add a Custom Domain
+  <a href="#create-a-file-data-capsule" class="md-nav__link">
+    Create a File Data Capsule
   </a>
   
-    <nav class="md-nav" aria-label="How to Add a Custom Domain">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binding-a-data-capsule-to-a-backend-capsule" class="md-nav__link">
+    Binding a Data Capsule to a Backend Capsule
+  </a>
+  
+    <nav class="md-nav" aria-label="Binding a Data Capsule to a Backend Capsule">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#creating-an-a-record" class="md-nav__link">
-    Creating an A record
+  <a href="#connecting-to-a-file-data-capsule-from-a-python-application" class="md-nav__link">
+    Connecting to a File Data Capsule From a Python Application
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecting-to-a-file-data-capsule-from-a-nodejs-application" class="md-nav__link">
+    Connecting to a File Data Capsule From a Node.js Application
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-add-a-subdomain" class="md-nav__link">
-    How to Add a Subdomain
-  </a>
-  
-    <nav class="md-nav" aria-label="How to Add a Subdomain">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#creating-cname-records" class="md-nav__link">
-    Creating CNAME Records
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#removing-domains-and-subdomains" class="md-nav__link">
-    Removing Domains and Subdomains
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#glossary-of-terms-concepts" class="md-nav__link">
-    Glossary of Terms &amp; Concepts
-  </a>
-  
-    <nav class="md-nav" aria-label="Glossary of Terms &amp; Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#makeup-of-a-url" class="md-nav__link">
-    Makeup of a URL
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dns-records" class="md-nav__link">
-    DNS records
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#http-and-ssl" class="md-nav__link">
-    HTTP and SSL
-  </a>
   
 </li>
       
@@ -1337,154 +1243,52 @@
                 
                 
                 
-                <h1 id="custom-domains">Custom Domains</h1>
-<p>For every application deployed to Code Capsules, Code Capsules provides a default domain that looks something like this: <code>capsulename.xxxx.codecapsules.co.za</code>. If you have purchased a domain like <code>example.com</code> from a domain registrar and would like to replace it with the default Code Capsules domain, Code Capsules lets you use your own domain instead (for free).</p>
-<p>You can find everything relating to your Capsule's domains (including your default domain) under the "Overview" tab in the Capsule. This is also where you can add a purchased custom domain to your application.</p>
-<h2 id="how-to-add-a-custom-domain">How to Add a Custom Domain</h2>
-<p>To add a custom domain to your application on Code Capsules, click on the "Overview" tab in the Capsule hosting your application. Under Domains, you'll see all of the domains associated with your Capsule; including the default domain provided by Code Capsules.</p>
-<p>There is also an "Add a Custom Domain" button at the bottom of the page.</p>
-<p><img alt="images" src="../../assets/documentation/overviewtab.png" /></p>
-<p><strong>Before adding a custom domain</strong>, consider:
-- Your capsule may route to only <strong>one</strong> root domain. You may not add multiple root domains to your Capsule.</p>
-<p>To add a custom domain:</p>
-<ol>
-<li>Click the "Add a Custom Domain" button.</li>
-<li><strong>Save</strong> the IP address provided under "A Record Route" (this will be used shortly).</li>
-<li>Enter the custom domain you've purchased from a domain registrar under "Domain Name".<ul>
-<li>Make sure that you've entered a <em>root domain</em> only - do not include a
-  subdomain.</li>
-<li>A root domain contains only your <em>domain name</em> and your <em>top-level domain</em> (TLD). Take <code>example.com</code>. Here, "example" is the domain name, and ".com" is the TLD.</li>
-</ul>
-</li>
-</ol>
-<p>Once you've entered your root domain, add it by clicking the <strong>Create Domain</strong> button.</p>
-<h3 id="creating-an-a-record">Creating an A record</h3>
-<p>After adding your custom domain on Code Capsules, you need to create an <em>A record</em> for the domain you've purchased. You'll use the IP that was saved <a href="#adding-a-domain">previously</a> when creating the A record for your domain. You can add an A record to your purchased domain by visiting your domain registrar's website.</p>
-<p>Your A record table should look something like this:</p>
-<table>
-<thead>
-<tr>
-<th>Record Type</th>
-<th>Name</th>
-<th>IPv4 Address</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A Record</td>
-<td>@</td>
-<td><code>provided-IP-Address</code></td>
-</tr>
-</tbody>
-</table>
-<p>where,</p>
-<ul>
-<li>
-<p>"@" refers to your root domain.</p>
-</li>
-<li>
-<p><code>provided-IP-Address</code> is the IP address found <a href="#how-to-add-a-custom-domain">previously</a> under "A Record Route"</p>
-</li>
-</ul>
-<p>Consult your domain registrar for specific instructions on adding A records to your domain. Keep in mind, when making changes to your domain's <em>DNS records</em>, changes may take several hours to take effect.</p>
-<h2 id="how-to-add-a-subdomain">How to Add a Subdomain</h2>
-<p>Before adding a <em>subdomain</em> to your application hosted on Code Capsules, make sure you have already <a href="#how-to-add-a-custom-domain">created an A record</a> for your purchased domain that routes to an application on Code Capsules. </p>
-<p>When adding a subdomain to your application hosted on Code Capsules, keep in mind:</p>
-<ul>
-<li>Applications hosted on Code Capsules can have a <strong>maximum</strong> of five subdomains.</li>
-<li><em>Wildcard subdomains</em> are not allowed on Code Capsules - you'll need to create a CNAME record in your purchased domain for each subdomain you want to create.</li>
-</ul>
-<p>To add a subdomain for your application, follow the same process detailed <a href="#adding-a-domain">previously</a>, with some changes:</p>
-<ul>
-<li>This time you <strong>must include</strong> the subdomain you want to create. This means that instead of entering the root domain <code>domain-name.tld</code>, you should specify your subdomain as well, such as: <code>app.example.com</code>.</li>
-<li>You do <strong>not</strong> need to save the IP address provided under "A Record Route" when adding subdomains on Code Capsules.</li>
-</ul>
-<p>After clicking the <strong>Create Domain</strong> button, you must create a <em>CNAME record</em> for your purchased domain with information about the subdomain you'd like to create.</p>
-<h3 id="creating-cname-records">Creating CNAME Records</h3>
-<p>Creating CNAME records for purchased domains vary for different domain registrars. Consult your domain registrar for information on creating CNAME records. </p>
-<p>In general, the CNAME record table for your domain should look something like this:</p>
-<table>
-<thead>
-<tr>
-<th>Record Type</th>
-<th>Name</th>
-<th>Host/Target</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CNAME</td>
-<td><code>subdomain</code></td>
-<td><code>your-root-domain</code></td>
-</tr>
-</tbody>
-</table>
-<p>where, </p>
-<ul>
-<li><code>subdomain</code> is the subdomain you would like to create (e.g. <code>app</code>, <code>www</code>)</li>
-<li><code>your-root-domain</code> is your root domain that contains an A record routing to your application on Code Capsules.</li>
-</ul>
-<p>As with adding an A record, CNAME records or any other changes to your domain's DNS records may take several hours to take effect.</p>
-<h2 id="removing-domains-and-subdomains">Removing Domains and Subdomains</h2>
-<p>If you would like to remove any domains or subdomains associated with your Capsule, navigate to the "Overview" tab in your Capsule. Under Domains, you will see a list of all the domains that are associated with your Capsule. </p>
-<p>Next to each custom domain and subdomain, you'll find a trash can icon. <strong>Click the trash can icon</strong> to remove the custom domain or subdomain.</p>
-<p>Note, removing a custom domain or subdomain does not affect your domain's DNS records:</p>
-<ul>
-<li>
-<p>When removing a root domain on Code Capsules, your A record will still be associated with the IP address provided by Code Capsules. Make sure to revert your domain's A record to its default value.</p>
-</li>
-<li>
-<p>When removing a subdomain on Code Capsules, make sure to delete the corresponding CNAME record in your purchased domain. </p>
-</li>
-</ul>
-<h2 id="glossary-of-terms-concepts">Glossary of Terms &amp; Concepts</h2>
-<p>Here is a list of defined terms and concepts used throughout this article. Divided into three sections, here you'll find definitions for: structures related to URLs, DNS records, and information related to HTTP. </p>
-<h3 id="makeup-of-a-url">Makeup of a URL</h3>
-<p><img alt="images" src="../../assets/documentation/url-makeup.png" /></p>
-<ul>
-<li>
-<p><strong>Uniform Resource Locator (URL)</strong>: In the above image, <code>www.example.com</code> is the URL. A URL is a combination of three different aspects of a domain: A subdomain, a second-level domain, and a top-level domain.</p>
-</li>
-<li>
-<p><strong>Subdomain</strong>: Subdomains are the first part of a URL, the most common being <code>www</code>. Subdomains provide users with a consistent naming strategy to access service you may provide (for example, <code>hr.myapplication.com</code> may route users to your business' human resources portal).</p>
-</li>
-<li>
-<p><strong>Second-level domain</strong> (SLD): Second level domains make up the middle of a URL. This is your domain's name.</p>
-</li>
-<li>
-<p><strong>Top-level domain</strong> (TLD): Top-level domains are the text at the right-hand side of a URL. TLDs give users an idea about your website. For example, the <code>.de</code> TLD lets users know the website probably caters to a German audience.</p>
-</li>
-<li>
-<p><strong>Root Domain</strong>: The root domain is a combination of a second-level and top-level domain <strong>without</strong> a subdomain. <code>example.com</code> is an example of a root domain, whereas <code>www.example.com</code> is not a root domain.</p>
-</li>
-</ul>
-<h2 id="dns-records">DNS records</h2>
-<ul>
-<li>
-<p><strong>Domain Registrar</strong>: A company that sells and manages domains.</p>
-</li>
-<li>
-<p><strong>A Record</strong>: An A record routes a domain (e.g. <code>example.com</code> to an IP addresses (e.g. <code>123.456.567.8</code>)</p>
-</li>
-<li>
-<p><strong>Wildcard subdomain</strong>: A wildcard subdomain points all subdomains not created for your purchased domain to a specific place. For example, if a wildcard subdomain was created for <code>example.com</code>, and the subdomains <code>info</code> and <code>123</code> were not created for <code>example.com</code>, both <code>info.example.com</code> and <code>123.example.com</code> would route to <code>example.com</code>. </p>
-</li>
-<li>
-<p><strong>CNAME Record</strong>: A CNAME record, also known as an <em>alias</em>, routes subdomains to other domain names. For example, <code>mail.example.com</code> may route to <code>mail.google.com</code>. CNAME records are unlike A records, which route to a specific IP address.</p>
-</li>
-</ul>
-<h2 id="http-and-ssl">HTTP and SSL</h2>
-<ul>
-<li>
-<p><strong>Hypertext Transfer Protocol</strong> (HTTP): HTTP is a protocol for transferring data from a server (a web-application) to a client (your web-browser). </p>
-</li>
-<li>
-<p><strong>Hypertext Transfer Protocol Secure</strong> (HTTPS): HTTPS is like HTTP, except the data transferred from the server to client is <strong>encrypted</strong> for better security. </p>
-</li>
-<li>
-<p><strong>Secure Sockets Layer Certificate</strong> (SSL): An SSL Certificate authenticates a domain and allows encrypted information to send to the domains server - with an SSL certificate you can connect to your domain via HTTPS, i.e: https://www.example.com.</p>
-</li>
-</ul>
+                <h1 id="how-to-set-up-a-persistent-file-data-capsule">How to Set Up a Persistent File Data Capsule</h1>
+<p>Plenty of times you need to make use of persistent storage to develop applications that solve real world problems. In this tutorial, we look at how to create a persistent file data capsule that you can use with your backend applications that are running on Code Capsules. </p>
+<h2 id="create-a-file-data-capsule">Create a File Data Capsule</h2>
+<p>Log in to your Code Capsules account and navigate to the Space where your file data capsule will be contained in. Click "New Capsule" and select the "Data Capsule" option from the Create New Capsule dialog that slides in from the right. </p>
+<p><img alt="Create Data Capsule" src="../../assets/reference/create-data-capsule.png" /></p>
+<p>In the New Data Capsule dialog, choose "A persistent storage mounted directly to your capsule." as your data type, then click the "Create Capsule" button. </p>
+<p><img alt="Persistent File Storage" src="../../assets/reference/set-up-file-data-capsule/persistent-file-storage.png" /></p>
+<h2 id="binding-a-data-capsule-to-a-backend-capsule">Binding a Data Capsule to a Backend Capsule</h2>
+<p>To connect a data capsule to a backend capsule hosted on Code Capsules you need to bind the two together before you can connect to and use your data capsule.</p>
+<p>Navigate to the backend capsule and click "Configure" to open the capsule's config tab. Scroll down to the "Bind Data capsule" section where your recently created data capsule will show.</p>
+<p><img alt="Bind Data Capsule" src="../../assets/reference/set-up-file-data-capsule/bind-file-data-capsule.png" /></p>
+<p>Click "Bind" to bind your data and backend capsules. During the bind process, Code Capsules creates a <code>PERSISTENT_STORAGE_DIR</code> environmental variable to let your backend capsule know where your data capsule resides in order to access its features. Once the two capsules have been bound, you can scroll to the top of the Configure tab to find the value of this variable. </p>
+<p><img alt="PERSISTENT STORAGE DIR Environment Variable" src="../../assets/reference/set-up-file-data-capsule/file-data-environment-variables.png" /></p>
+<p>The next step is to use this environment variable in code in order to read and write to our data capsule. Copy the value of the <code>PERSISTENT_STORAGE_DIR</code> variable or alternatively, reference it directly from code using <code>os.getenv</code> or <code>process.env</code> for Python and Node.js applications respectively. </p>
+<h3 id="connecting-to-a-file-data-capsule-from-a-python-application">Connecting to a File Data Capsule From a Python Application</h3>
+<p>If your backend capsule is a Python application, use the following code to connect to your file data capsule:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">db_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PERSISTENT_STORAGE_DIR&#39;</span><span class="p">)</span>
+
+<span class="c1">### Do something with the db_directory variable here</span>
+<span class="n">file_to_write</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">db_directory</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">)</span>
+
+<span class="n">file1</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_to_write</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="n">file1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;File writing test&quot;</span><span class="p">)</span>
+<span class="n">file1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="connecting-to-a-file-data-capsule-from-a-nodejs-application">Connecting to a File Data Capsule From a Node.js Application</h3>
+<p>If your backend capsule is a Node.js application, use the following code to connect to your file data capsule:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">db_directory</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PERSISTENT_STORAGE_DIR</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="s1">&#39;Some content!&#39;</span>
+
+<span class="c1">// Do something with the db_directory variable here</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">db_directory</span> <span class="o">+</span> <span class="s1">&#39;/test.txt&#39;</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+  <span class="c1">//file written successfully</span>
+<span class="p">})</span>
+</code></pre></div>
+                
+                  
                 
               
               
@@ -1505,7 +1309,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview" rel="prev">
+        <a href="../custom_domains/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Domains" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1514,20 +1318,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Overview
+              Custom Domains
             </div>
           </div>
         </a>
       
       
         
-        <a href="../set-up-file-data-capsule/" class="md-footer__link md-footer__link--next" aria-label="Next: File Data Capsule" rel="next">
+        <a href="../set-up-mongodb-data-capsule/" class="md-footer__link md-footer__link--next" aria-label="Next: MongoDB Data Capsule" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              File Data Capsule
+              MongoDB Data Capsule
             </div>
           </div>
           <div class="md-footer__button md-icon">
