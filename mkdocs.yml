@@ -72,5 +72,3 @@ extra:
     provider: google
     property: UA-165274631-2
 
-plugins:
-  - social
