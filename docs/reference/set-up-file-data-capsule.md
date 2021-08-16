@@ -1,6 +1,6 @@
 ---
 title: Set Up Persistent File Data Storage
-description: A simple yet comprehensive guide on how to create and use a file data capsule in Code Capsules.
+description: Use a file system, directly from your PaaS app for cases where you do not want a full-blown database.
 ---
 
 # How to Set Up a Persistent File Data Capsule
