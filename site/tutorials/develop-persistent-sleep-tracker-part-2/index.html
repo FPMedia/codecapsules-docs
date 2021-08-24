@@ -1,0 +1,1658 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Final part in a two-part series that takes you through creating a web application to monitor sleep patterns of registered users and display them graphically.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/develop-persistent-sleep-tracker-part-2/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Develop a Persistent Sleep Tracker - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Develop a Persistent Sleep Tracker" />
+      <meta name="twitter:description" content="Final part in a two-part series that takes you through creating a web application to monitor sleep patterns of registered users and display them graphically." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/develop-persistent-sleep-tracker-part-1/code_capsules_sleep_tracker.jpg" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#developing-a-persistent-sleep-tracker-part-2-tracking-and-graphing-sleep-data" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Develop a Persistent Sleep Tracker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Persistent Sleep Tracker Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Persistent Sleep Tracker Part 2
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    Recap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-sleep-tracker-front-end" class="md-nav__link">
+    Creating the Sleep Tracker Front-end
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-sleep-data-submission-and-logout" class="md-nav__link">
+    Adding Sleep Data Submission and Logout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-the-plotly-graph" class="md-nav__link">
+    Adding the Plotly Graph
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-for-deployment" class="md-nav__link">
+    Preparing for Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing for Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-environment-variables" class="md-nav__link">
+    Creating environment variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-procfile-and-requirementstxt" class="md-nav__link">
+    Creating a Procfile and requirements.txt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-sleep-tracker-to-code-capsules" class="md-nav__link">
+    Deploying the Sleep Tracker to Code Capsules
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying the Sleep Tracker to Code Capsules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-environment-variables-in-code-capsules" class="md-nav__link">
+    Creating environment variables in Code Capsules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-next" class="md-nav__link">
+    What Next?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    Recap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-sleep-tracker-front-end" class="md-nav__link">
+    Creating the Sleep Tracker Front-end
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-sleep-data-submission-and-logout" class="md-nav__link">
+    Adding Sleep Data Submission and Logout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-the-plotly-graph" class="md-nav__link">
+    Adding the Plotly Graph
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-for-deployment" class="md-nav__link">
+    Preparing for Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing for Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-environment-variables" class="md-nav__link">
+    Creating environment variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-procfile-and-requirementstxt" class="md-nav__link">
+    Creating a Procfile and requirements.txt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-sleep-tracker-to-code-capsules" class="md-nav__link">
+    Deploying the Sleep Tracker to Code Capsules
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying the Sleep Tracker to Code Capsules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-environment-variables-in-code-capsules" class="md-nav__link">
+    Creating environment variables in Code Capsules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-next" class="md-nav__link">
+    What Next?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="developing-a-persistent-sleep-tracker-part-2-tracking-and-graphing-sleep-data">Developing a Persistent Sleep Tracker Part 2: Tracking and Graphing Sleep Data</h1>
+<p>This is the second part of our sleep tracker web application tutorial, covering the creation of the sleep tracker interface.</p>
+<h2 id="recap">Recap</h2>
+<p>In the <a href="https://codecapsules.io/docs/tutorials/develop-persistent-sleep-tracker-part-1/">first part of this series</a>, we built a web application with user registration and login using Python's Flask web framework and a hosted NoSQL MongoDB database for data persistence. We will now build on the code we wrote in that tutorial, so you must have completed it.</p>
+<p>In this second part of the series, we'll implement the logic that allows users to enter their sleep data and see that data on an interactive graph, generated using <a href="https://plotly.com/">Plotly</a>. Registered users will be able to log the number of hours slept on different days and visualise this data as a graph. </p>
+<h2 id="creating-the-sleep-tracker-front-end">Creating the Sleep Tracker Front-end</h2>
+<p>At the end of our last tutorial, we saw a blank page when we logged in and were redirected to the application's <code>/main</code> page. This happened because our <code>main.html</code> file was empty, so let's add some content to it. We'll need the following: </p>
+<ol>
+<li>A form with fields for the date and hours slept, so users can provide sleep data for different days.</li>
+<li>A way to view a graph of this data.</li>
+<li>A logout button, that logs the user out. </li>
+</ol>
+<p>To do all of this, we will first need to build a <code>main.html</code> containing both static HTML and dynamic Jinja template components that will change depending on which user is logged in and what sleep data they've provided. We will also implement some front-end JavaScript code to make our sleep data graph interactive.</p>
+<p>Let's add the sleep data logging form first. Open the <code>main.html</code> file in the <code>templates</code> directory. Add the following:</p>
+<div class="highlight"><pre><span></span><code>{% extends &quot;base.html&quot; %}
+
+{% block content %}
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Hey, {{ user[&#39;username&#39;] }}! Let&#39;s track your sleep.<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span> 
+      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;time&quot;</span><span class="p">&gt;</span>Time Slept (hours):<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;time&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;time&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;date&quot;</span><span class="p">&gt;</span>Date:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;date&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;date&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;date&quot;</span>
+         <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class </span><span class="o">=</span> <span class="s">&quot;button&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;submit&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;Submit&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;graph&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;View Graph&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;logout&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;Logout&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+{% endblock %}
+</code></pre></div>
+<p>This works similarly to the <code>login.html</code> file we created in the previous tutorial, with <code>base.html</code> acting as the page skeleton and our unique content being entered between the <code>{% block content %}</code> and <code>{% endblock %}</code> lines. We also ensure that our form uses the <code>POST</code> method so we can differentiate between a user visiting the page and clicking one of the three form buttons. To determine which button a user has clicked in a given <code>POST</code> request, we'll use the button's HTML <code>name</code> attribute (<code>submit</code>, <code>graph</code> or <code>logout</code>) in Flask.</p>
+<p>Notice the Jinja snippet <code>{{ user['username'] }}</code>. This will display data sent from our Flask back-end code in the page – in this case, the user's name.</p>
+<p>The <code>&lt;input type="date" id="date" name="date" value=""&gt;</code> line creates an interactive calendar so users can click on dates rather than typing them out.</p>
+<h2 id="adding-sleep-data-submission-and-logout">Adding Sleep Data Submission and Logout</h2>
+<p>In the <code>app.py</code> file, add the following line below the <code>app = Flask(__name__)</code>  line.</p>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;plotting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</code></pre></div>
+<p>Here we add a new entry in our Flask application's configuration settings. This will come in handy soon – we'll use this line to tell whether or not a user has clicked the "View Graph" button in our <code>main.html</code> file. If a user has clicked the button, we'll set this line to "True" and a graph with the user's sleep data will display. </p>
+<p>Now, we can implement the functionality for our "Submit", "View Graph" and "Logout" buttons. Add the following code below the <code>main()</code> function.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/main&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">submit_sleep</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">):</span> <span class="c1"># if submitting new sleep data</span>
+        <span class="n">time_entered</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">))</span>
+        <span class="n">date_entered</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">add_sleep</span><span class="p">(</span><span class="n">time_entered</span><span class="p">,</span><span class="n">date_entered</span><span class="p">,</span><span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;username&#39;</span><span class="p">:</span><span class="n">current_user</span><span class="o">.</span><span class="n">get_id</span><span class="p">()}))</span>
+        <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">message</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;logout&#39;</span><span class="p">):</span>
+        <span class="n">logout_user</span><span class="p">()</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;plotting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="s1">&#39;You logged out!&#39;</span>
+
+    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;graph&#39;</span><span class="p">):</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;plotting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">))</span>
+</code></pre></div>
+<p>This function operates similarly as our <code>login_or_register</code> function:</p>
+<ul>
+<li>If a user clicks "Submit", the data they entered will be stored in their MongoDB entry via the <code>add_sleep</code> function (that we'll create next). This function will return a string with an error message if it encounters an error, and <code>None</code> if it succeeds.</li>
+<li>If a user clicks "Logout", the user will be logged out. </li>
+<li>If a user clicks "View Graph", the <code>app.config['plotting']</code> entry is set to <code>True</code>. Later, we'll expand <code>main.html</code> to display the graph.</li>
+</ul>
+<p>Let's wrap up our button functionality by creating the <code>add_sleep</code> function that is called when a user clicks "Submit". Add the following code <strong>above</strong> the <code>submit_logout_plot</code> function to create the <code>add_sleep</code> function:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_sleep</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;[0-9]</span><span class="si">{4}</span><span class="s2">-[0-1][0-9]-[0-3][0-9]&quot;</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Invalid date supplied.&quot;</span>
+
+    <span class="k">if</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="mf">24.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Sleep time must be between 0 and 24 hours.&quot;</span>
+
+    <span class="k">if</span> <span class="s1">&#39;date&#39;</span> <span class="ow">in</span> <span class="n">user</span><span class="p">:</span>
+        <span class="n">user</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+        <span class="n">user</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># adding sleep data for the first time</span>
+        <span class="n">user</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">date</span><span class="p">]</span>
+        <span class="n">user</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">time</span><span class="p">]</span>
+
+    <span class="c1"># Update MongoDB </span>
+    <span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="s1">&#39;$set&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span>
+          <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="p">}})</span>
+</code></pre></div>
+<p>Our <code>add_sleep</code> function takes three variables:</p>
+<ul>
+<li><code>time</code>: The number of hours slept that the user entered.</li>
+<li><code>date</code>: The calendar date the user selected.</li>
+<li><code>user</code>: The user's MongoDB entry.</li>
+</ul>
+<p>First, we validate the user's input to ensure that a correctly formatted date has been provided and that the time given is not a negative number or larger than 24. If either value does not pass validation, we return a relevant error message from the function without writing to the database. Otherwise we continue.</p>
+<p>If a user has never entered any sleep data, we add a new <code>'date'</code> and <code>'time'</code> entry to the user's MongoDB entry with the date and time entered. Otherwise, we take the data they entered and add it to their existing sleep data. Finally, we update the user's MongoDB entry with <code>db.users.update_one</code>. </p>
+<p>We've implemented functionality for all three buttons. Now we need to modify the <code>main()</code> function to pass the current user's data to <code>main.html</code>. This will allow us to display their username on the page, and to graph their sleep data. Find the <code>main()</code> function and modify it like so:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/main&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span> <span class="c1"># redirect to login page if not logged in</span>
+
+    <span class="n">user_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">current_user</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="p">})</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;main.html&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user_data</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;plotting&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>First, we leverage Flask-Login's <a href="https://flask-login.readthedocs.io/en/latest/#anonymous-users">anonymous users</a> functionality to check if the current user is not logged in and, if so, we redirect them to the login page. If the current user is logged it, we retrieve their MongoDB entry and assign it to <code>user_data</code>. Then we pass this variable to the <code>render_template</code> function as <code>user</code>. This is how the line below will access and display the user's name.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Hey, {{ user[&#39;username&#39;] }}! Let&#39;s track your sleep.<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>As <code>user_data</code> contains the entire MongoDB user entry, our template will be able to access the current user's sleep data from the <code>user</code> variable as well.</p>
+<p>We've also passed the template the value of <code>app.config['plotting']</code> in <code>plot</code>. This is how our application will know whether or not to display a graph on the <code>/main</code> page. </p>
+<p>All that's left now is to add the sleep data graph in our <code>main.html</code> file. After that, we can deploy our application to Code Capsules.</p>
+<h2 id="adding-the-plotly-graph">Adding the Plotly Graph</h2>
+<p>As mentioned at the beginning of the article, we'll add the ability to graph sleep data with the help of <a href="https://plotly.com/">Plotly</a>. Plotly provides an external JavaScript library that we can use to create interactive graphs for the web. </p>
+<p>In the <code>main.html</code> file, find the <code>&lt;/form&gt;</code> line. Right below this line, add the following: </p>
+<div class="highlight"><pre><span></span><code>{% if plot %}
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.plot.ly/plotly-latest.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;graph&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+      <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">{{</span><span class="nx">user</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">|</span> <span class="nx">safe</span> <span class="p">}};</span>
+      <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">{{</span><span class="nx">user</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">|</span> <span class="nx">safe</span> <span class="p">}};</span>
+
+    <span class="kd">var</span> <span class="nx">trace1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">x</span><span class="o">:</span> <span class="nx">x</span><span class="p">,</span>
+    <span class="nx">y</span><span class="o">:</span> <span class="nx">y</span><span class="p">,</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+  <span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span><span class="nx">trace1</span><span class="p">];</span>
+
+  <span class="kd">var</span> <span class="nx">layout</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">title</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">text</span><span class="o">:</span><span class="s1">&#39;My Sleep&#39;</span><span class="p">,</span>
+      <span class="nx">font</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">family</span><span class="o">:</span> <span class="s1">&#39;Courier New, monospace&#39;</span><span class="p">,</span>
+        <span class="nx">size</span><span class="o">:</span> <span class="mf">24</span>
+      <span class="p">},</span>
+      <span class="nx">xref</span><span class="o">:</span> <span class="s1">&#39;paper&#39;</span><span class="p">,</span>
+      <span class="nx">x</span><span class="o">:</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">xaxis</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span>
+        <span class="nx">font</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">family</span><span class="o">:</span> <span class="s1">&#39;Courier New, monospace&#39;</span><span class="p">,</span>
+          <span class="nx">size</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
+          <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#7f7f7f&#39;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="nx">yaxis</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">title</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Time Slept (hrs)&#39;</span><span class="p">,</span>
+        <span class="nx">font</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">family</span><span class="o">:</span> <span class="s1">&#39;Courier New, monospace&#39;</span><span class="p">,</span>
+          <span class="nx">size</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
+          <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;#7f7f7f&#39;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="nx">Plotly</span><span class="p">.</span><span class="nx">newPlot</span><span class="p">(</span><span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">layout</span><span class="p">);</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endif %}
+</code></pre></div>
+<p>Let's break this down, starting with the line <code>{% if plot %}</code>. This line references the <code>plot</code> variable we created in our <code>app.py</code> file in the <code>main</code> function. If someone has clicked "View Graph", we set <code>plot</code>  to true. If <code>plot</code> is true, the HTML between <code>{% if plot %}</code> and <code>{% endif %}</code> will be included in the page served to the user, otherwise it will be left out.</p>
+<p>The line <code>&lt;script src="https://cdn.plot.ly/plotly-latest.min.js"&gt;&lt;/script&gt;</code> imports the Plotly graphing library. This is similar to an <code>import</code> statement in Python.</p>
+<p>Under this line, we see a lot of code enclosed in <code>&lt;script&gt;...&lt;/script&gt;</code> tags. This is all JavaScript code. In this code, we create two variables, <code>x</code> and <code>y</code>, which contain arrays of the dates and number of hours slept that a user has logged.</p>
+<p>Note that we have set these variables as <code>safe</code>, which means that Jinja will not attempt to escape or encode any of the characters within them when it renders the HTML. This is dangerous to do with user input, which is why we validated both the date and time values in our Python code. If we had not validated them, a malicious user might be able to supply JavaScript code in the date or time input fields and alter the behaviour of this page.</p>
+<p>The code inside <code>var trace1 = {...}</code> tells Plotly which data to use for the x and y axes, and the type of graph we'll make – a bar graph.</p>
+<p>All the code in <code>var layout = {...}</code> effects things like x and y axis labelling, font type, and size of font. Customise this to your liking!</p>
+<p>Finally, The line <code>Plotly.newPlot('graph', data, layout)</code> creates the actual graph and displays it to a user. </p>
+<p>Try running the application by opening a terminal in the <code>sleep-tracker</code> directory, activating the virtual environment and entering <code>flask run</code>. You should be able to register a new user account, log in, enter sleep data, and view your graph. </p>
+<h2 id="preparing-for-deployment">Preparing for Deployment</h2>
+<p>With our sleep tracker functionally complete, we need to make one last modification to our <code>app.py</code> file and add some files in the <code>sleep-tracker</code> directory before we can push our code to GitHub and deploy it on Code Capsules. </p>
+<h3 id="creating-environment-variables">Creating environment variables</h3>
+<p>Before we push our code to GitHub, we need to remove our <code>app.config['SECRET_KEY']</code> and the MongoDB user credentials. If we were to push our code now, anyone could use our secret key to forge user sessions on our application or our MongoDB credentials to alter our database. Luckily, there is an easy fix. </p>
+<p>First, save your secret key and MongoDB credentials somewhere safe, outside of this project's directory so that you don't lose them. Then, at the top of <code>app.py</code>, add the line:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+<p>Then, replace the line:</p>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;your-secret-key-here&#39;</span> 
+</code></pre></div>
+<p>with this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">)</span> 
+</code></pre></div>
+<p>And replace this line:</p>
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;mongodb+srv://YOURUSERNAME:&lt;password&gt;@cluster0.e2fw3.mongodb.net/&lt;dbname&gt;?retryWrites=true&amp;w=majorhostity&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>with this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;MONGO_CONNECTION_STRING&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><code>os.getenv('SECRET_KEY')</code> and <code>os.getenv('MONGO_CONNECTION_STRING')</code> will look for <a href="https://medium.com/chingu/an-introduction-to-environment-variables-and-how-to-use-them-f602f66d15fa">environment variables</a> with the names "SECRET_KEY" and "MONGO_CONNECTION_STRING". When we host the sleep tracker application on Code Capsules, we'll set these environment variables to the values we removed from the code. </p>
+<h3 id="creating-a-procfile-and-requirementstxt">Creating a Procfile and requirements.txt</h3>
+<p>Code Capsules requires a couple of files to deploy our application: <code>Procfile</code> and <code>requirements.txt</code>. The first one tells Code Capsules how to run our application, and the second one tells it which libraries it needs to install.</p>
+<p>To create the <code>Procfile</code>:</p>
+<ol>
+<li>Create a file named <code>Procfile</code> in your project directory (do <strong>not</strong> add a file extension).</li>
+<li>Open the <code>Procfile</code>, enter <code>web: gunicorn app:app</code>, and save the file. This tells Code Capsules to use the Gunicorn WSGI server to run <code>app.py</code>.</li>
+</ol>
+<p>In the same terminal, activate the virtual environment and enter <code>pip3 freeze &gt; requirements.txt</code> to create <code>requirements.txt</code> and populate it with all the libraries we've used to create this application.</p>
+<p>Now we can push our code to GitHub. Create a GitHub repository and send every file and directory to GitHub, <strong>except for virtual env's <code>env</code> directory</strong>.</p>
+<h2 id="deploying-the-sleep-tracker-to-code-capsules">Deploying the Sleep Tracker to Code Capsules</h2>
+<p>With all of the files on GitHub, we can deploy the sleep tracer to Code Capsules:</p>
+<ol>
+<li>Log in to Code Capsules, and create a Team and Space as necessary.</li>
+<li>Link Code Capsules to the GitHub repository created <a href="#creating-the-procfile-and-adding-requirements">previously</a>.</li>
+<li>Enter your Code Capsules Space.</li>
+<li>Create a new Capsule, selecting the "Backend" capsule type.</li>
+<li>Select the GitHub repository containing the sleep tracker – leave "Repo subpath" empty and click "Next".</li>
+<li>Leave the "Run Command" blank and click "Create Capsule".</li>
+</ol>
+<p>Now we just need to set those environment variables we mentioned <a href="#creating-environment-variables">previously</a>.</p>
+<h3 id="creating-environment-variables-in-code-capsules">Creating environment variables in Code Capsules</h3>
+<p>Let's create set the environment variables so our sleep tracker will work properly: </p>
+<ol>
+<li>Navigate to your Capsule.</li>
+<li>Click the "Config" tab.</li>
+<li>Add two environment variables, one named "SECRET_KEY" and another "MONGO_CONNECTION_STRING". Enter the secret key and connection string values you saved earlier.</li>
+</ol>
+<p>When done, <strong>make sure</strong> to click "Update". </p>
+<p>Now the sleep tracker is ready to try out! The application is complete.</p>
+<h2 id="what-next">What Next?</h2>
+<p>There are many ways to expand or improve this application. Some ideas include:</p>
+<ul>
+<li>Improve the application's styling – it's fairly simple right now. If you want to learn more about CSS styling, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">this tutorial written by Mozilla</a> is a great place to start.</li>
+<li>Add a way for users to keep track of other data (calories, daily notes, exercise).</li>
+<li>Display better looking error messages, preferably somewhere in the current page.</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../develop-persistent-sleep-tracker-part-1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Persistent Sleep Tracker Part 1" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Persistent Sleep Tracker Part 1
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../host-a-frontend/" class="md-footer__link md-footer__link--next" aria-label="Next: Front-end Portfolio" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Front-end Portfolio
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

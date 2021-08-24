@@ -1,0 +1,1455 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn the differences between three of cloud services popular acronyms. Example providers for each acronym and the services they offer help distinguish between the three.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/comparisons/saas-paas-iaas/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>SaaS vs PaaS vs IaaS - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="SaaS vs PaaS vs IaaS" />
+      <meta name="twitter:description" content="Learn the differences between three of cloud services popular acronyms. Example providers for each acronym and the services they offer help distinguish between the three." />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#saas-vs-paas-vs-iaas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SaaS vs PaaS vs IaaS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tutorials/" class="md-tabs__link">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../tutorials/">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SaaS vs PaaS vs IaaS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SaaS vs PaaS vs IaaS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#software-as-a-service-saas" class="md-nav__link">
+    Software as a Service (SaaS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-as-a-service-paas" class="md-nav__link">
+    Platform as a Service (PaaS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-as-a-service-iaas" class="md-nav__link">
+    Infrastructure as a Service (IaaS)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#software-as-a-service-saas" class="md-nav__link">
+    Software as a Service (SaaS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-as-a-service-paas" class="md-nav__link">
+    Platform as a Service (PaaS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-as-a-service-iaas" class="md-nav__link">
+    Infrastructure as a Service (IaaS)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="saas-vs-paas-vs-iaas">SaaS vs PaaS vs IaaS</h1>
+<p>If you've spent any amount of time trying out or researching cloud services, you've probably come across acronyms like SaaS, PaaS and IaaS. Respectively, these are:</p>
+<ul>
+<li>Software as a Service</li>
+<li>Platform as a Service</li>
+<li>Infrastructure as a Service</li>
+</ul>
+<p>But what do any of these terms actually mean? And what's the difference between them? In this article, we will provide a practical, hands-on overview of the differences, strengths and weaknesses of these three types of cloud services. We will add examples of each, and the types of things you might build with them.</p>
+<p>Let's say we're interested in building a budgeting application. This will initially be for personal use, but we might want to let other people use it in future, or even build a business out of it. We could choose to use any of these three types of services to build our application, but each one has different pros and cons. The chosen service will determine both the skills we'll need, and the limitations we'll need to work with.</p>
+<p>Roughly speaking, we will need greater depth and breadth of technical expertise as you move up the ladder from SaaS to IaaS, but we'll also have more flexibility. Below, we'll go through each one and discuss how we might use it to build our budgeting application.</p>
+<h2 id="software-as-a-service-saas">Software as a Service (SaaS)</h2>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quick to get started with.</td>
+<td>Limited flexibility.</td>
+</tr>
+<tr>
+<td>Requires little or no programming knowledge.</td>
+<td>Significant vendor lock-in.</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>Likely to be inefficient and costly at scale.</td>
+</tr>
+</tbody>
+</table>
+<p>Just about any application that runs in your browser can be considered Software as a Service (SaaS). SaaS examples include Google Drive and its associated office suite – Google Docs, Google Sheets, and others – as well as other file management services like Dropbox, communication platforms like Slack, and knowledge management solutions like Notion and Confluence.</p>
+<p>If we were to build a budgeting application using SaaS, we could do it without writing a large amount of code. We could start with a simple Google Sheet, attached to a Google Form, where the user would manually enter each transaction they make during the month. The user would specify the amount, whether it's an income, expense or investment, and add a comment about what it was for: e.g. "Monthly salary" or "Groceries". We could then use macros to calculate the user's total income and expenditure for each month.</p>
+<p>We could make this more complex by <a href="https://alicekeeler.com/2015/01/08/multiple-google-forms-to-one-spreadsheet/">using multiple forms and spreadsheets</a> to do things like allowing the user to set up a budget at the beginning of each month. We could also integrate investments into our spreadsheets, using the <a href="https://support.google.com/a/users/answer/9308730?hl=en">GOOGLEFINANCE</a> macro to fetch stock prices in real time.</p>
+<p>We could then expand out of spreadsheets and forms by using another SaaS platform like <a href="https://ifttt.com/">IFTTT</a> or <a href="https://zapier.com/">Zapier</a> to send a monthly digest email to the user's G-mail address, or warning emails if they start coming close to their allotted budget for a particular kind of expense. And if the user is more active on <a href="https://slack.com/">Slack</a> than on email, we could also set up Slack alerts.</p>
+<p>If we want something more than email and Slack alterts, we could use a SaaS platform such as <a href="https://www.glideapps.com/pricing">Glide</a> to build a custom application using our original spreadsheets as a data backend. With a bit of tweaking, we could make it possible for others to use it, too.</p>
+<p>Our full application architecture would now look like this:</p>
+<p><img alt="" src="../../assets/comparisons/saas-paas-iaas/saas-diagram.svg" /></p>
+<p>In this way, we can get a fully functional budgetting application with multiple integrations working by using different SaaS solutions together, and without writing any code. However, if we're interested in building a business out of this application, we may soon run into problems like expensive per-user fees and a lack of flexibility and control. Glide's visual editor may not allow us to design our application in the exact way we want to, or we may run up against the limitations of what sorts of data analysis can reasonably be done using spreadsheets.</p>
+<p>SaaS platforms also have the strongest vendor lock-in of the three types of services discussed in this article. If the SaaS we're using closes down or radically changes its software, we may be unable to extract all of your data. And even if we are able to extract our data, it's unlikely that we'll be able to import it directly into a different SaaS and keep going.</p>
+<p>For example, if our budget application uses a lot of functionality specific to Google Sheets, such as the GOOGLEFINANCE macro, and Google decides to shut down Sheets, we should be able to download our sheets as XLSX files and move them to a competing platform, such as <a href="https://www.office.com/">Microsoft Office 365</a>. But we'll then have to do a lot of manual tinkering to get everything to work again on this new service. In some cases, we may even have to remove functionality that's not supported by the new service.</p>
+<p>And seeing as we're using multiple SaaS platforms together, as in the above architecture, we're dependent on them continuing to support each other. For example, if Slack changes its API in a way that breaks Zapier's integration with it, our budgeting application's Slack integration will be broken until Zapier updates their software. Worse still, if Slack chooses to stop supporting the kinds of integrations we want, we will have to scramble to find an alternative solution to notify users about their budgets.</p>
+<p>SaaS solutions provide a great way to quickly prototype ideas, but may prove unreliable and limiting if you need them to work over a long timescale or for a large number of users. Using Google Sheets and some integrations to build a budgeting app for yourself is not a bad idea, and you could even develop it to the point of accepting other users, but if you want to build a sustainable business with your application, you may be better off looking into a PaaS or IaaS solution instead.</p>
+<h2 id="platform-as-a-service-paas">Platform as a Service (PaaS)</h2>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requires no infrastructure set-up.</td>
+<td>May be inefficient or costly at scale.</td>
+</tr>
+<tr>
+<td>The vendor is responsible for system maintenance and security patches.</td>
+<td>Less vendor lock-in than SaaS, more than IaaS.</td>
+</tr>
+</tbody>
+</table>
+<p>Unlike most SaaS solutions, Platform as a Service (PaaS) solutions are specifically intended for use by developers. You can think of a PaaS as anywhere you can upload code and have it automatically deployed and run. PaaS solutions include Code Capsules, Heroku, Netlify, Google App Engine and AWS Elastic Beanstalk.</p>
+<p>If you've deployed a Capsule before, you'll be familiar with the process of working with a PaaS. If you haven't, it generally goes like this:</p>
+<ol>
+<li>Write application code in a language and framework of your choice.</li>
+<li>Push code to a source code repository on a code hosting platform such as GitHub.</li>
+<li>Link your GitHub profile to the PaaS of your choice, locate the repository you want to deploy, and click "Deploy".</li>
+<li>Your application will be live on a URL that looks like myapp.paas.com.</li>
+</ol>
+<p>Depending on the PaaS and the type of application being deployed, the developer may need to include deployment configuration instructions with their application code. For example, in <a href="https://codecapsules.io/docs/topic/tutorials/">many of our tutorials</a>, it is necessary to create files named <code>Procfile</code> and <code>requirements.txt</code> prior to deployment.</p>
+<p>Users of a PaaS will need to write a lot of code. In return, they get flexibility and a reduced level of vendor lock-in compared to building on SaaS solutions. Writing your own custom code gives you far more customisation options and areas where you can make specific optimisations. Users of PaaS solutions do not require system administration knowledge, as the PaaS will be responsible for configuring their code to run correctly.</p>
+<p>Different PaaS solutions target different parts of the standard three-layer application stack made up of frontend (HTML and JavaScript that runs in users' browsers), backend (code that runs on servers) and data persistence (databases and datastores that record information such as user login details).</p>
+<p>Some PaaS solutions are highly focused on a single part of the stack, while others offer solutions for multiple areas of the stack. The table below gives some examples of each.</p>
+<table>
+<thead>
+<tr>
+<th>Areas of the stack</th>
+<th>PaaS solution examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>Netlify, Vercel, AWS S3, GitHub Pages, Code Capsules (Frontend capsules)</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Heroku, OpenShift, AWS Elastic Beanstalk, AWS Lambda, Code Capsules (Backend capsules)</td>
+</tr>
+<tr>
+<td>Data persistence</td>
+<td>MongoDB Atlas, AWS RDS, Azure SQL Database</td>
+</tr>
+</tbody>
+</table>
+<p>Frontend code can be included with backend code, and some PaaS solutions offer data persistence solutions, so you may be able to deploy a complete application as a single project on a single PaaS, but you can also use multiple PaaS solutions for different stack components.</p>
+<p>If we were to build our budgeting application on PaaS solutions, we would start by writing the application code. We might do this in Python with a framework like Flask, in Node.js with a framework like Express, in Ruby with a framework like Sinatra, or any number of other languages, depending on PaaS support. We may also use a frontend framework such as Vue or React. We would also need to choose a data store: either a relational database like <a href="https://www.postgresql.org/">PostgreSQL</a> or a NoSQL document store like <a href="https://www.mongodb.com/">MongoDB</a>. Then we would need to choose one or more PaaS solutions which supports our chosen technologies.</p>
+<p>Let's say we developed our budgeting application using Code Capsules to host our back- and frontend code and <a href="https://www.mongodb.com/cloud/atlas">MongoDB Atlas</a> to store our data. We could combine the backend and frontend code into a single backend capsule. Alternatively, we could create a frontend capsule with our application frontend and have it interact with an API created in a backend capsule – we might do this if we wanted to reuse our backend for a mobile application.</p>
+<p>Our budgeting app would be a web application with user login. Custom functionality would need to be developed for entering transactions, setting budgets and viewing spending reports, but we would have total flexibility in how all of this worked, without being constrained by the interfaces of Google Sheets or Google Forms. For example, we could create specialised forms for common transactions with user-friendly features like autocomplete based on existing data.</p>
+<p>If we're feeling really ambitious, we could integrate <a href="https://en.wikipedia.org/wiki/Open_banking">open banking</a> into our application and have transactions fetched automatically rather than having to enter them manually.</p>
+<p>Using a single backend capsule, our application architecture would look something like this:</p>
+<p><img alt="" src="../../assets/comparisons/saas-paas-iaas/paas-diagram-1.svg" /></p>
+<p>Using a backend and frontend capsule, our application architecture would look like this:</p>
+<p><img alt="" src="../../assets/comparisons/saas-paas-iaas/paas-diagram-2.svg" /></p>
+<p>In the above architecture, we could replace the frontend module with a Netlify site, and the backend module with a collection of AWS Lambda functions, or just about any other PaaS solution that provides the appropriate area of the stack.</p>
+<p>Using PaaS solutions is the middleground between using SaaS and IaaS solutions in terms of ease of setup versus flexibility and control. Using a PaaS will lead to some level of vendor lock-in, especially if you use something like AWS Lambda. However, in most cases, we will be able to move our code to a different PaaS if the one we're using shuts down or stops supporting something we rely on. We may have to do some reconfiguration, but this is likely to be less onerous than moving between SaaS solutions.</p>
+<p>As we are not doing our own system administration when we use a PaaS solution, we won't be able to optimise our infrastructure for the needs of our application. If we're not careful about how we design our application, it may end up being <a href="https://einaregilsson.com/serverless-15-percent-slower-and-eight-times-more-expensive/">much more expensive to run</a> than it would be on an IaaS solution.</p>
+<h2 id="infrastructure-as-a-service-iaas">Infrastructure as a Service (IaaS)</h2>
+<table>
+<thead>
+<tr>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Highly flexible.</td>
+<td>Requires programming and system administration knowledge.</td>
+</tr>
+<tr>
+<td>Can be configured more precisely and efficiently than SaaS and PaaS solutions.</td>
+<td>Requires regular maintenance.</td>
+</tr>
+<tr>
+<td>Very little vendor lock-in</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>Infrastructure as a Service (IaaS) solutions are the most technically demanding of their users. Rather than providing end-user software or deployment for user-developed code, most IaaS solutions merely provide you with virtual machines (VMs), commonly called a "compute instance". These are fully capable computers that you have full control over and responsibility for. Examples of IaaS services include AWS Elastic Computing (EC) 2, Google Cloud Platform's Compute Engine, and Digital Ocean's Droplets.</p>
+<p>To deploy an app using an IaaS solution, we follow these general steps:</p>
+<ol>
+<li>Create a virtual machine, specifying how much CPU power, RAM and hard drive storage space you want, as well as its operating system.</li>
+<li>Specify firewall rules for this virtual machine – for most simple web applications, you'll need to specify that TCP ports 80 and 443 should be open, as well as port 22, for your remote access.</li>
+<li>Access your virtual machine over a secure shell (SSH), generally using an SSH key like you would with GitHub.</li>
+<li>Install a web server, database management system, and all the other requirements for your application.</li>
+<li>Upload your application's code to your server.</li>
+<li>Ensure that all of your supporting software is configured correctly and your application's code files can be located and read by your webserver, and then start your application.</li>
+<li>Buy a domain name and configure it to point to the IP address of your virtual server.</li>
+</ol>
+<p>This is quite a lot more effort than using a PaaS, and it requires some specialised knowledge in addition to programming.</p>
+<p>In our budgeting app example, we would be able to take the same code you might deploy to a PaaS and use that on an IaaS: for example, we could take code we've uploaded to Code Capsules and upload it to an AWS EC2 instance instead. We would just need to install and set up your own webserver (usually Apache or nginx), and our own database (either a traditional relational database like PostgreSQL or a NoSQL document store like MongoDB).</p>
+<p>We could also put the database on a second EC2 instance, and configure your networking rules to allow both instances to speak to each other over the relevant port. Our application architecture would look now look like the diagram below. Note that we would retain our open banking integration, as that is defined in code.</p>
+<p><img alt="" src="../../assets/comparisons/saas-paas-iaas/iaas-diagram.svg" /></p>
+<p>The benefit this gives you is total control over your infrastructure, which can have efficiency and cost savings over working with a PaaS. How much will depend on your level of expertise and the amount of time you can allocate to optimising and managing your infrastructure. Depending on our application's architecture, we might create more than one VM for serving the application and managing the database, using load balancers and data replication. Alternatively, we may just dynamically increase the CPU speed, RAM and disk space of one or two VMs.</p>
+<p>The other major benefit to using IaaS over SaaS or PaaS is that it has essentially no vendor lock-in. Just about everything you do on an AWS EC2 instance will work just as well on a virtual machine provided by Google Compute Engine or Digital Ocean, or even a physical server in a pre-cloud datacentre.</p>
+<p>But with great power comes great responsibility. Anything we build on an IaaS solution will require regular maintenance – we will be responsible for keeping our virtual machines' software up-to-date. This is extremely important for internet-facing infrastructure, as out-of-date software can contain security vulnerabilities which could lead to our application being hacked, even if all of our own code is completely secure.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>The choice between SaaS, PaaS and IaaS solutions will depend on your and your team's depth and breadth of expertise, how you aim to manage your time, and what stage of development you're in. The same application could go from a proof-of-concept build on SaaS solutions to a custom built application running on PaaS solutions, and then move over to the IaaS to improve performance or costs.</p>
+<p>Or you could use a mix of all three: the choice between SaaS, PaaS and IaaS does not have to all-or-nothing. Instead, it's worth making an independent decision for each area of your application stack. For example, you can have an application that runs on an AWS EC2 instance (IaaS), stores data in an AWS RDS database (PaaS) and sends users notifications on Slack (SaaS). Or you could create a Netlify website (PaaS) that communicates with a an API deployed on Code Capsules (PaaS), which in turn uses a PostgreSQL database running on an AWS EC2 instance (IaaS). The possibilities are endless.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-footer__link md-footer__link--prev" aria-label="Previous: PaaS Providers" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              PaaS Providers
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../community/introducing-code-capsules/" class="md-footer__link md-footer__link--next" aria-label="Next: Introducing Code Capsules" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Introducing Code Capsules
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

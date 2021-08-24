@@ -1,0 +1,1777 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Create a bot that monitors the state of your applications and reports any status changes via Slack.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/build-slackbot-with-node/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Build a Slackbot - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Build a Slackbot" />
+      <meta name="twitter:description" content="Create a bot that monitors the state of your applications and reports any status changes via Slack." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/build-slackbot-with-node/CodeCapsules_SlackBot.jpg" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#build-a-slackbot-with-nodejs-to-monitor-your-applications" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Build a Slackbot
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Slackbot with Node.js
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Slackbot with Node.js
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-and-requirements" class="md-nav__link">
+    Overview and Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-project" class="md-nav__link">
+    Setting Up the Project
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up the Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-repo-on-github" class="md-nav__link">
+    Create a new repo on GitHub
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialise-the-base-project" class="md-nav__link">
+    Initialise the base project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-our-packages" class="md-nav__link">
+    Install our packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-code-capsule" class="md-nav__link">
+    Create a new Code Capsule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-an-app-on-slack" class="md-nav__link">
+    Register an app on Slack
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-slackbot-code" class="md-nav__link">
+    Writing the Slackbot Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Slackbot Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-base-code" class="md-nav__link">
+    Adding the base code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-startup-message-to-slack" class="md-nav__link">
+    Sending a startup message to Slack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-to-code-capsules" class="md-nav__link">
+    Deploying to Code Capsules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-slash-command" class="md-nav__link">
+    Adding a slash command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-verification" class="md-nav__link">
+    Adding verification
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-try-next" class="md-nav__link">
+    Things to Try Next
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-and-requirements" class="md-nav__link">
+    Overview and Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-project" class="md-nav__link">
+    Setting Up the Project
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up the Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-repo-on-github" class="md-nav__link">
+    Create a new repo on GitHub
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialise-the-base-project" class="md-nav__link">
+    Initialise the base project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-our-packages" class="md-nav__link">
+    Install our packages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-new-code-capsule" class="md-nav__link">
+    Create a new Code Capsule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-an-app-on-slack" class="md-nav__link">
+    Register an app on Slack
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-slackbot-code" class="md-nav__link">
+    Writing the Slackbot Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Slackbot Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-base-code" class="md-nav__link">
+    Adding the base code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-startup-message-to-slack" class="md-nav__link">
+    Sending a startup message to Slack
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploying-to-code-capsules" class="md-nav__link">
+    Deploying to Code Capsules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-slash-command" class="md-nav__link">
+    Adding a slash command
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-verification" class="md-nav__link">
+    Adding verification
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#things-to-try-next" class="md-nav__link">
+    Things to Try Next
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="build-a-slackbot-with-nodejs-to-monitor-your-applications">Build a Slackbot with Node.js to Monitor your Applications</h1>
+<p><img alt="Building Slackbot Cover" src="../../assets/tutorials/build-slackbot-with-node/CodeCapsules_SlackBot.jpg" /></p>
+<p>Slack is a really useful communication tool when working in teams. Many developers find themselves using it almost constantly when working on projects. </p>
+<p>One of the stand out features of Slack is the rich API it exposes, to allow developers to integrate with it. </p>
+<p>In this tutorial, we'll use the Slack API to give our apps a voice. We'll be able to talk to our apps running on Code Capsules, to ask their status and see if they are up and running. They will also be able to alert us when they boot up, so we know if they have been successfully deployed or restarted. </p>
+<h2 id="overview-and-requirements">Overview and Requirements</h2>
+<p>As we're building a Slackbot, you'll need to sign up for an account on <a href="https://slack.com">Slack</a>, if you haven't already got one. Ideally, for this tutorial you should use a Slack workspace that you can safely send many test messages to while we are creating this bot, without disturbing people. </p>
+<p>We'll also need the following: </p>
+<ul>
+<li><a href="https://git-scm.com/downloads">Git</a> set up and installed, and a registered <a href="https://github.com/join">GitHub</a> account.</li>
+<li><a href="https://nodejs.org/en/download/">Node.js</a> installed.</li>
+<li>A registered <a href="https://codecapsules.io/">Code Capsules</a> account.</li>
+<li>An IDE or text editor to create the project in. This tutorial was made using <a href="https://code.visualstudio.com/">Visual Studio Code</a>, but feel free to use any tool you like. </li>
+</ul>
+<h2 id="setting-up-the-project">Setting Up the Project</h2>
+<p>With our requirements in place, we can get started on setting them up to work as needed for our Slackbot project.  </p>
+<h3 id="create-a-new-repo-on-github">Create a new repo on GitHub</h3>
+<p>We need a place to store our code from which Code Capsules can deploy to a capsule. A repository on GitHub is just what we need. </p>
+<p>Head over to GitHub, and create a new repo. We're calling it <em>slackbot</em> here, but you can call it whatever you like.</p>
+<p>Note: You can also add this code to an existing backend project if you would like to monitor it; perhaps something you built in an earlier tutorial.</p>
+<h3 id="initialise-the-base-project">Initialise the base project</h3>
+<p>Now we can get some base code set up. Let's start by cloning the new GitHub repo onto our local computer.</p>
+<p>Now, go into the directory of the repo you've just cloned. </p>
+<p>We can initialise a new Node.js project by typing the following at the terminal (or command prompt, if you're on Windows):</p>
+<div class="highlight"><pre><span></span><code>npm init
+</code></pre></div>
+<p>We can just press <em>enter</em> for each of the questions it asks; the defaults are good to start with. </p>
+<h3 id="install-our-packages">Install our packages</h3>
+<p>Now that we have our project initialised, we can add the packages we need to create our bot. These are:</p>
+<ul>
+<li><a href="https://expressjs.com">Express</a>: This acts as our web server and HTTP request router. We'll use this to route requests from Slack to the correct logic. </li>
+<li><a href="https://www.npmjs.com/package/body-parser">body-parser</a>: This interprets and parses payload data from HTTP requests. We'll need this to parse the URL-encoded data Slack sends to us with a request. </li>
+<li><a href="https://www.npmjs.com/package/superagent">superagent</a>: This package allows us to make outgoing HTTP requests. We'll need this to send a message to Slack. </li>
+</ul>
+<p>Let's type in the following at the terminal to install the packages:</p>
+<div class="highlight"><pre><span></span><code>npm install express body-parser superagent 
+</code></pre></div>
+<p>Now let's create an <code>index.js</code> file, which will be the main file for our app. A simple way to do this is to open up your project folder in an editor, like <a href="https://code.visualstudio.com">Visual Studio Code</a>. Now you can create a new <code>index.js</code> file. </p>
+<p><img alt="create indexjs in visual studio" src="../../assets/tutorials/build-slackbot-with-node/create-indexjs.gif" /></p>
+<p>Save this blank file. </p>
+<p>Great, it's time to push this boilerplate project up to Git. We can do it from the terminal with the following: </p>
+<div class="highlight"><pre><span></span><code>git add . 
+git commit -am <span class="s1">&#39;added base files for project&#39;</span>
+git push origin
+</code></pre></div>
+<h3 id="create-a-new-code-capsule">Create a new Code Capsule</h3>
+<p>We'll need a place to host our app.</p>
+<ol>
+<li>Log in to <a href="https://codecapsules.io">Code Capsules</a>, and create a Team and Space as necessary.</li>
+<li>Link Code Capsules to the GitHub repository you created earlier. You can do this by clicking your username at the top right, and choosing "Edit Profile". Now click the "GitHub" button to link to a repo.</li>
+<li>Create a new Capsule, selecting the "Backend" capsule type.</li>
+<li>Select the GitHub repository you created above. If you are only using the repo for this project, you can leave the "Repo Subpath" field empty. You may need to add your repo to the team repo if you haven't already. Click the "Modify Team Repos" to do so. </li>
+<li>Click "Next", then on the following page, click "Create Capsule". </li>
+</ol>
+<p><img alt="create capsule" src="../../assets/tutorials/build-slackbot-with-node/create-capsule.gif" /></p>
+<h3 id="register-an-app-on-slack">Register an app on Slack</h3>
+<p>After you've created a workspace on Slack, or logged into an existing one, head over to <a href="https://api.slack.com">https://api.slack.com</a> and click on "Create a custom app". </p>
+<p>On the dialog that comes up, we can give our app a name, and choose which workspace we want to add it to. You can choose any name you wish – we've used <em>Serverbot</em> here. Now we can click "Create App". </p>
+<p>Great! We've created our app. Now we can configure it. </p>
+<p>For this tutorial, we would like the following two functions:</p>
+<ol>
+<li>Our Code Capsules app should automatically send us a notification whenever it starts up. This allows us to easily know when a new deployment is successful. It can also alert us to any potential crashes and restarts. </li>
+<li>We want to query our Code Capsules app from Slack at any time to see how it's doing.</li>
+</ol>
+<p>Our first requirement can be configured on the Slack side by clicking "OAuth &amp; Permissions" on the left panel. Scroll down to the <em>Scopes</em> section, and click "Add an OAuth Scope" under the <em>Bot Token Scopes</em> section, and choose "Chat:Write" from the options list. This now allows our bot to initiate and post messages to us when it starts up. </p>
+<p><img alt="select scopes slack" src="../../assets/tutorials/build-slackbot-with-node/slack-scopes.png" /></p>
+<p>Our second requirement can be configured by setting up a <em>slash command</em>. Click on the "Slash Commands" menu item on the left, under <em>Features</em>. </p>
+<p><img alt="slash command menu" src="../../assets/tutorials/build-slackbot-with-node/choose-slash-command.png" /></p>
+<p>Then click "Create a new Command". We'll give the command the name <em>/stats</em>. For the <em>Request URL</em>, copy the <em>Domain</em> name from your Code Capsules Overview page. </p>
+<p><img alt="code capsules domain" src="../../assets/tutorials/build-slackbot-with-node/capsule-domain.png" /></p>
+<p>Paste your domain into the <em>Request URL</em> box on Slack, and add <code>/slack/command/stats</code> to the end of it. We can fill in a description as well, something like 'Returns key stats from the app'.</p>
+<p><img alt="create new command settings" src="../../assets/tutorials/build-slackbot-with-node/create-command.png" /></p>
+<p>Great, now we can click "Save" at the bottom of the page to finish setting up our slash command. </p>
+<h2 id="writing-the-slackbot-code">Writing the Slackbot Code</h2>
+<p>Now that we have all our systems set up, we can get onto the coding part. </p>
+<h3 id="adding-the-base-code">Adding the base code</h3>
+<p>Let's add the boilerplate code to startup a new Express server. Open up the <code>index.js</code> file and add the following:  </p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span> 
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="kd">let</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mf">3000</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()=&gt;{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`App listening on port </span><span class="si">${</span><span class="nx">port</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<h3 id="sending-a-startup-message-to-slack">Sending a startup message to Slack</h3>
+<p>Ok, cool, we've got the base code to create an Express app, and start it up to begin listening for requests. Now we can add some code to send a message to Slack when it boots up, not just locally to the console. If we look at the <a href="https://api.slack.com/messaging/sending">docs on Slack</a>, we see that we can POST to the endpoint <code>https://slack.com/api/chat.postMessage</code> to send a message. In their example, they specify that we need:
+1. An access token.
+2. The channel ID of the channel to post the message to.
+3. The message we want to post as the requirements. </p>
+<p>To get the access token, head over to your app dashboard on Slack, and click on the "OAuth &amp; Permissions" menu item on the left-hand side. Then click the "Install to Workspace" button, and then the "Allow" button. After this, you should see a newly generated "Bot User OAuth Token". Copy this token – this is our access token. </p>
+<p>We could just put this token in our code. However, this is not really considered best practice for sensitive secrets and credentials. Rather, let's add this secret as an <strong>Environment Variable</strong>, and access it from the Node.js <a href="https://nodejs.org/api/process.html#process_process_env">process object, on the <code>.env</code> property</a>.</p>
+<p>To add the access token to the environment in Code Capsules, head over to the capsule we created earlier, and click on the "Config" tab. Now we can fill in our environment variable for the access token. Add a new environment variable with name <code>SLACK_BOT_TOKEN</code> and set the value to the token copied from Slack. </p>
+<p><img alt="add token environment variable" src="../../assets/tutorials/build-slackbot-with-node/token-env-variable.png" /></p>
+<p>Now that we've added our access token, we need to find the ID of the channel we want to post to. Find a channel on your Slack workspace that you want to send to, or create a new channel. Now we can get the channel ID by right-clicking on the channel name to bring up a context menu. Now, we can choose "Copy Link" from that menu: </p>
+<p><img alt="copy channel link from Slack" src="../../assets/tutorials/build-slackbot-with-node/copy-channel-link.png" /></p>
+<p>If we paste that link, we get something like <code>https://&lt;workspace-name&gt;.slack.com/archives/C01SZ6Z3TCY</code>. The last part of that URL is the channel ID; in this example case, <code>C01SZ6Z3TCY</code>.</p>
+<p>Let's add this to our environment variables as well, as it keeps all the configurations in one place. Head back over to your Capsule, and add in an environment variable with the name <code>SLACK_CHANNEL_ID</code> and set the value to the channel ID we extracted above. Click the "Update &amp; Start Build" button to save the changes to the environment variables.</p>
+<p><img alt="add slack channel ID environment variable" src="../../assets/tutorials/build-slackbot-with-node/channel-env-variable.png" /></p>
+<p>We also need to invite our bot to the chosen channel, so that it will be able to post there. Go to the channel, and @ mention the name you gave the bot to add it. Click "Invite Them" when Slack prompts you. </p>
+<p><img alt="invite bot to channel" src="../../assets/tutorials/build-slackbot-with-node/invite-bot.png" /></p>
+<p>Now let's add the code to call Slack on startup, and write a message to our channel. We can modify our boilerplate code above to make the HTTP POST to the endpoint https://slack.com/api/chat.postMessage. We'll use <a href="https://www.npmjs.com/package/superagent">Superagent</a> to make the call. </p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">superagent</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;superagent&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="kd">let</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mf">3000</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()=&gt;{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`App listening on port </span><span class="si">${</span><span class="nx">port</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="nx">sendStartupMessageToSlack</span><span class="p">();</span> 
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">sendStartupMessageToSlack</span><span class="p">(){</span>
+    <span class="nx">superagent</span>
+      <span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;https://slack.com/api/chat.postMessage&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+        <span class="nx">channel</span><span class="o">:</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">SLACK_CHANNEL_ID</span><span class="p">,</span> 
+        <span class="nx">text</span><span class="o">:</span><span class="s2">&quot;I&#39;m alive and running&quot;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;accept&#39;</span><span class="p">,</span> <span class="s1">&#39;json&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Authorization&#39;</span><span class="p">,</span> <span class="s1">&#39;Bearer &#39;</span><span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">SLACK_BOT_TOKEN</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">end</span><span class="p">((</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+We've added in a function <code>sendStartupMessageToSlack</code> which makes the call out to Slack. Notice that we send the auth token in a header, using <code>.set('Authorization', 'Bearer '+ process.env.SLACK_BOT_TOKEN)</code>. The <code>Authorization</code> header is a standard HTTP header. </p>
+<p>The channel and the message are sent in the body. Feel free to modify the startup message from <em>I'm alive and running</em> to whatever you'd like. </p>
+<h3 id="deploying-to-code-capsules">Deploying to Code Capsules</h3>
+<p>This seems like a great time to test out our app on Code Capsules. But before we do that, there is one thing we have to do to make it work. We need to tell Code Capsules how to run our app. By default, Code Capsules will call <code>npm start</code> after deploying the code. Therefore, we just need to add a <code>start</code> script to our <code>package.json</code> file in order for our code to be run on Code Capsules. </p>
+<p>Open the <code>package.json</code> file. Under the <code>scripts</code> section, add the line <code>"start": "node index.js"</code>. The <code>package.json</code> file should look like this now: </p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;slackbot&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="s2">&quot;index.js&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;node index.js&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;ISC&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;body-parser&quot;</span><span class="p">:</span> <span class="s2">&quot;^1.19.0&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;express&quot;</span><span class="p">:</span> <span class="s2">&quot;^4.17.1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;superagent&quot;</span><span class="p">:</span> <span class="s2">&quot;^6.1.0&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ok, let's save all the files we've created, add and commit, and then push to our repo. When Code Capsules sees that there is a new commit, it will automatically deploy our code. </p>
+<div class="highlight"><pre><span></span><code>git add . 
+git commit -am <span class="s1">&#39;added code to call Slack on startup&#39;</span>
+git push origin
+</code></pre></div>
+<p>If all goes well, in a few minutes you should get a message on your Slack channel from your code!</p>
+<p><img alt="startup message" src="../../assets/tutorials/build-slackbot-with-node/startup-message.png" /></p>
+<h3 id="adding-a-slash-command">Adding a slash command</h3>
+<p>Now that our app can send us messages, can we send messages back to it? Let's implement the slash command, which will allow us to ask our app for some of its important stats and info. This time, Slack will send an HTTP POST to our app. If we take a look at the <a href="https://api.slack.com/interactivity/slash-commands#app_command_handling">Slack docs again</a>, we notice that Slack will send the slash command instruction to the URL we specified in the command set up earlier. We can also see that the POST payload is in the format <a href="https://www.w3schools.com/html/html_urlencode.asp"><code>application/x-www-form-urlencoded</code></a>. We can set up a <a href="https://github.com/expressjs/body-parser/tree/1.19.0#bodyparserurlencodedoptions"><code>body-parser</code></a> to interpret this data.</p>
+<p>Let's extend our code with the snippet below to implement the slash command receiver as specified in the Slack docs. First add a require statement for <code>body-parser</code> at the top.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">bodyParser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;body-parser&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>Then add the code below: </p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">());</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/slack/command/stats&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+  <span class="kd">const</span> <span class="nx">slackReqObj</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">packageJson</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./package.json&#39;</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">current_time</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span> 
+  <span class="kd">const</span> <span class="nx">stats</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="nx">packageJson</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+    <span class="nx">version</span><span class="o">:</span> <span class="nx">packageJson</span><span class="p">.</span><span class="nx">version</span><span class="p">,</span>
+    <span class="nx">environment</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="p">,</span>
+    <span class="nx">platform</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">platform</span><span class="p">,</span>
+    <span class="nx">architecture</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">arch</span><span class="p">,</span>
+    <span class="nx">node_version</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">version</span><span class="p">,</span>
+    <span class="nx">pid</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">,</span>
+    <span class="nx">current_server_time</span><span class="o">:</span> <span class="nx">current_time</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span>
+    <span class="nx">uptime</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">uptime</span><span class="p">(),</span>
+    <span class="nx">memory_usage</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">memoryUsage</span><span class="p">()</span>
+  <span class="p">};</span>
+
+  <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">response_type</span><span class="o">:</span> <span class="s1">&#39;in_channel&#39;</span><span class="p">,</span>
+    <span class="nx">channel</span><span class="o">:</span> <span class="nx">slackReqObj</span><span class="p">.</span><span class="nx">channel_id</span><span class="p">,</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">stats</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;\t&#39;</span><span class="p">)</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span> 
+<span class="p">}]);</span>
+</code></pre></div>
+This code listens for incoming POST calls on the line <code>app.post('/slack/command/stats', [function(req,res){</code>. If we receive one, we build up a return object, consisting of various interesting stats and info. This includes the current time on the server (in case it is in a different time zone to us), the name and version of our app as set in the <code>package.json</code> file, and various environment and process info.</p>
+<p>Then it replies to the request in the format specified by Slack in their docs. We use the line <code>text: JSON.stringify(stats, null, '\t')</code> to turn our info and stats object into a nicely formatted text string, in the style of a JSON object. </p>
+<p>Then, in the line <code>return res.json(response);</code>, we return all the info back to Slack to display as the response to a matching slash command. </p>
+<p>Great, now we can commit and push this code. </p>
+<div class="highlight"><pre><span></span><code>git commit -am <span class="s1">&#39;added handler for slash command&#39;</span>
+git push origin 
+</code></pre></div>
+<p>After the code has finished deploying on Code Capsules (it should send a startup message again when it's ready), we can test the slash command. </p>
+<p>Type <code>/stats</code> in the channel we chose earlier. After a second or two, the app should respond with its current vital stats and information. </p>
+<p><img alt="testing the slash command" src="../../assets/tutorials/build-slackbot-with-node/slash-command-test.png" /></p>
+<h3 id="adding-verification">Adding verification</h3>
+<p>We can ask our app via Slack (which we use constantly!) how it's doing; pretty cool, huh? There is a problem though. If we call our slash command endpoint from anywhere else, for instance if we just call it using <a href="https://www.postman.com">Postman</a>, it also returns all the information and stats! This would not be good for a production system, as sensitive information will be easily found by attackers. </p>
+<p><img alt="insecure reply from server to any request" src="../../assets/tutorials/build-slackbot-with-node/postman-slash-command.png" /></p>
+<p>So how can we ensure that the request comes from our Slack workspace? Luckily, Slack has thought about this, and sends a <a href="https://api.slack.com/authentication/verifying-requests-from-slack">message signature with its requests</a>. From the <a href="https://api.slack.com/authentication/verifying-requests-from-slack#verifying-requests-from-slack-using-signing-secrets__a-recipe-for-security__step-by-step-walk-through-for-validating-a-request">guide in Slack's docs</a>, we can put together some code to check that the request is legitimately from Slack. The main parts of the check, copied from the docs, looks like this: </p>
+<blockquote>
+<ul>
+<li>Retrieve the X-Slack-Request-Timestamp header on the HTTP request, and the body of the request.</li>
+<li>Concatenate the version number, the timestamp, and the body of the request to form a basestring. Use a colon as the delimiter between the three elements. For example, v0:123456789:command=/weather&amp;text=94070. The version number right now is always v0.</li>
+<li>With the help of HMAC SHA256 implemented in your favorite programming language, hash the above basestring, using the Slack Signing Secret as the key.</li>
+<li>Compare this computed signature to the X-Slack-Signature header on the request.</li>
+</ul>
+</blockquote>
+<p>We can also check the timestamp to ensure that it is not a <a href="https://en.wikipedia.org/wiki/Replay_attack">replay attack</a> of a message from long ago. </p>
+<p>Ok, let's implement this in our project. First, we somehow need to access the raw body of the request, before it has been parsed by <code>body-parser</code>. This is to ensure that the signing hash we calculate is using the same data that Slack did. After parsing, there could be extra characters and formatting etc. Luckily, the <a href="https://github.com/expressjs/body-parser#verify-3">body parser package has a verify option</a>, which passes a binary buffer of the raw body request to a user defined function. Let's make a function that conforms to the specs given by <code>body-parser</code>. Add this code to your <code>index.js</code> file: </p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">rawBodySaver</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">buf</span><span class="p">,</span> <span class="nx">encoding</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">buf</span> <span class="o">&amp;&amp;</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">rawBody</span> <span class="o">=</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">encoding</span> <span class="o">||</span> <span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In this function, we grab the bit stream buffer <code>buf</code>, and check that it is not null and that it is not empty (by checking that it has a length). Then we tack it onto the request <code>req</code> as a new property <code>rawBody</code>. We also convert the buffer to a string, using the encoding supplied, or fall back to <code>utf8</code> as a default. Now that the <code>rawBody</code> is added to the request, it will be available for use by subsequent middleware. We can add it to the body parser by modifying the code where we add the body parser to the app. </p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">bodyParser</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">verify</span><span class="o">:</span> <span class="nx">rawBodySaver</span><span class="p">}));</span>
+</code></pre></div>
+<p>In the code above, we added options to our body parser initialisation. We set the <code>verify</code> option to the method we added above. </p>
+<p>Now, let's make a new <a href="http://expressjs.com/en/guide/writing-middleware.html">middleware function</a> to calculate the signature and compare it. We'll be able to call this middleware before our current code for responding to our Slack slash command. Making it a middleware function will also allow us to easily re-use it on other routes, if we want to add more slash commands, or other commands from Slack in the future. We'll make a new file to hold this code. We'll call it <code>signing.js</code>. </p>
+<p>In the new file, let's add this code:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">checkSlackMessageSignature</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;x-slack-request-timestamp&#39;</span><span class="p">];</span> 
+    <span class="kd">const</span> <span class="nx">fiveMinutesAgo</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">60</span> <span class="o">*</span> <span class="mf">5</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">timestamp</span> <span class="o">&lt;</span> <span class="nx">fiveMinutesAgo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">sendFail</span><span class="p">(</span><span class="mf">401</span><span class="p">,</span> <span class="s2">&quot;mismatched timestamp&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">signing_secret</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">SLACK_SIGNING_SECRET</span><span class="p">;</span> 
+
+    <span class="kd">const</span> <span class="nx">slack_signature</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;x-slack-signature&#39;</span><span class="p">];</span> 
+    <span class="kd">const</span> <span class="p">[</span><span class="nx">version</span><span class="p">,</span> <span class="nx">slack_hash</span><span class="p">]</span> <span class="o">=</span> <span class="nx">slack_signature</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);</span>
+
+    <span class="kd">const</span> <span class="nx">sig_basestring</span> <span class="o">=</span> <span class="nx">version</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">timestamp</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">rawBody</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">hmac</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="nx">signing_secret</span><span class="p">);</span> 
+    <span class="nx">hmac</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">sig_basestring</span><span class="p">);</span> 
+    <span class="kd">const</span> <span class="nx">our_hash</span> <span class="o">=</span> <span class="nx">hmac</span><span class="p">.</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">);</span>    
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">timingSafeEqual</span><span class="p">(</span><span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">slack_hash</span><span class="p">),</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">our_hash</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">next</span><span class="p">();</span> 
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="mf">401</span><span class="p">,</span> <span class="s2">&quot;Invalid request signature&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">checkSlackMessageSignature</span><span class="p">;</span> 
+</code></pre></div>
+<p>Let's take a look at this code. Firstly, we import the <a href="https://nodejs.org/api/crypto.html#crypto_crypto">crypto (cryptography) library</a>. We don't need to install this as a package, as it is built into Node.js. This library will allow us to perform the <a href="https://en.wikipedia.org/wiki/Secure_Hash_Algorithms">hash</a> of the basestring to compare with the signature. </p>
+<p>Next, we create a function, with the <a href="http://expressjs.com/en/guide/writing-middleware.html">standard Express middleware parameters</a>:
+- <code>req</code>, representing the request data.
+- <code>res</code>, representing an output object that we return results to the user via.
+- <code>next</code>, representing a function to call if we want to hand control to the next middleware function in the chain. It can also be used to pass an error object back up if something goes wrong processing the request.</p>
+<p>Then, on the first few lines of the function, we get the timestamp Slack sends from the request headers, and check that it is within the last few minutes. Note the name of the header is all in lowercase, even though Slack specifies that the header is capitalised. This is because Express converts all header keys to lowercase when serving a request. </p>
+<p>After that, we retrieve the Slack Signing Secret from our environment variables. Let's get our Signing Secret from Slack and add it to the Code Capsules environment now. Head over to your Slack app dashboard, and click on "Basic Information" in the left-hand sidebar. Then scroll down to <em>App Credentials</em>, and look for the <em>Signing Secret</em>. Click "Show", and copy the secret. </p>
+<p><img alt="copying signing secret from slack" src="../../assets/tutorials/build-slackbot-with-node/slack-signing-secret.png" /></p>
+<p>Now head over to your Capsule on Code Capsules, and click on the <em>Config</em> tab. Add a new environment variable with <em>Name</em> <code>SLACK_SIGNING_SECRET</code> and paste in the value of the <em>Signing Secret</em> we copied above. Click "Update &amp; Start Build" to save the changes. </p>
+<p><img alt="setting signing env variable on Code Capsules" src="../../assets/tutorials/build-slackbot-with-node/signing-env-variable.png" /></p>
+<p>Ok, back to the function. After we retrieve the signing secret from the environment variables, we read out the hash calculated and sent by Slack from the headers using <code>const slack_signature = req.headers['x-slack-signature']</code>. This will be a string that looks something like <code>v0=xxxxxxxxxxxxxxxxxxxxxxx</code>, where the <code>xxxx</code> represents the actual hash value. We need to split the version identifier <code>v0</code> from the beginning of the string though, as this is not part of the hash value. We do this in the next line, <code>const [version, slack_hash] = slack_signature.split('=')</code>. Now we have both the version, and the hash string in variables that we can access. </p>
+<p>After this, we construct our basestring, made from the version we extracted above, the timestamp of the request, and the <code>rawBody</code> (which we extracted in our body parser <code>verify</code> function earlier). </p>
+<p>The next two lines are where we actually calculate the hash. First, we set up the <code>crypto</code> module with our crypto algorithm type <a href="https://en.wikipedia.org/wiki/SHA-2"><code>SHA256</code></a>, and with our unique Signing Secret. This allows us to then create an <a href="https://en.wikipedia.org/wiki/HMAC">HMAC – or Hash Based Message Authentication code</a>, which is the fancy name for the message signature. We then use the <code>update</code> method on our newly created HMAC to load in our basestring that we constructed above. </p>
+<p>Now that the crypto HMAC is primed with all the info it needs, we can call the <code>digest</code> function to actually calculate the hash. We pass in as a parameter <code>hex</code> to indicate that we want the result back in <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal format</a>, as this is the same format that Slack sends their calculated hash value in. </p>
+<p>Great, so now we have Slack's signature hash, and our hash. We need to check that they are the same, which will prove that the message was legitimately sent by Slack. We could just use a normal string compare, i.e. <code>if (slack_hash === our_hash)</code>, but there is a slight security issue with this, known as a <a href="https://codahale.com/a-lesson-in-timing-attacks/">timing attack</a>. This type of attack is based on the knowledge that a normal string compare function takes a different amount of time to compare two strings, depending on how close the strings are to each other. An attacker can take advantage of this timing difference to repeatedly send messages and, based on the time for our server to respond, can guess at how close their hash is to what we are expecting. With much patience and many thousands of messages, an attacker could eventually guess our Signing Secret, compromising all our checks. </p>
+<p>Luckily, there is a simple way to protect from this, and it's built right into the <code>crypto</code> library. This is where we call <code>crypto.timingSafeEqual</code>. This compare always returns in the same amount of time, regardless of how close the hashes are to each other. Therefore, we don't give any extra information away to would-be attackers. </p>
+<p>Now, if the hashes are equal, from our <code>timingSafeEqual</code> test, we just call <code>return next()</code> which exits our function and passes control to the next middleware function (which will be our slash command handler). </p>
+<p>If the hashes are not equal, then we know this request is not genuinely from Slack, so we can end early and send a <code>401</code>, which is a <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors">standard HTTP code</a> for <code>Unauthorized</code>. Basically, we boot the imposter out. </p>
+<p>Now, the last line in this file is <code>module.exports = checkSlackMessageSignature</code>. This allows our middleware function to be visible to other modules that import this file. </p>
+<p>Ok, now that we've got this middleware created, let's link it to our slash command handler. Head on back to the <code>index.js</code> file, and import the middleware function by adding this line near the top of the file: </p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">checkSlackMessageSignature</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./signing&#39;</span><span class="p">);</span> 
+</code></pre></div>
+<p>Now, we can navigate to our slack command handler, which started like this: <code>app.post('/slack/command/stats'</code>. Modify that to include a call to the message signature check before the actual handler, like this: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/slack/command/stats&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">checkSlackMessageSignature</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+</code></pre></div>
+<p>Fantastic, now our app is secure. You can commit all the changes, and push it up to Git, which will kick off our final deploy to Code Capsules: </p>
+<div class="highlight"><pre><span></span><code>git add . 
+git commit -am <span class="s1">&#39;added message signature checking&#39;</span>
+git push origin
+</code></pre></div>
+<p>Once the code is up and running on Code Capsules, test it out to see that it still responds to the Slack slash command. Then you can try again from Postman or other similar apps, and see that it will not send any info without a valid signature (you can use <code>v0=a2114d57b48eac39b9ad189dd8316235a7b4a8d21a10bd27519666489c69b503</code> as an example <code>x-slack-signature</code> parameter): </p>
+<p><img alt="returning 401 for invalid signature" src="../../assets/tutorials/build-slackbot-with-node/401-auth.png" /></p>
+<h2 id="things-to-try-next">Things to Try Next</h2>
+<p>What else can we do? It's almost endless!</p>
+<ul>
+<li>Add this code to an existing app you have built to get easy info straight from Slack!</li>
+<li>Add in more slash commands for more info – for example, you could get current user count on your app, number of database records etc. Basically, any information you could need for <a href="https://en.wikipedia.org/wiki/DevOps">dev ops</a>.</li>
+<li>Look at some of the other functionality Slack offers for integration; for example, using <a href="https://api.slack.com/surfaces/modals">modals</a>, or listening in for <a href="https://api.slack.com/messaging/managing">keywords in messages</a>.</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tutorial Guides" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Tutorial Guides
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../build-a-web-file-store/" class="md-footer__link md-footer__link--next" aria-label="Next: Web File Store" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Web File Store
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

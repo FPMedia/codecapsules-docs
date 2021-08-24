@@ -1,0 +1,1833 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Create a cloud application with persistent data storage that you can easily access from your devices.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/build-a-web-file-store/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Building a Web File Store - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Building a Web File Store" />
+      <meta name="twitter:description" content="Create a cloud application with persistent data storage that you can easily access from your devices." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/build-a-web-file-store/web_file_store.png" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#building-a-web-file-store" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Building a Web File Store
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Web File Store
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Web File Store
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-and-requirements" class="md-nav__link">
+    Overview and Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-project" class="md-nav__link">
+    Setting Up The Project
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up The Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-repo" class="md-nav__link">
+    Creating a New Repo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initializing-the-base-project" class="md-nav__link">
+    Initializing the Base Project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-backend-capsule" class="md-nav__link">
+    Creating a New Backend Capsule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-data-capsule" class="md-nav__link">
+    Creating a New Data Capsule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linking-the-capsules" class="md-nav__link">
+    Linking the Capsules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-web-files-code" class="md-nav__link">
+    Writing the Web Files Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Web Files Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-file-list" class="md-nav__link">
+    Getting the File List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rendering-the-file-list" class="md-nav__link">
+    Rendering the File List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-file-upload-route" class="md-nav__link">
+    Adding the File Upload Route
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloading-a-file" class="md-nav__link">
+    Downloading a File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-file" class="md-nav__link">
+    Deleting a File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-authentication" class="md-nav__link">
+    Adding Authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview-and-requirements" class="md-nav__link">
+    Overview and Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-project" class="md-nav__link">
+    Setting Up The Project
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up The Project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-repo" class="md-nav__link">
+    Creating a New Repo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initializing-the-base-project" class="md-nav__link">
+    Initializing the Base Project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-backend-capsule" class="md-nav__link">
+    Creating a New Backend Capsule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-new-data-capsule" class="md-nav__link">
+    Creating a New Data Capsule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linking-the-capsules" class="md-nav__link">
+    Linking the Capsules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-the-web-files-code" class="md-nav__link">
+    Writing the Web Files Code
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing the Web Files Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-the-file-list" class="md-nav__link">
+    Getting the File List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rendering-the-file-list" class="md-nav__link">
+    Rendering the File List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-the-file-upload-route" class="md-nav__link">
+    Adding the File Upload Route
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloading-a-file" class="md-nav__link">
+    Downloading a File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-file" class="md-nav__link">
+    Deleting a File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-authentication" class="md-nav__link">
+    Adding Authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="building-a-web-file-store">Building a Web File Store</h1>
+<p><img alt="Building Web file store Cover" src="../../assets/tutorials/build-a-web-file-store/web_file_store.png" /></p>
+<p>An online file storage drive you can access from all your devices is a very useful tool. It's the basis of services like Dropbox and Google Drive. </p>
+<p>Code Capsules's File System Data Capsule mounts as a standard file system to a Backend Capsule, providing a convenient file storage option you can use instead of a blob store on other platforms. The file systems are well supported in most programming languages and familiar to programmers.</p>
+<p>In this tutorial, we'll build a basic web interface to upload, download and delete files, secured with a simple, single-user authentication scheme.</p>
+<p>We'll use a <a href="https://codecapsules.io">Backend Capsule</a> with a file store Data Capsule, <a href="https://nodejs.org/">Node.js</a> as the programming language, and <a href="http://expressjs.com">Express</a> as the web framework.</p>
+<h2 id="overview-and-requirements">Overview and Requirements</h2>
+<p>You'll need the following services and software set up for this tutorial </p>
+<ul>
+<li><a href="https://git-scm.com">Git</a> set up and installed, and a registered <a href="https://github.com">GitHub account</a>.</li>
+<li><a href="https://nodejs.org/">Node.js</a> installed.</li>
+<li>A registered <a href="https://codecapsules.io">Code Capsules</a> account.</li>
+<li>An IDE or text editor to code the project in. We used <a href="https://code.visualstudio.com">Visual Studio Code</a> in this tutorial, but you can use any tool you like.</li>
+</ul>
+<h2 id="setting-up-the-project">Setting Up The Project</h2>
+<p>With our requirements in place, let's get started setting them for our web file store project.</p>
+<h3 id="creating-a-new-repo">Creating a New Repo</h3>
+<p>First, we need a place to store our code, from which <a href="https://code.visualstudio.com">Code Capsules</a> can deploy it to a capsule.</p>
+<p>Head over to <a href="https://github.com">GitHub</a> and create a new repo. We're calling it <em>filedrop</em> here, but you can call it whatever you like. You can choose a <strong>Node</strong> <code>.gitignore</code> file to get started. Clone the new GitHub repo onto your computer and navigate to that directory in terminal (or command prompt, if you're on Windows).</p>
+<h3 id="initializing-the-base-project">Initializing the Base Project</h3>
+<p>We'll use the <a href="http://expressjs.com/en/starter/generator.html">Express.js application generator</a> to create the project base. Type in the following: </p>
+<div class="highlight"><pre><span></span><code>npx express-generator --hbs 
+npm install
+</code></pre></div>
+<p>Here we've created a few files and folders that we can edit. The <code>--hbs</code> option tells the generator to use <a href="https://handlebarsjs.com">Handlebars</a> as the HTML template language. We're using Handlebars as it's close to plain HTML, making it easier to pick up quickly.</p>
+<p>The command <code>npm install</code> downloads and installs all the dependencies and packages required by the base project. Open the folder with <a href="https://code.visualstudio.com">Visual Studio Code</a> or your chosen editor, and browse through the files to get familiar with them. The <code>app.js</code> file in the project root is the main entry point for the app. </p>
+<p>It's time to push this boilerplate project up to Git. Type the following into command prompt or terminal: </p>
+<div class="highlight"><pre><span></span><code>git add . 
+git commit -am <span class="s1">&#39;added base files for project&#39;</span>
+git push origin
+</code></pre></div>
+<h3 id="creating-a-new-backend-capsule">Creating a New Backend Capsule</h3>
+<p>Now we need a place to host our app. </p>
+<ol>
+<li>Log in to <a href="https://codecapsules.io">Code Capsules</a>, and create a Team and Space for this project.</li>
+<li>Link <a href="https://codecapsules.io">Code Capsules</a> to the <a href="https://github.com">GitHub</a> repository created above. You can do this by clicking your username at the top right, and choosing <em>Edit Profile</em>. Now you can click the <em>Github</em> button to link to a repo. </li>
+<li>Create a new Capsule, selecting the "Backend" capsule type.</li>
+<li>Select the GitHub repository we created and linked to. If you're only using the repo for this project, you can leave the <em>Repo Subpath</em> field empty. You may need to add your repo to the team repo if you haven't already. Click the <em>Modify Team Repos</em> to do so. </li>
+<li>Click <em>Next</em>, then on the following page, click <em>Create Capsule</em>.</li>
+</ol>
+<p><img alt="Create backend capsule" src="../../assets/tutorials/build-a-web-file-store/create-backend-capsule.gif" /></p>
+<h3 id="creating-a-new-data-capsule">Creating a New Data Capsule</h3>
+<p>We'll need some data storage to store the files uploaded to the web drive. </p>
+<ol>
+<li>Create a new Capsule, selecting the "Data Capsule" type.</li>
+<li>Select "A persistent storage mounted directly to your capsule" as the Data Type. Choose a product size, and give the capsule a name.</li>
+<li>Click "Create Capsule".</li>
+</ol>
+<p><img alt="Create data capsule" src="../../assets/tutorials/build-a-web-file-store/create-data-capsule.gif" /></p>
+<h3 id="linking-the-capsules">Linking the Capsules</h3>
+<p>To use the Data Capsule with the Backend Capsule, we need to link the two. Head over to the backend capsule you created earlier, and click on the "Configure" tab. Scroll down to "Bind Data Capsule", and click "Bind" under the name of the data capsule you created. </p>
+<p><img alt="Bind data capsule" src="../../assets/tutorials/build-a-web-file-store/bind-capsule.png" /></p>
+<p>After binding the capsules, scroll up to the section "Capsule Parameters". You'll notice that an environment variable, <code>PERSISTENT_STORAGE_DIR</code>, is automatically added with the mount point. We'll use this environment variable in the code to access the storage drive.</p>
+<p><img alt="Storage path environment variable" src="../../assets/tutorials/build-a-web-file-store/storageenv.png" /></p>
+<h2 id="writing-the-web-files-code">Writing the Web Files Code</h2>
+<p>Now that we have all our systems setup, we can get onto the best part - coding!</p>
+<h3 id="getting-the-file-list">Getting the File List</h3>
+<p>Open the file <code>index.js</code> in the <code>routes</code> folder of our project. This is the server code file for the default route <code>/</code> in the application. We'll use this route to show the file listing. </p>
+<p>To interact with the storage capsule and the files on it, we'll use the built-in <a href="https://nodejs.org/api/fs.html#fs_file_system"><code>fs</code></a>, or file system, module included in Node.js. Add a reference to this module at the top of the file:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>Then, modify the default <code>get</code> route to use the <code>fs</code> module to get the file listing on the storage drive: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PERSISTENT_STORAGE_DIR</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mf">500</span><span class="p">);</span> 
+    <span class="nx">files</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span> 
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;File Drop&quot;</span><span class="p">,</span> <span class="nx">files</span><span class="o">:</span> <span class="nx">files</span><span class="p">});</span> 
+  <span class="p">});</span> 
+<span class="p">});</span>
+</code></pre></div>
+<p>This code uses the <a href="https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback"><code>readdir</code></a> function to get an array of all the files in the storage drive. Note that we use the environment variable that was automatically setup when we bound the capsules to specify the path to the storage drive. Environment variables are accessible through the <a href="https://nodejs.org/api/process.html#process_process_env"><code>process.env</code></a> object in Node.js.</p>
+<p>The <a href="https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback"><code>readdir</code></a> function calls a callback function once it has the file list. The callback has 2 arguments: <code>err</code>, which will contain an error object if the folder could not be read, and <code>files</code>, which is a string array of all the filenames in the folder, if the call was successful. </p>
+<p>If the <code>err</code> object is populated, we immediately return with an <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors">HTTP code <code>500</code></a> using the <code>sendStatus</code> function. The code <code>500</code> means that the server encountered an error processing a request, so the browser can show an error page. </p>
+<p>Since the <a href="https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback"><code>readdir</code></a> function doesn't return the files in any order, we use the built-in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">array <code>sort</code> function</a> to sort the files. By default, the sort function sorts the files in ascending alphabetical order. If you'd like a different sort order, you can supply a function to customise the behaviour here. </p>
+<p>The sorted files can now be returned to the browser. We call the <a href="http://expressjs.com/en/4x/api.html#res.render"><code>res.render</code></a> function, which specifies the Handlebars template to use as the return web page. The templates are stored in the <code>views</code> folder of the project. The function also accepts a data object as an argument. <a href="https://handlebarsjs.com">Handlebars</a> then combines this data with the template to fill in the values on the page.</p>
+<h3 id="rendering-the-file-list">Rendering the File List</h3>
+<p>Our backend route gets the file list, and passes it through to the <code>index</code> HTML template. Let's customise that template to display the files. Open <code>index.hbs</code> in the views folder, and update the contents to this code:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{title}}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>File list<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>File Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+      {{#each files}}
+      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span> 
+            {{this}}
+        <span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+      {{/each}}
+  <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Handlebars uses the sequence <code>{{ }}</code> to indicate sections of the template to be populated. In the first line, <code>{{title}}</code> will be replaced with the title we specified in the return from the <code>GET /</code> route we added earlier.</p>
+<p>Then we set up a simple table, and use the <a href="https://handlebarsjs.com/guide/builtin-helpers.html#each">Handlebars each</a> function to iterate over the elements in the <code>files</code> array we passed from the <code>Get /</code> route. The Handlebars keyword <code>{{this}}</code> is used to reference the current file name on each iteration. </p>
+<p>You can save, commit and push your changes so far. Our code should deploy automatically on <a href="https://codecapsules.io">Code Capsules</a>. After deploying, you can visit the public URL, and you should see something like this:</p>
+<p><img alt="Unpopulated file list" src="../../assets/tutorials/build-a-web-file-store/blank-files.png" /></p>
+<p>This is good, but a little uninteresting without any files to view!</p>
+<h3 id="adding-the-file-upload-route">Adding the File Upload Route</h3>
+<p>Let's add functionality to upload a file, then we'll be able to view it in the list. We'll first add an <a href="https://www.w3schools.com/html/html_forms.asp">HTML upload form</a> to the <code>index.hbs</code> file in the <code>views</code> folder. Add this code under the <code>&lt;h1&gt;{{title}}&lt;/h1&gt;</code> line: </p>
+<p><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Upload a file<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">ref</span><span class="o">=</span><span class="s">&#39;uploadForm&#39;</span> 
+      <span class="na">id</span><span class="o">=</span><span class="s">&#39;uploadForm&#39;</span> 
+      <span class="na">action</span><span class="o">=</span><span class="s">&#39;/&#39;</span> 
+      <span class="na">method</span><span class="o">=</span><span class="s">&#39;post&#39;</span> 
+      <span class="na">encType</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;newFile&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;submit&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;Upload&#39;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span> 
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+This code adds in a new HTML form, which makes a <code>POST</code> request to the root <code>/</code> (our index page) on submit. We've given the form 2 inputs: a file upload field specified by the <code>type="file"</code> attribute, and the submit button. Note the <code>name</code> given to the file input - we'll need to remember this when processing the upload on the server side. </p>
+<p>Now that we have a way for the user to select a file to upload and send to the server, we need to create a route to process the submitted file. In the <code>index.js</code> file in the  <code>routes</code> folder, we'll add a new HTTP route. This one will be a <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">POST</a> route, as we are using it to upload a new file (or resource) onto the server. Add this stub for the route in the <code>index.js</code> file: </p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+
+<span class="p">});</span> 
+</code></pre></div>
+To handle file uploads with Express, we'll use a package that takes care of all the encoding and streaming concerns of file uploads. Open up the terminal and install the <a href="https://www.npmjs.com/package/express-fileupload"><code>express-fileupload</code></a> package using npm: </p>
+<p><div class="highlight"><pre><span></span><code>npm install express-fileupload
+</code></pre></div>
+To use this package, we need to add it into the <a href="http://expressjs.com/en/guide/using-middleware.html">middleware</a> of our Express server. Open up the <code>app.js</code> file in the root folder of the project, and import the package by adding the following <code>require</code> statement at the top of the file:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fileUpload</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express-fileupload&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>Now insert the package into the Express middleware pipeline by adding the following line just under the <code>var app = express();</code> statement:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">fileUpload</span><span class="p">());</span>
+</code></pre></div>
+<p>The <code>express-fileupload</code> module adds a <code>files</code> attribute to our <code>req</code> object. Through the <code>files</code> attribute we can access any uploads as their own objects, which are named the same as the HTML form <code>inputs</code>. </p>
+<p>Now we can expand on the route stub. In the <code>index.js</code> file, complete the <code>POST</code> route as follows:</p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">files</span> <span class="o">||</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">files</span><span class="p">).</span><span class="nx">length</span> <span class="o">===</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;No files were uploaded.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">newFile</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">newFile</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">uploadPath</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PERSISTENT_STORAGE_DIR</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">newFile</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+
+    <span class="nx">newFile</span><span class="p">.</span><span class="nx">mv</span><span class="p">(</span><span class="nx">uploadPath</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">500</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+<span class="p">});</span>
+</code></pre></div>
+First, we check whether the <code>files</code> object exists on the route, and if it does exist, we check whether it has sub-objects on the list (no sub-objects means no form <code>input</code> fields were populated). If no <code>files</code> objects or sub-objects exist on the route, there is no file for the code to process, so we return early with an <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors">HTTP status <code>400</code></a> code and a message to the user. Status code <code>400</code> means there is an input error from the user side. </p>
+<p>Otherwise, having established that a file has been uploaded, we get the file object by referencing the same name we gave to our HTML input field (<code>newFile</code>) on the <code>files</code> object that the <code>express-fileupload</code> package added to the <code>req</code> object. Now that we have the file object, we can construct a path to the data capsule's location to save the file. We use the environment variable for the data capsule mount point (located in the Backend Capsule's "Capsule Parameters"), along with the path separator <code>/</code> and the name of the uploaded file. You can see all the properties available on the file object at the <a href="https://www.npmjs.com/package/express-fileupload"><code>express-fileupload</code> npm page</a>. </p>
+<p>All we need to do now is to save the file to the upload path. The <code>express-fileupload</code> package provides the method <code>mv</code> on the file object to save the file to a disk location. It then calls a provided callback function when done, or if an error occurs. If we get a error back, we send an <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors">HTTP code <code>500</code></a> back to the client, which means that there was an error on the server side. Otherwise, if all goes well, we redirect the client to the index <code>/</code> page, which will call the <code>GET</code> route added earlier to refresh the file list on the client side.</p>
+<p>This is a good point to commit the code to Git, and test the new deployment on Code Capsules. After the capsule finishes rebuilding, navigate to the site. It should look something like this:</p>
+<p><img alt="upload file" src="../../assets/tutorials/build-a-web-file-store/upload-section.png" /></p>
+<p>The upload control may look slightly different depending on the web browser and operating system you use. Try choosing a file and uploading it, and you should see it appear in the browser.</p>
+<h3 id="downloading-a-file">Downloading a File</h3>
+<p>We've got the functionality to upload files, and to list what files are on the server. Now let's add functionality to download files. </p>
+<p>We'll add a route with the format <code>/filename</code> to get the requested file. We'll make use of the <a href="http://expressjs.com/en/5x/api.html#res.download"><code>download</code></a> functionality built into Express to send the file back to the browser. </p>
+<p>Add this route to the <code>index.js</code> file.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/:filename&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">){</span>
+    <span class="kd">const</span> <span class="nx">filepath</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PERSISTENT_STORAGE_DIR</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">filename</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">download</span><span class="p">(</span><span class="nx">filepath</span><span class="p">);</span> 
+<span class="p">});</span> 
+</code></pre></div>
+This sets up a <code>GET</code> route, with the requested filename as a parameter. Then the function constructs a path to the file, using the environment variable for the data capsule mount point, along with the path separator <code>/</code> and the name of the requested file.</p>
+<p>Then we call the <a href="http://expressjs.com/en/5x/api.html#res.download"><code>download</code></a> method on the <code>res</code> (result) object with the constructed path. This sends the file to the browser. </p>
+<p>Now we need a way to call this route from the front end. Open the <code>index.hbs</code> file in the <code>views</code> folder, and modify the <code>{{this}}</code> template in the file list table to an HTML <a href="https://www.w3schools.com/tags/tag_a.asp">anchor <code>&lt;a&gt;</code> tag</a>, with the <code>href</code> to the route we added above. We'll also add the <a href="https://www.w3schools.com/tags/att_a_download.asp"><code>download</code></a> attribute to the tag so that the link will not be opened in the browser, but downloaded instead. The updated file list table should look like this now: </p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>File list<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>File Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+      {{#each files}}
+      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span> 
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;/{{this}}&#39;</span> <span class="na">download</span><span class="p">&gt;</span>{{this}}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> 
+        <span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+      {{/each}}
+  <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Commit these changes, and wait for Code Capsules to redeploy the site. If you navigate to the site now, you should see the file you uploaded earlier as a hyperlink. Clicking on the link should download the file.</p>
+<p><img alt="Downloading a file" src="../../assets/tutorials/build-a-web-file-store/download-file.png" /></p>
+<h3 id="deleting-a-file">Deleting a File</h3>
+<p>Now that we can upload and download files, we'll probably also need to remove files. We can use the <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">HTTP <code>DELETE</code> verb</a> on a route for this. </p>
+<p>Since the data capsule appears just like a regular file system to our code, we can use the built-in Node.js <a href="https://nodejs.org/api/fs.html#fs_file_system"><code>fs</code></a> module here again. It has a method called <a href="https://nodejs.org/api/fs.html#fs_fs_unlinksync_path"><code>unlink</code></a> which deletes a file from a file system. We supply it with a path to the file, and a callback function to let us know the result of the delete file request. If we get an error, we'll send an <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors">HTTP code <code>500</code></a> status back to the browser, to let the browser know that an error occurred. If the delete action is successful, we'll send a status code <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_success"><code>200</code></a>, which lets the browser know that the operation was a success. Add this code to the <code>index.js</code> file to implement the <code>DELETE</code> route: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;/:filename&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+  <span class="kd">const</span> <span class="nx">filepath</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PERSISTENT_STORAGE_DIR</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">filename</span><span class="p">;</span> 
+
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">unlink</span><span class="p">(</span><span class="nx">filepath</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mf">500</span><span class="p">);</span> 
+    <span class="k">else</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mf">200</span><span class="p">);</span> 
+  <span class="p">});</span> 
+
+<span class="p">});</span> 
+</code></pre></div>
+<p>Now let's update the front end to be able to call this route. Open the <code>index.hbs</code> file, and add a new header column to the file table, along with a button for each file in the new column to delete it:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>File list<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>File Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+      {{#each files}}
+      <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span> 
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#39;/{{this}}&#39;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>{{this}}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> 
+        <span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Delete<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+      {{/each}}
+  <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Next we'll create some front-end JavaScript code for the button to call when clicked. We'll use the browser-side <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch</code></a> function to call the <code>DELETE</code> file route. Add this script block at the bottom of the <code>index.hbs</code> file: </p>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+  <span class="kd">function</span> <span class="nx">deleteFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">confirmation</span> <span class="o">=</span> <span class="nx">confirm</span><span class="p">(</span><span class="s1">&#39;Do you really want to delete the file &#39;</span> <span class="o">+</span> <span class="nx">filename</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span><span class="p">);</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="nx">confirmation</span> <span class="o">===</span> <span class="kc">true</span><span class="p">){</span>
+      <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">filename</span><span class="p">,</span> <span class="p">{</span> <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;DELETE&#39;</span> <span class="p">})</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">location</span><span class="p">.</span><span class="nx">reload</span><span class="p">())</span>
+      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Error deleting the file! &#39;</span> <span class="o">+</span> <span class="nx">error</span><span class="p">));</span> 
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<p>This adds a new function <code>deleteFile</code> to the front-end index page. It has one argument: the name of the file to delete. First, we make use of the built-in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm"><code>confirm</code></a> function which exists in all browsers. This brings up a dialog box with the message <em>Do you really want to delete the file?</em>, just to make sure the user didn't click the delete button accidentally. If the user clicks "Yes", the dialog box returns a <code>true</code> value. Then we call our <code>DELETE</code> route using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch</code></a>. We need to pass in the route to call, and we also send an <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#parameters">init</a> object which specifies that the <code>DELETE</code> HTTP verb must be used to call this route.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch</code></a> function returns a <code>promise</code>. This is an alternative to callbacks. If the call was successful, the code in the <code>.then()</code> handler is called. This reloads the page, so that the file listing is updated to show that the file is now deleted. If the call fails, the code in the <code>catch</code> handler is called. This uses another standard browser dialog, an <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/alert"><code>alert</code></a>, to let the user know that something went wrong. </p>
+<p>Now let's hook this function up to the button we added for each file. We'll use the <a href="https://www.w3schools.com/jsref/event_onclick.asp"><code>onclick</code></a> event on the buttons to call the function, along with the filename to be deleted. Update the button code like this: </p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;deleteFile(&#39;{{this}}&#39;)&quot;</span><span class="p">&gt;</span>Delete<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Commit these changes, and wait for Code Capsules to redeploy the site. Then navigate to the site and try out the "Delete" button next to the filename.</p>
+<p><img alt="Deleting a file" src="../../assets/tutorials/build-a-web-file-store/file-delete.png" /></p>
+<h3 id="adding-authentication">Adding Authentication</h3>
+<p>We've created the basic functions of a web drive, but anyone can get to the site and upload, download or delete documents. We need a way to control access. For this tutorial, we'll implement a very simple access control system that only allows access to one pre-defined user.</p>
+<p>We're going to use <a href="http://www.passportjs.org">Passport</a> to handle our access control. Passport is a modular package that allows for very simple authentication schemes to very elaborate ones, so you can upgrade the security of this app as you need.</p>
+<p>Our basic access control scheme is a username and password combination, entered on an HTML form that is posted to a <code>login</code> route. A <a href="https://en.wikipedia.org/wiki/HTTP_cookie">session cookie</a> will remember the logged-in user while they use the site, and we'll use the package <a href="https://www.npmjs.com/package/express-session"><code>express-session</code></a> to manage the session. </p>
+<p>Passport's <a href="https://www.npmjs.com/package/passport-local">local strategy</a> plugin will enable our username and password scheme.  </p>
+<p>Let's start by installing all these packages and plugins. Type the following in the terminal:</p>
+<div class="highlight"><pre><span></span><code>npm install passport passport-local express-session
+</code></pre></div>
+<p>Now add references to these packages to the top section of the <code>app.js</code> file. A good place to add them is after the <code>var logger = require('morgan');</code> line. Here's the code you'll need:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">passport</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;passport&#39;</span><span class="p">);</span> 
+<span class="kd">var</span> <span class="nx">LocalStrategy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;passport-local&#39;</span><span class="p">).</span><span class="nx">Strategy</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">session</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;express-session&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>The first thing to add to the app is the session middleware, then the Passport authentication middleware. Add the following after the <code>app.use(express.static(path.join(__dirname, 'public')));</code> line: </p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span><span class="nx">secret</span> <span class="o">:</span> <span class="s2">&quot;&lt;YOUR_SECRET&gt;&quot;</span><span class="p">}));</span> 
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">passport</span><span class="p">.</span><span class="nx">initialize</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">passport</span><span class="p">.</span><span class="nx">session</span><span class="p">());</span>
+</code></pre></div>
+This inserts the <code>session</code> middleware into the app pipeline, to read and write persistent sessions to the app cookie. Replace the <code>&lt;YOUR_SECRET&gt;</code> parameter with a string of your choosing. This secret is used to sign the session information in the cookie. Normally, this is kept very secret, as anyone who has access to the secret could construct a session cookie that looks legitimate to the server and give them access to any account on the server. You can also add an environment variable to store this secret, rather than store it in the code repo. </p>
+<p>Next, we initialize Passport into the middleware pipeline, and add in the code for Passport to use sessions to check and record authentication. </p>
+<p>When using sessions with Passport, we need to implement serialisation and deserialisation of user objects from session information, so that Passport can add the user object to the <code>req</code> object in the app pipeline. Add these functions to the bottom of the <code>app.js</code> file: </p>
+<p><div class="highlight"><pre><span></span><code><span class="nx">passport</span><span class="p">.</span><span class="nx">serializeUser</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+  <span class="p">});</span> 
+<span class="p">});</span>
+
+<span class="nx">passport</span><span class="p">.</span><span class="nx">deserializeUser</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+  <span class="p">});</span> 
+<span class="p">});</span>
+</code></pre></div>
+In our case, since we are implementing a super-simple authentication scheme with just one user, we don't need to call out to a database or other store to get user information. In fact, since there is no real user information that is of use to our app at the moment, we just return the <code>user</code> object that Passport sends to us straight back, as we don't really have a use for it. Even though we are doing nothing with the information, we need to register these functions with Passport, as it calls them regardless. </p>
+<p>Now we can set up the rest of the logic for Passport. Add this code just above the serialisation code: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">passport</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="k">new</span> <span class="nx">LocalStrategy</span><span class="p">(</span>
+  <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">username</span> <span class="o">===</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USERNAME</span> <span class="o">&amp;&amp;</span> <span class="nx">password</span> <span class="o">===</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PASSWORD</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="nx">username</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">USERNAME</span> <span class="p">});</span> 
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="p">{</span><span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;Incorrect username or password&quot;</span><span class="p">});</span> 
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>This plugs in and registers the local authentication strategy module into Passport.</p>
+<p>Passport's local strategy uses a simple username and password, checked on the local server, so we'll need a function to accept a username and password for validation. The function checks if entered credentials are valid, and sends back a user object if they are, using the <code>done</code> callback. If the credentials don't checkout, the user gets an error message.</p>
+<p>Our function checks the username and password against what is stored in our environment variables. If the credentials to be checked match the credentials in our environment variables, we authenticate the user. </p>
+<p>Head over to the "Configure" tab on your backend Code Capsule, and add 2 new environment variables : <code>USERNAME</code> and <code>PASSWORD</code>. Supply values of your own to set your username and password, then click the "Update Capsule" button to save the changes.</p>
+<p><img alt="Username and password environment variables" src="../../assets/tutorials/build-a-web-file-store/username-env.png" /></p>
+<p><strong>Note:</strong> <em>While this method of storing user credentials is appropriate for a small, single-user hobby project, it is not sufficient for production with customer credentials. Look to implementing a more robust user store, with password hashing and salting, or using a third-party authentication service such as a social network or an OAuth provider</em></p>
+<p>Passport offers many other <a href="http://www.passportjs.org/packages/">authentication strategies</a>, from OAuth 2.0 strategies allowing authentication through Facebook, Google, Twitter and other OAuth 2.0 providers, to API authentication strategies such as Bearer Tokens.</p>
+<p>Now that we have set the username and password for our app, we can add the login page routes to render the login page and send the form <code>POST</code> with user credentials to Passport. </p>
+<p>Add these 2 routes just above the index routes (<code>app.use('/', indexRouter);</code>) in <code>app.js</code>: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+<span class="p">});</span> 
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span>
+  <span class="nx">passport</span><span class="p">.</span><span class="nx">authenticate</span><span class="p">(</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">successRedirect</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">failureRedirect</span><span class="o">:</span> <span class="s1">&#39;/login&#39;</span> <span class="p">}));</span>
+</code></pre></div>
+<p>The first <code>GET</code> route adds a <code>/login</code> url to our app. The route handler function calls the <a href="http://expressjs.com/en/4x/api.html#res.render"><code>res.render</code></a> Express method to serve up the login template, which we'll add shortly. The second <code>POST</code> route handles a form submission from the <code>/login</code> route, and passes it through to Passport. We supply a parameter to tell Passport to use our <code>local</code> strategy to process this authentication request. We also supply the redirects: to the main file list if authentication is successful, or back to the login page if not.</p>
+<p>There's one more bit of code to include before we add the front-end login form. We need to check if a user is successfully authenticated before they can access the file list and other functionality. To do this, we'll insert a call to an authentication check function in our app middleware. Add this code just above the <code>app.use('/', indexRouter);</code> line, so it's called before the routes above are served: </p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">isAuthenticated</span><span class="p">);</span> 
+</code></pre></div>
+<p>Now, let's implement the reference <code>isAuthenticated</code> middleware. Add this function to the bottom of the <code>app.js</code> file: </p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">isAuthenticated</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+  <span class="k">else</span> 
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If a user is successfully authenticated, the <code>isAuthenticated()</code> method, which is added by Passport to the <code>req</code> object, will return <code>true</code>. In that case, we can safely let the pipeline proceed to the next middleware function (in this case, one of the protected routes). If the authentication check comes back <code>false</code>, we redirect back to the login page, away from our protected pages. </p>
+<p>Now we have all the back-end pieces for authentication in place, let's add the login page and form. Add a new file called <code>login.hbs</code> in the <code>views</code> folder. Place this code into the new file: </p>
+<p><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/login&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Username:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Password:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Log In&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div>
+Here we're adding a very simple form to make a <code>POST</code> request back to our <code>/login</code> route, with inputs for a username and password. </p>
+<p>We're done with authentication. Commit these changes, and wait for Code Capsules to redeploy the site, then navigate over and test it out. This time, the site should prompt for your username and password (which you added to the environment variables) before letting you through to the files page.</p>
+<p><img alt="Authentication page" src="../../assets/tutorials/build-a-web-file-store/auth.png" /></p>
+<p>Congratulations, you have completed building a personal web drive using <a href="https://codecapsules.io">Code Capsules</a> and <a href="https://nodejs.org/">Node.js</a>!</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>This project has some decent basic functionality, but there are many things you could add to upgrade it, such as: </p>
+<ul>
+<li>Add styling to make it look better</li>
+<li>Add support for sub-folders</li>
+<li>Add support for multi-file upload</li>
+<li>Add logout functionality, using the <a href="http://www.passportjs.org/docs/logout/">Passport logout function</a></li>
+<li>Add better authentication, and perhaps separate user accounts for a multi-user drive</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../build-slackbot-with-node/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Slackbot with Node.js" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Slackbot with Node.js
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../create-and-host-telegram-bot/" class="md-footer__link md-footer__link--next" aria-label="Next: Telegram Bot" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Telegram Bot
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

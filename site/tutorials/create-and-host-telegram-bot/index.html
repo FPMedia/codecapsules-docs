@@ -1,0 +1,1738 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn how to build a Telegram bot that messages you exchange rate data and weather forecasts for areas of your choosing.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/create-and-host-telegram-bot/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Create a Telegram Bot - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Create a Telegram Bot" />
+      <meta name="twitter:description" content="Learn how to build a Telegram bot that messages you exchange rate data and weather forecasts for areas of your choosing." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/create-and-host-telegram-bot/telegram-bot-cover.jpg" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-to-create-and-host-a-telegram-bot-on-code-capsules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Create a Telegram Bot
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Telegram Bot
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Telegram Bot
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-telegram-bots" class="md-nav__link">
+    About Telegram Bots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registering-a-bot-account-and-talking-to-the-botfather" class="md-nav__link">
+    Registering a Bot Account and Talking to the BotFather
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-and-setup" class="md-nav__link">
+    Planning and Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Planning and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-virtual-environment-and-installing-requirements" class="md-nav__link">
+    Creating a virtual environment and installing requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retrieving-data-from-the-api" class="md-nav__link">
+    Retrieving Data from the API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-bot" class="md-nav__link">
+    Creating the Bot
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polling-versus-webhooks" class="md-nav__link">
+    Polling versus Webhooks
+  </a>
+  
+    <nav class="md-nav" aria-label="Polling versus Webhooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-webhook" class="md-nav__link">
+    Creating a webhook
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-for-deployment" class="md-nav__link">
+    Preparing For Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing For Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-an-api-key-environment-variable" class="md-nav__link">
+    Creating an API key environment variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-procfile-and-requirementstxt" class="md-nav__link">
+    Creating a Procfile and requirements.txt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-bot-to-code-capsules" class="md-nav__link">
+    Deploying the Bot to Code Capsules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-telegram-bots" class="md-nav__link">
+    About Telegram Bots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registering-a-bot-account-and-talking-to-the-botfather" class="md-nav__link">
+    Registering a Bot Account and Talking to the BotFather
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planning-and-setup" class="md-nav__link">
+    Planning and Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Planning and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-virtual-environment-and-installing-requirements" class="md-nav__link">
+    Creating a virtual environment and installing requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retrieving-data-from-the-api" class="md-nav__link">
+    Retrieving Data from the API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-bot" class="md-nav__link">
+    Creating the Bot
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polling-versus-webhooks" class="md-nav__link">
+    Polling versus Webhooks
+  </a>
+  
+    <nav class="md-nav" aria-label="Polling versus Webhooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-webhook" class="md-nav__link">
+    Creating a webhook
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-for-deployment" class="md-nav__link">
+    Preparing For Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing For Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-an-api-key-environment-variable" class="md-nav__link">
+    Creating an API key environment variable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-procfile-and-requirementstxt" class="md-nav__link">
+    Creating a Procfile and requirements.txt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-bot-to-code-capsules" class="md-nav__link">
+    Deploying the Bot to Code Capsules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="how-to-create-and-host-a-telegram-bot-on-code-capsules">How to Create and Host a Telegram Bot on Code Capsules</h1>
+<p><img alt="Creating Telegram Bot Cover" src="../../assets/tutorials/create-and-host-telegram-bot/telegram-bot-cover.jpg" /></p>
+<p>In <a href="https://codecapsules.io/docs/creating-and-hosting-a-personal-api-with-flask-and-code-capsules/">a previous tutorial</a>, we created and hosted an API on Code Capsules. In this tutorial, we'll create a client for this API in the form of a Telegram bot. This will allow us to pull temperature, weather and exchange rate data on the go by messaging our bot in the Telegram app. </p>
+<p>We'll also learn how to host this bot on <a href="https://codecapsules.io/">Code Capsules</a> so it can be used by others. Along the way, we'll learn some key concepts about hosting bots securely and efficiently.</p>
+<p>Let's get started!</p>
+<h2 id="requirements">Requirements</h2>
+<p>To create a Telegram bot, we'll need:</p>
+<ul>
+<li><a href="https://www.python.org/">Python</a> 3.6+ installed.</li>
+<li>A <a href="https://github.com/">GitHub account</a> and <a href="https://git-scm.com/">Git</a> installed.</li>
+<li><a href="https://pypi.org/project/virtualenv/">Virtualenv</a> installed.</li>
+<li>A <a href="https://telegram.org/">Telegram</a> account.</li>
+<li>A <a href="https://codecapsules.io/">Code Capsules</a> account.</li>
+<li>An API on Code Capsules, created using <a href="https://codecapsules.io/docs/creating-and-hosting-a-personal-api-with-flask-and-code-capsules/">the Personal API tutorial</a>.</li>
+</ul>
+<h2 id="about-telegram-bots">About Telegram Bots</h2>
+<p>Telegram bots appear as contacts on the Telegram interface. Users interact with Telegram bots by messaging them with commands – these are words preceded by a forward slash, e.g. <code>/weather</code>, or <code>/currency</code>. Commands sent to the bot's account on Telegram will be passed to the bot's backend code (in our case, this will be the code we host on Code Capsules).</p>
+<p>For example, when we send the command <code>/weather</code> to our bot later in this article, the bot will reply with the weather data from our personal API.</p>
+<p>Let's create a Telegram bot.</p>
+<h2 id="registering-a-bot-account-and-talking-to-the-botfather">Registering a Bot Account and Talking to the BotFather</h2>
+<p>To create a Telegram bot, we need to download <a href="https://telegram.org/">Telegram</a> and create a user account. You can use Telegram from either your PC or your phone, or both. </p>
+<p>Once you have a Telegram account, you can register a new bot by sending a message to BotFather, a bot managed by Telegram themselves. Search for "BotFather" and initiate a chat. From the chat interface, follow these steps:</p>
+<ol>
+<li>Press "start".</li>
+<li>Type <code>/newbot</code>.</li>
+<li>Choose a name for your bot.</li>
+<li>Choose a username for your bot (must end in "bot").</li>
+</ol>
+<p>Once you've chosen a username, the BotFather will reply with an <em>authorisation token</em>. This is a string that enables your bot to send requests to the Telegram Bot API, similar to the authorisation tokens we used to retrieve weather and exchange rate data in the personal API tutorial. Make sure to save this token somewhere safe and private.</p>
+<p>To see if your bot was successfully created, search for the bot's username. You should see the bot and be able to start a conversation with it. Right now, our bot won't reply to anything you send it, as it doesnt have any backend code yet. Let's change that. </p>
+<h2 id="planning-and-setup">Planning and Setup</h2>
+<p>We're going to implement two commands for our bot.</p>
+<ul>
+<li>When we send the command <code>/weather</code>, our bot will reply with the weather data from the API we created. </li>
+<li>When we send the command <code>/currency</code>, our bot will reply with the exchange rates from USD to CAD, EUR, and ZAR.</li>
+</ul>
+<h3 id="creating-a-virtual-environment-and-installing-requirements">Creating a virtual environment and installing requirements</h3>
+<p>First, we need to create a local directory. Give it the same name as our bot. Then, from this directory, open a terminal and create a Python <a href="https://docs.python.org/3/tutorial/venv.html">virtual environment</a> by entering the following command:</p>
+<div class="highlight"><pre><span></span><code>virtualenv env
+</code></pre></div>
+<p>Enter the virtual environment using the appropriate command for your system:</p>
+<ul>
+<li><strong>Linux/MacOSX</strong>: <code>source env/bin/activate</code></li>
+<li><strong>Windows</strong>: <code>env\Scripts\activate.bat</code></li>
+</ul>
+<p>The virtual environment will help manage our dependencies for when we host the bot on Code Capsules.</p>
+<p>To interact with the Telegram Bot API, we need to install the <a href="https://github.com/python-telegram-bot/python-telegram-bot">python-telegram-bot</a> library, a Python wrapper for the <a href="https://core.telegram.org/bots/api">Telegram Bot API</a>. We'll also use the Python library <code>requests</code> to retrieve data from the weather and currency exchange rate API. To install these requirements, enter the following in your terminal:</p>
+<div class="highlight"><pre><span></span><code>pip install python-telegram-bot requests
+</code></pre></div>
+<h2 id="retrieving-data-from-the-api">Retrieving Data from the API</h2>
+<p>Now we can start coding. Create a file named <code>bot.py</code> in the same directory where we activated the virtual environment. In this file, enter the following code, replacing <code>YOUR-URL-HERE</code> with the URL pointing to the weather and exchange rate API hosted on Code Capsules.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;YOUR-URL-HERE/GET&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="c1"># requests data from API</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="c1"># converts return data to json</span>
+
+<span class="c1"># Retrieve values from API</span>
+<span class="n">curr_temp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;curr_temp&#39;</span><span class="p">]</span>
+<span class="n">cad_rate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;usd_rates&#39;</span><span class="p">][</span><span class="s1">&#39;CAD&#39;</span><span class="p">]</span>
+<span class="n">eur_rate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;usd_rates&#39;</span><span class="p">][</span><span class="s1">&#39;EUR&#39;</span><span class="p">]</span>
+<span class="n">zar_rate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;usd_rates&#39;</span><span class="p">][</span><span class="s1">&#39;ZAR&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">return_weather</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello. The current temperature in Cape Town is: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">curr_temp</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; celsius.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">return_rates</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello. Today, USD conversion rates are as follows: USD-&gt;CAD = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">cad_rate</span><span class="p">)</span><span class="o">+</span>
+    <span class="s2">&quot;, USD-&gt;EUR = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">eur_rate</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;, USD-&gt;ZAR = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">zar_rate</span><span class="p">))</span>
+
+
+<span class="n">return_weather</span><span class="p">()</span>
+
+<span class="n">return_rates</span><span class="p">()</span>
+</code></pre></div>
+<p>Here we request the currency and weather data from the API and parse the temperature and conversion rates. Then we print out the data using <code>return_weather()</code> and <code>return_rates()</code>.</p>
+<p>Try it out! Run the program to ensure everything works, then continue. </p>
+<h2 id="creating-the-bot">Creating the Bot</h2>
+<p>Now we can get to creating the actual bot. At the top of the <code>bot.py</code> file, add this line:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">telegram.ext</span> <span class="kn">import</span> <span class="n">Updater</span><span class="p">,</span> <span class="n">CommandHandler</span>
+</code></pre></div>
+<p>From the <code>python-telegram-bot</code> library, we import two classes: <code>Updater</code> and <code>CommandHandler</code>. We'll talk about these classes soon.</p>
+<p>We don't need to print our data anymore – instead, we'll return a string to our bot, so the bot can display it on Telegram. Replace <code>def return_weather()</code> and <code>def return_rates()</code> with the following:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">return_weather</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;Hello. The current temperature in Cape Town is: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">curr_temp</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; celsius.&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">return_rates</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello. Today, USD conversion rates are as follows: USD-&gt;CAD = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">cad_rate</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;, USD-&gt;EUR = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">eur_rate</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;, USD-&gt;ZAR = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">zar_rate</span><span class="p">)</span>
+</code></pre></div>
+<p>Now, replace the <code>return_weather()</code> and <code>return_rates()</code> function calls with the code below:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">TOKEN</span> <span class="o">=</span> <span class="s2">&quot;YOUR-BOT-TOKEN-HERE&quot;</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">Updater</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">TOKEN</span><span class="p">,</span> <span class="n">use_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">dispatcher</span>
+
+    <span class="n">weather_handler</span> <span class="o">=</span> <span class="n">CommandHandler</span><span class="p">(</span><span class="s2">&quot;weather&quot;</span><span class="p">,</span> <span class="n">weather</span><span class="p">)</span>
+    <span class="n">currency_handler</span> <span class="o">=</span> <span class="n">CommandHandler</span><span class="p">(</span><span class="s2">&quot;currency&quot;</span><span class="p">,</span> <span class="n">currency</span><span class="p">)</span>
+    <span class="n">start_handler</span> <span class="o">=</span> <span class="n">CommandHandler</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="n">weather_handler</span><span class="p">)</span>
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="n">currency_handler</span><span class="p">)</span>
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="n">start_handler</span><span class="p">)</span>
+
+    <span class="n">updater</span><span class="o">.</span><span class="n">start_polling</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>At the top of our new <code>main</code> method, which will be called when this file is run, we instantiate <code>updater</code>, an instance of the Telegram library's <a href="https://python-telegram-bot.readthedocs.io/en/latest/telegram.ext.updater.html#telegram.ext.updater.Updater"><code>Updater</code></a> class. This object will retrieve commands sent to our bot and pass them to an instance of the <a href="https://python-telegram-bot.readthedocs.io/en/latest/telegram.ext.dispatcher.html#telegram.ext.Dispatcher"><code>Dispatcher</code></a> class. We've assigned this <code>Dispatcher</code> instance to the variable <code>dispatcher</code> for further use.</p>
+<p>Next, we create three different <code>CommandHandler</code> classes, one for each command that can be sent to our bot: <code>/start</code>, <code>/weather</code> and <code>/currency</code>. We pass two arguments into each instantiation: the command text (without the preceding <code>/</code>), and a function to call. For example, when a user enters the command <code>/weather</code>, the <code>weather()</code> function will be called.</p>
+<p>Let's define that function, and the other two. Just above <code>def main()</code>, enter the following three function definitions. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">weather</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">chat_id</span><span class="o">=</span><span class="n">update</span><span class="o">.</span><span class="n">effective_chat</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">return_weather</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">currency</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">chat_id</span><span class="o">=</span><span class="n">update</span><span class="o">.</span><span class="n">effective_chat</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">return_rates</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">chat_id</span><span class="o">=</span><span class="n">update</span><span class="o">.</span><span class="n">effective_chat</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hi! I respond to /weather and /currency. Try them!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Each of these functions calls the <code>python-telegram-bot</code> function <code>send_message()</code> with the ID of the current chat and the appropriate text, either returned from one of our other functions or specified as a string. The <code>update</code> and <code>context</code> arguments are supplied automatically by the dispatcher.</p>
+<p>Back in our <code>main()</code> function, we use <code>dispatch.add_handler</code> to add all three handlers to our dispatcher.</p>
+<p>Finally, <code>updater.start_polling()</code> will begin <a href="https://en.wikipedia.org/wiki/Polling_(computer_science)"><em>polling</em></a> for updates from Telegram. This means our code will regularly ask Telegram's servers if any commands have been sent to it. Upon receiving commands, the appropriate handler will be invoked. In the <a href="#polling-versus-webhooks">next section</a>, we'll discuss the pitfalls of polling and consider an alternative.</p>
+<p>The code <code>bot.py</code> file should now look like the code below. Once again, make sure to replace <code>YOUR-URL-HERE</code> with the URL of the API you created in the API tutorial.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">telegram.ext</span> <span class="kn">import</span> <span class="n">Updater</span><span class="p">,</span> <span class="n">CommandHandler</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;YOUR-URL-HERE/GET&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="c1"># requests data from API</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="c1"># converts return data to json</span>
+
+<span class="c1"># Retrieve values from API</span>
+<span class="n">curr_temp</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;curr_temp&#39;</span><span class="p">]</span>
+<span class="n">cad_rate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;usd_rates&#39;</span><span class="p">][</span><span class="s1">&#39;CAD&#39;</span><span class="p">]</span>
+<span class="n">eur_rate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;usd_rates&#39;</span><span class="p">][</span><span class="s1">&#39;EUR&#39;</span><span class="p">]</span>
+<span class="n">zar_rate</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;usd_rates&#39;</span><span class="p">][</span><span class="s1">&#39;ZAR&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">return_weather</span><span class="p">():</span>
+    <span class="k">return</span><span class="s1">&#39;Hello. The current temperature in Cape Town is: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">curr_temp</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; celsius.&quot;</span>
+
+<span class="k">def</span> <span class="nf">return_rates</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello. Today, USD conversion rates are as follows: USD-&gt;CAD = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">cad_rate</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;, USD-&gt;EUR = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">eur_rate</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;, USD-&gt;ZAR = &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">zar_rate</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">weather</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">chat_id</span><span class="o">=</span><span class="n">update</span><span class="o">.</span><span class="n">effective_chat</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">return_weather</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">currency</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">chat_id</span><span class="o">=</span><span class="n">update</span><span class="o">.</span><span class="n">effective_chat</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">return_rates</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">bot</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">chat_id</span><span class="o">=</span><span class="n">update</span><span class="o">.</span><span class="n">effective_chat</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hi! I respond to /weather and /currency. Try these!&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">TOKEN</span> <span class="o">=</span> <span class="s2">&quot;YOUR-BOT-TOKEN-HERE&quot;</span>
+    <span class="n">updater</span> <span class="o">=</span> <span class="n">Updater</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">TOKEN</span><span class="p">,</span> <span class="n">use_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">updater</span><span class="o">.</span><span class="n">dispatcher</span>
+
+    <span class="n">weather_handler</span> <span class="o">=</span> <span class="n">CommandHandler</span><span class="p">(</span><span class="s1">&#39;weather&#39;</span><span class="p">,</span> <span class="n">weather</span><span class="p">)</span>
+    <span class="n">currency_handler</span> <span class="o">=</span> <span class="n">CommandHandler</span><span class="p">(</span><span class="s1">&#39;currency&#39;</span><span class="p">,</span><span class="n">currency</span><span class="p">)</span>
+    <span class="n">start_handler</span> <span class="o">=</span> <span class="n">CommandHandler</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span><span class="n">start</span><span class="p">)</span>
+
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="n">weather_handler</span><span class="p">)</span>
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="n">currency_handler</span><span class="p">)</span>
+    <span class="n">dispatcher</span><span class="o">.</span><span class="n">add_handler</span><span class="p">(</span><span class="n">start_handler</span><span class="p">)</span>
+
+    <span class="n">updater</span><span class="o">.</span><span class="n">start_polling</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>Below is a conversation with a bot created using this program. Run <code>bot.py</code> and try it out yourself.</p>
+<p><img alt="conversation" src="../../assets/tutorials/create-and-host-telegram-bot/conversation.png" /></p>
+<p>We won't be able to send messages to our bot if this program isn't running, so hosting it on Code Capsules will allow us to interact with the bot without having to keep this code permanently running on our development PC.</p>
+<p>While we could deploy our bot to Code Capsules in its current state, there is a downside to our current implementation that we should remedy first.</p>
+<h2 id="polling-versus-webhooks">Polling versus Webhooks</h2>
+<p>There are two ways for our <code>bot.py</code> file to receive commands sent to it on Telegram. Currently, the code polls Telegram constantly, regardless of whether the bot is in use. If we hosted this current version on Code Capsules, we would be wasting bandwidth, as the vast majority of polls would return nothing.</p>
+<p>Instead of polling Telegram for changes, we can create a <a href="https://en.wikipedia.org/wiki/Webhook"><em>webhook</em></a>. This will allow us to receive commands as they are sent by Telegram users, without having to continuously ask Telegram servers for them.</p>
+<p>We'll set up a webhook by telling Telegram to send commands sent to our bot account to our bot's Code Capsules URL. Our dispatcher will then process the command using the appropriate handler and send back the requested information. </p>
+<h3 id="creating-a-webhook">Creating a webhook</h3>
+<p>To set up the webhook, replace the line <code>updater.start_polling()</code> in the <code>main</code> function with the code below:</p>
+<div class="highlight"><pre><span></span><code>    <span class="n">PORT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PORT&#39;</span><span class="p">,</span> <span class="s1">&#39;443&#39;</span><span class="p">))</span>
+    <span class="n">HOOK_URL</span> <span class="o">=</span> <span class="s1">&#39;YOUR-CODECAPSULES-URL-HERE&#39;</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">TOKEN</span>
+    <span class="n">updater</span><span class="o">.</span><span class="n">start_webhook</span><span class="p">(</span><span class="n">listen</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">PORT</span><span class="p">,</span> <span class="n">url_path</span><span class="o">=</span><span class="n">TOKEN</span><span class="p">,</span> <span class="n">webhook_url</span><span class="o">=</span><span class="n">HOOK_URL</span><span class="p">)</span>
+    <span class="n">updater</span><span class="o">.</span><span class="n">idle</span><span class="p">()</span>
+</code></pre></div>
+<p>Here we start a webhook that will listen on our Code Capsules URL at TCP port 443 and with the path of our token. Thus, Telegram will relay commands sent to our bot to the following URL:</p>
+<div class="highlight"><pre><span></span><code>https://YOUR-CODECAPSULES-SUBDOMAIN.codecapsules.io:443/TOKEN
+</code></pre></div>
+<p>If you've completed some of our other backend tutorials, you will be familiar with setting up web servers that receive <code>GET</code> and <code>POST</code> requests to different routes. You can think of a webhook as a very simple HTTP server that is intended to be used by bots and automated services rather than humans.</p>
+<h2 id="preparing-for-deployment">Preparing For Deployment</h2>
+<p>Before we push our code to GitHub and deploy it on Code Capsules, we need to make one small code change and create some files.</p>
+<h3 id="creating-an-api-key-environment-variable">Creating an API key environment variable</h3>
+<p>Because we'll push our code to GitHub, we need to hide our bot's authentication key. If we don't, anyone could use our authentication key and take control of our bot.</p>
+<p>Replace this line</p>
+<div class="highlight"><pre><span></span><code><span class="n">TOKEN</span> <span class="o">=</span> <span class="s2">&quot;YOUR-BOT-TOKEN-HERE&quot;</span>
+</code></pre></div>
+<p>with the below</p>
+<div class="highlight"><pre><span></span><code><span class="n">TOKEN</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;BOTAPIKEY&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><code>os.getenv('BOTAPIKEY')</code> will look for an <a href="https://medium.com/chingu/an-introduction-to-environment-variables-and-how-to-use-them-f602f66d15fa">environment variable</a> with the name "BOTAPIKEY". When we host our bot on Code Capsules, we'll set this environment variable to the key we received from the BotFather.</p>
+<p>With that done, we must now create some files before we can push our code to GitHub and deploy it on Code Capsules. </p>
+<h3 id="creating-a-procfile-and-requirementstxt">Creating a Procfile and requirements.txt</h3>
+<p>Code Capsules requires a couple of files to deploy our application: <code>Procfile</code> and <code>requirements.txt</code>. The first one tells Code Capsules how to run our application, and the second one tells it which libraries it needs to install.</p>
+<p>To create the <code>Procfile</code>:</p>
+<ol>
+<li>Navigate to the directory containing the <code>bot.py</code> file and enter the virtual environment.</li>
+<li>Create a file named <code>Procfile</code> (with no file extension).</li>
+<li>Open <code>Procfile</code>, enter <code>web: python3 bot.py</code>, and save the file.</li>
+</ol>
+<p>In the same directory, open a terminal and activate the virtual environment. Then enter <code>pip3 freeze &gt; requirements.txt</code> to generate a list of requirements for our Code Capsules server.</p>
+<p>Now we can push our code to GitHub. Create a GitHub repository and send the <code>requirements.txt</code>, <code>Procfile</code>, and <code>bot.py</code> files to the repository. </p>
+<h2 id="deploying-the-bot-to-code-capsules">Deploying the Bot to Code Capsules</h2>
+<p>With all of the files sent to GitHub, let's deploy the bot to Code Capsules:</p>
+<ol>
+<li>Log in to Code Capsules and create a Team and Space as necessary.</li>
+<li>Link Code Capsules to the GitHub repository created <a href="#creating-the-procfile-and-detailing-requirements">previously</a>.</li>
+<li>Enter your Code Capsules Space.</li>
+<li>Create a new Capsule, selecting the "Backend" capsule type.</li>
+<li>Select the GitHub repository containing the bot – leave "Repo subpath" empty and click "Next".</li>
+<li>Leave the "Run Command" blank and click "Create Capsule".</li>
+</ol>
+<p>We haven't supplied our webhook a URL yet, and we still need to create an environment variable for our bot's authorisation token. To create an environment variable:</p>
+<ol>
+<li>Navigate to your Capsule.</li>
+<li>Click the "Config" tab.</li>
+<li>Add an environment variable with the name "BOTAPIKEY" and give it your bot's API key as a value. Make sure to hit the "Update Capsule" button after adding the variable.</li>
+</ol>
+<p><img alt="env-var" src="../../assets/tutorials/create-and-host-telegram-bot/env_var.png" /></p>
+<p>Next, let's supply our webhook with the correct domain.</p>
+<ol>
+<li>Navigate to the "Overview" tab.</li>
+<li>Copy the domain found under "Domains".</li>
+<li>Open the <code>bot.py</code> file and find the line <code>HOOK_URL = 'YOUR-CODECAPSULES-URL-HERE' + '/' + TOKEN</code>.</li>
+<li>Replace "YOUR-CODECAPSULES_URL" with the domain just copied.</li>
+<li>Commit and push these changes to GitHub.</li>
+</ol>
+<p>After pushing these changes, the Capsule will rebuild. Once this is done, the bot is ready. Give it a try! </p>
+<h2 id="further-reading">Further Reading</h2>
+<p>We've covered a lot above, from creating a Telegram bot to the differences between webhooks and polling.</p>
+<p>If you're interested in learning more about what you can do with Telegram bots, check out <a href="https://core.telegram.org/bots">Telegram's bot developer introduction</a>. If you have some ideas but require a deeper understanding of the <code>python-telegram-bot</code> library, browse their <a href="https://github.com/python-telegram-bot/python-telegram-bot">GitHub repository</a>.</p>
+<p>You can find a thorough explanation of webhooks <a href="https://www.chargebee.com/blog/what-are-webhooks-explained/">in this blog post</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../build-a-web-file-store/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Web File Store" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Web File Store
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../creating-and-hosting-a-flask-api/" class="md-footer__link md-footer__link--next" aria-label="Next: Flask API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Flask API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

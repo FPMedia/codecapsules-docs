@@ -1,0 +1,2037 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Add a payment method to your web app using Stripe checkout and set up email subscriptions with Flask.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/stripe-checkout-and-email-with-flask/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Stripe Checkout and Email Subscription - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Stripe Checkout and Email Subscription" />
+      <meta name="twitter:description" content="Add a payment method to your web app using Stripe checkout and set up email subscriptions with Flask." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/stripe-checkout-and-email-with-flask/stripe-checkout-cover.jpg" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#adding-functionality-to-your-web-application-setting-up-stripe-checkout-and-email-subscription-with-flask-and-code-capsules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Stripe Checkout and Email Subscription
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Stripe Checkout and Email Subscription with Flask
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-well-cover" class="md-nav__link">
+    What We'll Cover
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-frontend" class="md-nav__link">
+    Setting Up the Frontend
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up the Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-the-early-access-text" class="md-nav__link">
+    Modifying the "Early access" text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-directory-restructuring" class="md-nav__link">
+    Project directory restructuring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-virtual-environment" class="md-nav__link">
+    Setting Up the Virtual Environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up the Virtual Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-requirements" class="md-nav__link">
+    Installing the requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-flask-application" class="md-nav__link">
+    Creating the Flask Application
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Flask Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing-up-for-mailgun" class="md-nav__link">
+    Signing up for Mailgun
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-the-subscribe-button" class="md-nav__link">
+    Implementing the Subscribe Button
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing the Subscribe Button">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subscribe-functionality-in-flask" class="md-nav__link">
+    Subscribe functionality in Flask
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-buy-now-with-stripe-checkout" class="md-nav__link">
+    Implementing "Buy Now" with Stripe Checkout
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing "Buy Now" with Stripe Checkout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-product" class="md-nav__link">
+    Creating a product
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-functionality-in-flask" class="md-nav__link">
+    Adding functionality in Flask
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buy-now-button-functionality-in-the-html-file" class="md-nav__link">
+    "Buy Now" button functionality in the HTML file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosting-the-application-on-code-capsules" class="md-nav__link">
+    Hosting the Application on Code Capsules
+  </a>
+  
+    <nav class="md-nav" aria-label="Hosting the Application on Code Capsules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-requirementstxt-file-and-procfile" class="md-nav__link">
+    Creating the "requirements.txt" file and procfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-secret-keys" class="md-nav__link">
+    Removing secret keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pushing-to-github-and-hosting-the-application-on-code-capsules" class="md-nav__link">
+    Pushing to GitHub and hosting the application on Code Capsules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-well-cover" class="md-nav__link">
+    What We'll Cover
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-frontend" class="md-nav__link">
+    Setting Up the Frontend
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up the Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifying-the-early-access-text" class="md-nav__link">
+    Modifying the "Early access" text
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-directory-restructuring" class="md-nav__link">
+    Project directory restructuring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-the-virtual-environment" class="md-nav__link">
+    Setting Up the Virtual Environment
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting Up the Virtual Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-requirements" class="md-nav__link">
+    Installing the requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-flask-application" class="md-nav__link">
+    Creating the Flask Application
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Flask Application">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signing-up-for-mailgun" class="md-nav__link">
+    Signing up for Mailgun
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-the-subscribe-button" class="md-nav__link">
+    Implementing the Subscribe Button
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing the Subscribe Button">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subscribe-functionality-in-flask" class="md-nav__link">
+    Subscribe functionality in Flask
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-buy-now-with-stripe-checkout" class="md-nav__link">
+    Implementing "Buy Now" with Stripe Checkout
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing "Buy Now" with Stripe Checkout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-product" class="md-nav__link">
+    Creating a product
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-functionality-in-flask" class="md-nav__link">
+    Adding functionality in Flask
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buy-now-button-functionality-in-the-html-file" class="md-nav__link">
+    "Buy Now" button functionality in the HTML file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosting-the-application-on-code-capsules" class="md-nav__link">
+    Hosting the Application on Code Capsules
+  </a>
+  
+    <nav class="md-nav" aria-label="Hosting the Application on Code Capsules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-requirementstxt-file-and-procfile" class="md-nav__link">
+    Creating the "requirements.txt" file and procfile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-secret-keys" class="md-nav__link">
+    Removing secret keys
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pushing-to-github-and-hosting-the-application-on-code-capsules" class="md-nav__link">
+    Pushing to GitHub and hosting the application on Code Capsules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="adding-functionality-to-your-web-application-setting-up-stripe-checkout-and-email-subscription-with-flask-and-code-capsules">Adding Functionality to Your Web Application: Setting up Stripe Checkout and Email Subscription with Flask and Code Capsules</h1>
+<p><img alt="Creating Flask API Cover" src="../../assets/tutorials/stripe-checkout-and-email-with-flask/stripe-checkout-cover.jpg" /></p>
+<h2 id="what-well-cover">What We'll Cover</h2>
+<p>Constructing a frontend for your web application is the first step towards providing an interactive user experience. The next step is building a working backend, or making your web application functional. Buttons are nice to have, but it's more interesting to have those buttons do something. That's what we'll focus on today.</p>
+<p>Through a step-by-step process, we'll develop this functionality. We'll use <a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a> and a frontend template to create a web application that allows users to buy products through <a href="https://stripe.com/payments/checkout">Stripe Checkout</a> (a tool for creating a "checkout" process for products) and subscribe to an email list with help from the <a href="https://www.mailgun.com/">Mailgun</a> email API service.</p>
+<p>Then, we'll host the web application on Code Capsules so people around the world can buy your product and subscribe to your mailing list.</p>
+<h2 id="requirements">Requirements</h2>
+<p>To successfully complete this project, we'll need:</p>
+<ul>
+<li>A text editor (like <a href="https://www.sublimetext.com">Sublime</a> or <a href="https://code.visualstudio.com/">VSCode</a>) installed.</li>
+<li><a href="https://www.python.org/downloads/">Python 3.XX+</a> installed.</li>
+<li><a href="https://pypi.org/project/virtualenv/">Virtualenv</a> installed.</li>
+<li><a href="https://git-scm.com/">Git</a> installed and a <a href="https://github.com/">GitHub</a> account.</li>
+<li>A <a href="https://codecapsules.io">Code Capsules</a> account.</li>
+</ul>
+<h2 id="setting-up-the-frontend">Setting Up the Frontend</h2>
+<p>We'll use the <a href="https://cruip.com/laurel/">Laurel</a> frontend template from https://cruip.com to add our functionality. This template is perfect for our project – there is already an email subscription box that just needs to be implemented and, with a few modifications, we'll implement a "Buy Now" button.</p>
+<p>After downloading the Laurel template:</p>
+<ol>
+<li>
+<p>Create a directory named <code>project</code>.</p>
+</li>
+<li>
+<p>Within the <code>project</code> directory, create a sub-directory named <code>templates</code>.</p>
+</li>
+<li>
+<p>Open the downloaded template and extract the files within the <code>laurel</code> directory into the <code>templates</code> subdirectory.</p>
+</li>
+</ol>
+<p>You can view the template by opening the <code>index.html</code> file in the <code>templates</code> subdirectory. We'll change the first "Early access" button to "Buy Now" and implement Stripe Checkout functionality for it.</p>
+<p>Then we'll change the second "Early access" button at the bottom of the template to "Subscribe", and implement the email subscription functionality for it.</p>
+<p>First, let's change the "Early access" button texts.</p>
+<h3 id="modifying-the-early-access-text">Modifying the "Early access" text</h3>
+<p>We'll start with changing the first "Early access" button to "Buy Now". Open the <code>index.html</code> file in a text editor.</p>
+<p>Find this line:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hero-cta&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Learn more<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-primary button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Early access<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Replace it with:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hero-cta&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Learn more<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;checkout-button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-primary button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Buy Now<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>As well as changing "Early access" to "Buy Now", we've added [SOMETHING?], and given it an ID with <code>id="checkout-button"</code>. This will be useful when implementing Stripe Checkout.</p>
+<p>Next, find this line:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-primary button-block button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Early access<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Replace "Early access" with "Subscribe".</p>
+<p>View the changes by saving the <code>index.html</code> file and re-opening it in a web browser. We have one more task before building our Flask backend.</p>
+<h3 id="project-directory-restructuring">Project directory restructuring</h3>
+<p>To make a functional web application out of our template, Flask requires a specific directory structure, so we will need to reorganise the <code>project</code> directory. To do this:</p>
+<ol>
+<li>
+<p>Create a new directory named <code>static</code> in the <code>project</code> directory.</p>
+</li>
+<li>
+<p>Navigate to the <code>templates</code> directory and then the <code>dist</code> directory.</p>
+</li>
+<li>
+<p>Copy all of the directories located in <code>dist</code> into the <code>static</code> directory that we created above.</p>
+</li>
+</ol>
+<p>Your <code>project</code> file structure should look like this:</p>
+<div class="highlight"><pre><span></span><code>project
+    static
+      css
+        + style.css
+      images
+        + iphone-mockup.png
+      js
+        + main.min.js
+    templates
+</code></pre></div>
+<p>This was necessary because Flask <strong>strictly</strong> serves CSS, JavaScript, and images from the <code>static</code> directory, and renders HTML files in the <code>templates</code> directory. Because we've moved our template's files around, we now need to edit our <code>index.html</code> file to point to their new locations.</p>
+<p>Flask uses the <a href="https://jinja.palletsprojects.com/en/2.11.x/templates/">Jinja</a> templating library to allow us to embed backend code in HTML. This code will be executed on the webserver before a given page is served to the user, allowing us to give that page dynamic functionality and make it responsive to user input.</p>
+<p>The first thing we will use Jinja templating for is to dynamically locate and load our <code>index.html</code> file's stylesheet. Open the <code>index.html</code> file in the <code>templates</code> folder and find this line:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;dist/css/style.css&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Replace the value of <code>href</code> with the string below.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{url_for(&#39;static&#39;,filename=&#39;css/style.css&#39;)}}&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>In Jinja, anything between <code>{{</code> and <code>}}</code> is server-side code that will be evaluated before the page is served to users, i.e. when it is <a href="https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/"><em>rendered</em></a>. In this way, we can include the output of Python functions and the values of Python variables in our HTML. Jinja syntax is similar to Python, but not identical.</p>
+<p>In the Jinja code above, we're calling the function <code>url_for()</code>, which asks Flask to find the location of our <code>style.css</code> file in our <code>static</code> directory.</p>
+<p>Speaking of Flask, we're almost ready to implement our functionality.</p>
+<h2 id="setting-up-the-virtual-environment">Setting Up the Virtual Environment</h2>
+<p>We'll create a <a href="https://docs.python.org/3/library/venv.html">virtual environment</a> for our project. The virtual environment will be useful later on when we host our web application on Code Capsules, as it will ensure that the Python libraries we use for development are installed in the Capsule.</p>
+<p>To create a virtual environment, navigate to the <code>project</code> directory in a terminal and enter <code>virtualenv env</code>.</p>
+<p>Activate the virtual environment with:</p>
+<p><strong>Linux/MacOSX</strong>: <code>source env/bin/activate</code></p>
+<p><strong>Windows</strong>: <code>\env\Scripts\activate.bat</code></p>
+<p>If the virtual environment has activated correctly, you'll notice <code>(env)</code> to the left of your name in the terminal. Keep this terminal open – we'll install the project requirements next.</p>
+<h3 id="installing-the-requirements">Installing the requirements</h3>
+<p>For our project, we'll use the following libraries:</p>
+<ul>
+<li>
+<p><a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a> is a lightweight Python web development framework.</p>
+</li>
+<li>
+<p><a href="https://gunicorn.org/">Gunicorn</a> is the <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">WSGI server</a> we'll use to host our application on Code Capsules.</p>
+</li>
+<li>
+<p><a href="https://pypi.org/project/requests/">Requests</a> is a Python library that allows us to send <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html">HTTP requests</a>.</p>
+</li>
+<li>
+<p><a href="https://pypi.org/project/stripe/">Stripe</a> is another Python library that will help us interact with the <a href="https://stripe.com/docs/api">Stripe API</a>.</p>
+</li>
+</ul>
+<p>Install these by entering the command below in the virtual environment.</p>
+<div class="highlight"><pre><span></span><code>pip3 install flask gunicorn requests stripe
+</code></pre></div>
+<p>Now we can build the backend for our web application.</p>
+<h2 id="creating-the-flask-application">Creating the Flask Application</h2>
+<p>In the <code>projects</code> folder, create a new file named <code>app.py</code>. This file will contain all of our Flask code.</p>
+<p>Open the <code>app.py</code> file in a text editor and enter the following:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">stripe</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   
+</code></pre></div>
+<p>We import the following functions from <code>flask</code>:</p>
+<ul>
+<li><code>Flask</code>, which provides the Flask application object.</li>
+<li><code>render_template()</code>, which will render our <code>index.html</code> file.</li>
+<li><code>request</code>, an object which contains any information sent to our web application – later this will be used to retrieve the email address entered in our subscription box. Be careful not to confuse this with the <code>requests</code> library.</li>
+</ul>
+<p>The <code>index</code> function has a <a href="https://flask.palletsprojects.com/en/1.1.x/api/#flask.Flask.route">route decorator</a> which causes it to execute when Flask receives an HTTP <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET"><code>GET</code></a> or <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST"><code>POST</code></a> request for the "/" URL, i.e. when someone navigates to the website's domain or IP address in a browser.</p>
+<p>When <code>render_template("index.html")</code> runs, Flask will look in the <code>templates</code> directory for a file named <code>index.html</code> and render it by executing its Jinja template code and serving the resulting HTML. To see this, run <code>app.py</code> with <code>flask run</code> in your terminal. Open the provided IP address in your browser – the web application should look like this:</p>
+<p><img alt="website initialise" src="../../assets/tutorials/stripe-checkout-and-email-with-flask/website_init.png" /></p>
+<p>Let's make this web application useful and implement the first bit of functionality – the email list feature.</p>
+<h3 id="signing-up-for-mailgun">Signing up for Mailgun</h3>
+<p>We'll use <a href="https://www.mailgun.com/">Mailgun</a> to handle our email subscriber list. Mailgun is free up to 5,000 emails per month. <a href="https://signup.mailgun.com/new/signup">Register with Mailgun</a> and continue.</p>
+<p>With an account registered, create a mailing list by doing the following:</p>
+<ol>
+<li>
+<p>Log in to Mailgun.</p>
+</li>
+<li>
+<p>Click "Sending" then "Mailing lists" on the dashboard.</p>
+<p><img alt="Mailing list" src="../../assets/tutorials/stripe-checkout-and-email-with-flask/mailing_lists.png" /></p>
+</li>
+<li>
+<p>At the top right, click "Create mailing list".</p>
+</li>
+<li>
+<p>Enter whatever you'd like for the address prefix, name, and description – leave everything else default.</p>
+</li>
+<li>
+<p>Click "Add mailing list".</p>
+</li>
+</ol>
+<p>Navigate to the mailing list we just created. You'll see something called an <em>alias address</em> – Mailgun provides every new mailing list with one. When you send an email to your alias address, Mailgun sends a copy of the email to everyone who is subscribed to your mailing list. Jot down your alias address, we'll use it soon.</p>
+<p>Next, you'll need to retrieve the <a href="https://cloud.google.com/endpoints/docs/openapi/when-why-api-key">API key</a> for your Mailgun account. We'll use this API key in our web application to validate your Mailgun account when people subscribe to your mailing list.</p>
+<p>Find the API key by clicking on your account at the top right of the screen. Click "API keys", and make a note of your <strong>private</strong> API key.</p>
+<h2 id="implementing-the-subscribe-button">Implementing the Subscribe Button</h2>
+<p>With the mailing list created, we can implement the subscribe button.</p>
+<p>Re-open the <code>index.html</code> file. At the bottom of the file, find the line:</p>
+<div class="highlight"><pre><span></span><code> <span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;newsletter section&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>From the above line down to its corresponding <code>&lt;/section&gt;</code> tag, replace all of the markup with the following:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;newsletter section&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-sm&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;newsletter-inner section-inner&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;newsletter-header text-center&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;section-title mt-0&quot;</span><span class="p">&gt;</span>Stay in the know<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;section-paragraph&quot;</span><span class="p">&gt;</span>Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;footer-form newsletter-form field field-grouped&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control control-expanded&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Your best email&amp;hellip;&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-primary button-block button-shadow&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Subscribe<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>The important part of this HTML for our functionality is the <code>form</code> tag. Let's take a closer look at it.</p>
+<div class="highlight"><pre><span></span><code>      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;footer-form newsletter-form field field-grouped&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control control-expanded&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Your best email&amp;hellip;&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-primary button-block button-shadow&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Subscribe<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>This contains one <code>input</code>, for the user's email address, and a <code>button</code> for submitting that email address. When the user clicks on the button, an HTTP request will be sent from their browser to our Flask backend, containing the email address. As per the <code>method</code> attribute of the <code>form</code> tag, this will be a [POST request.</p>
+<p>Recall that the Python code we entered in the last section provided for both <code>GET</code> and <code>POST</code> HTTP requests. As submitting this form will also send a request to "/", we can differentiate between a user browsing to our website (<code>GET</code>) and subscribing to our mailing list (<code>POST</code>) by looking at the HTTP method. We'll do that in the next section.</p>
+<h3 id="subscribe-functionality-in-flask">Subscribe functionality in Flask</h3>
+<p>Return to the <code>app.py</code>  file. Find this line:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">methods</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+</code></pre></div>
+<p>Just above it, enter this code:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">user_email</span><span class="p">,</span> <span class="n">email_list</span><span class="p">,</span> <span class="n">api_key</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/lists/&quot;</span><span class="o">+</span><span class="n">email_list</span><span class="o">+</span><span class="s2">&quot;/members&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;api&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;subscribed&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+              <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="n">user_email</span><span class="p">,})</span>
+</code></pre></div>
+<p>This function is called when a user clicks the "Subscribe" button. It takes three arguments:</p>
+<ul>
+<li>
+<p><code>user_email</code>: The email the user has entered.</p>
+</li>
+<li>
+<p><code>email_list</code>: Your Mailgun alias address.</p>
+</li>
+<li>
+<p><code>api_key</code>: Your Mailgun secret API key.</p>
+</li>
+</ul>
+<p>The real logic is contained in the <code>return</code> line. Here, we use <code>requests.post()</code> to add the <code>user_email</code> to our <code>email_list</code>, by sending (or "posting") all of the values in <code>data</code> to Mailgun's <a href="https://documentation.mailgun.com/en/latest/api_reference.html">email list API</a>.</p>
+<p>Next, modify the current <code>index()</code> function like below, replacing <code>MAILGUN_ALIAS</code> and <code>YOUR-MAILGUN-PRIVATE-KEY</code> with the email alias and private API key we previously retrieved:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">methods</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+  <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+    <span class="n">user_email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">user_email</span><span class="p">,</span>
+      <span class="s1">&#39;MAILGUN_ALIAS&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;YOUR-MAILGUN-PRIVATE-KEY&#39;</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>In the <a href="#implementing-the-subscribe-button">previous section</a>, we added the <code>POST</code> method to the subscribe button. We will therefor know when someone has clicked the subscribe button with the line:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+</code></pre></div>
+<p>If they've clicked the subscribe button, we obtain the email they entered by referencing the relevant <code>input</code> field's <code>name</code> attribute in <code>request.form.get</code>, and adding the email to the mailing list our <code>subscribe</code> method.</p>
+<p>Try it out: enter an email address and hit "Subscribe". Navigate back to the "Mailing lists" tab on Mailgun and click on the list we created. You will find the email address you just submitted under "Recipients".</p>
+<p>All that's left is to add functionality to our "Buy Now" button.</p>
+<h2 id="implementing-buy-now-with-stripe-checkout">Implementing "Buy Now" with Stripe Checkout</h2>
+<p>Stripe Checkout allows business owners to accept payments on their web applications. Let's <a href="https://dashboard.stripe.com/register">create an account</a>. After creating an account, log in and find your API keys by clicking "Developers" then "API keys" on the dashboard.</p>
+<p><img alt="stripe-dashboard" src="../../assets/tutorials/stripe-checkout-and-email-with-flask/stripe_dashboard.png" /></p>
+<p>Here we'll see two API keys – a <em>publishable</em> API key, and a <em>secret</em> API key. You can think of these as a username and password. Stripe uses the publishable API key to identify your account, and the secret API key to ensure it's really you using it.</p>
+<p>Open the <code>app.py</code> file. Above the subscribe function, add the following lines, replacing <code>YOUR PUBLISHABLE KEY HERE</code> and <code>YOUR SECRET KEY HERE</code> appropriately:</p>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_PUBLISH_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;YOUR PUBLISHABLE KEY HERE&#39;</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_SECRET_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;YOUR SECRET KEY HERE&#39;</span>
+<span class="n">stripe</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_SECRET_KEY&#39;</span><span class="p">]</span>
+</code></pre></div>
+<p>In thid code, we place the two Stripe keys in our Flask app's configuration settings for ease of access, then set our Stripe secret API key.</p>
+<p>These are test API keys that we'll use to check out our product. With these keys, no charges will be incurred when making payments. However, before we can make a payment, we need a product, so let's create one. Return to Stripe, log in, and navigate to the "Products" tab on the dashboard.</p>
+<h3 id="creating-a-product">Creating a product</h3>
+<p>Create a product by doing the following:</p>
+<ol>
+<li>Click "Add product" on the top right.</li>
+<li>Name the product.</li>
+<li>Add a description and price.</li>
+<li>Choose "One time" payment.</li>
+<li>Click "Save product"</li>
+</ol>
+<p>After the last step, save the API key found in the "Pricing" section. We'll use this API key to tell Stripe which product we want our customers to pay for.</p>
+<h3 id="adding-functionality-in-flask">Adding functionality in Flask</h3>
+<p>Time to create the "Buy Now" button logic. Open <code>app.py</code> again and modify the index function accordingly. Replace "YOUR-PRICE-API-KEY" with the API key for your product, that we saved in the previous section.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+  <span class="n">session</span> <span class="o">=</span> <span class="n">stripe</span><span class="o">.</span><span class="n">checkout</span><span class="o">.</span><span class="n">Session</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">payment_method_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;card&#39;</span><span class="p">],</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;payment&#39;</span><span class="p">,</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;https://example.com/success&#39;</span><span class="p">,</span>
+    <span class="n">cancel_url</span> <span class="o">=</span> <span class="s1">&#39;https://example.com/cancel&#39;</span><span class="p">,</span>
+    <span class="n">line_items</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;price&#39;</span><span class="p">:</span><span class="s1">&#39;YOUR-PRICE-API-KEY&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;quantity&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">}]</span>
+    <span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+    <span class="n">user_email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">user_email</span><span class="p">,</span>
+      <span class="s1">&#39;MAILGUN_ALIAS&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;YOUR-MAILGUN-PRIVATE-KEY&#39;</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+    <span class="n">checkout_id</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+    <span class="n">checkout_pk</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_PK&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>We use the <code>stripe</code> library to create a new "Session" object. This object contains multiple variables affecting how our customers interact with the "Buy Now" button. For more information on these variables, see Stripe's <a href="https://stripe.com/docs/api/checkout/sessions/object">documentation</a>.</p>
+<p>We also return two new variables – <code>checkout_id</code> and <code>checkout_pk</code>. <code>checkout_id</code>, which we get from Stripe, stores information about the potential purchase (price, payment type, etc). <code>checkout_pk</code> stores our private API key, which we added to the Flask app's configuration settings above. When a customer buys our product, their money is sent to the account associated with this private API key.</p>
+<p>Let's see how our HTML will use these new variables and redirect us to the Stripe Checkout page.</p>
+<h3 id="buy-now-button-functionality-in-the-html-file">"Buy Now" button functionality in the HTML file</h3>
+<p>With our Flask logic finished, we can implement the "Buy Now" button functionality in our <code>index.html</code> file. Open the <code>index.html</code> and find this section:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hero-copy&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hero-title mt-0&quot;</span><span class="p">&gt;</span>Landing template for startups<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hero-paragraph&quot;</span><span class="p">&gt;</span>Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hero-cta&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Learn more<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;checkout-button&#39;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button button-primary button-shadow&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Buy Now<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Directly below the <code>&lt;/div&gt;</code> line, add:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://js.stripe.com/v3/&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">const</span> <span class="nx">checkout_pk</span><span class="o">=</span> <span class="s1">&#39;{{checkout_pk}}&#39;</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">checkout_id</span> <span class="o">=</span> <span class="s1">&#39;{{checkout_id}}&#39;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">stripe</span> <span class="o">=</span> <span class="nx">Stripe</span><span class="p">(</span><span class="nx">checkout_pk</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">button</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#checkout-button&#39;</span><span class="p">)</span>
+
+  <span class="nx">button</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">event</span> <span class="p">=&gt;{</span>
+    <span class="nx">stripe</span><span class="p">.</span><span class="nx">redirectToCheckout</span><span class="p">({</span>
+        <span class="nx">sessionId</span><span class="o">:</span> <span class="nx">checkout_id</span>
+      <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">){</span>
+
+        <span class="p">});</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>This code adds a JavaScript event which will trigger when the customer clicks the "Buy Now" button, and will redirect them to the Stripe Checkout page. The Stripe Checkout page changes according to the information stored in <code>checkout_id</code>.</p>
+<p>Also, take a look at the Jinja code in these lines:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">checkout_pk</span><span class="o">=</span> <span class="s1">&#39;{{checkout_pk}}&#39;</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">checkout_id</span> <span class="o">=</span> <span class="s1">&#39;{{checkout_id}}&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>When the <code>index.html</code> template is rendered before being served to the user, Flask will substitute in the current values of the Python variables that we passed to <code>render_template()</code>. While <code>checkout_pk</code> will remain the same throughout, <code>checkout_id</code> will be unique for each purchase.</p>
+<p>The "Buy Now" button is good to go – run <code>app.py</code> again. Try making a payment using the <a href="https://stripe.com/docs/testing">test credit card number</a> <code>4242 4242 4242 4242</code> with any name, expiration date, and security code. No charges will be incurred.</p>
+<h2 id="hosting-the-application-on-code-capsules">Hosting the Application on Code Capsules</h2>
+<p>Now that we've added all the functionality, we need to create some files that Code Capsules will use when hosting our application. We'll also take a look at a security problem  in our current application, and how to fix it before we go live.</p>
+<h3 id="creating-the-requirementstxt-file-and-procfile">Creating the "requirements.txt" file and procfile</h3>
+<p>To host this application on Code Capsules, we need to create a <code>requirements.txt</code> file and a <code>Procfile</code>.</p>
+<ol>
+<li>
+<p>In the <code>project</code> directory, ensure the virtual environment is activated and then enter <code>pip3 freeze &gt; requirements.txt</code>.</p>
+</li>
+<li>
+<p>Create another file named <code>Procfile</code>, containg the line <code>web: gunicorn app:app</code>.</p>
+</li>
+</ol>
+<p>With the <code>requirements.txt</code> file, Code Capsules will now know what libraries to install to run the application. The <code>Procfile</code> tells Code Capsules to use the <code>gunicorn</code> WSGI server to serve HTML rendered by Flask to end-users.</p>
+<p>Now we can fix that security problem mentioned before, and host the application.</p>
+<h3 id="removing-secret-keys">Removing secret keys</h3>
+<p>We need to send our application to GitHub so Code Capsules can host it. But currently this project's code contains all of our API keys. It is considered <strong>very</strong> poor practice to send personal API keys to GitHub, especially public repositories. Anyone could find them and incur charges on your debit card. Luckily, there is a workaround.</p>
+<p>By working with <a href="https://opensource.com/article/19/8/what-are-environment-variables">environment variables</a>, we can use our API keys on Code Capsules without exposing them on GitHub. We will alter our application to retrieve our API keys from environment variables, which we will set on Code Capsules.</p>
+<p>To do this, change the code at the top of <code>app.py</code> as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">stripe</span><span class="o">,</span> <span class="nn">os</span>
+
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_PK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STRIPE_PK&quot;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_SK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STRIPE_SK&quot;</span><span class="p">)</span>
+<span class="n">stripe</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_SK&#39;</span><span class="p">]</span>
+</code></pre></div>
+<p>Notice that we've imported a new Python module, <a href="https://docs.python.org/3/library/os.html">os</a>, which allows us to retrieve with environment variables using the <code>os.getenv()</code> method.</p>
+<p>We've now done this with our Stripe publishable and secret API keys and our Mailgun secret key. On Code Capsules, we'll set environment variables named <code>'STRIPE_PK'</code>, <code>'STRIPE_SK'</code>, and <code>'MAILGUN_SK'</code>. This way, our API keys do not have to be stored on GitHub and will remain secret. Notice, we aren't adding environment variables for the Stripe product API key. This doesn't contain any sensitive information. It just displays a product's price.</p>
+<p>Your final <code>app.py</code> code should look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">stripe</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_PK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STRIPE_PK&quot;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_SK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STRIPE_SK&quot;</span><span class="p">)</span>
+<span class="n">stripe</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_SK&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">subscribe</span><span class="p">(</span><span class="n">user_email</span><span class="p">,</span> <span class="n">email_list</span><span class="p">,</span> <span class="n">api_key</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/lists/&quot;</span><span class="o">+</span><span class="n">email_list</span><span class="o">+</span><span class="s2">&quot;/members&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;api&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;subscribed&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+              <span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="n">user_email</span><span class="p">,})</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+
+  <span class="n">session</span> <span class="o">=</span> <span class="n">stripe</span><span class="o">.</span><span class="n">checkout</span><span class="o">.</span><span class="n">Session</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">payment_method_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;card&#39;</span><span class="p">],</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;payment&#39;</span><span class="p">,</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;https://example.com/success&#39;</span><span class="p">,</span>
+    <span class="n">cancel_url</span> <span class="o">=</span> <span class="s1">&#39;https://example.com/cancel&#39;</span><span class="p">,</span>
+    <span class="n">line_items</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;price&#39;</span><span class="p">:</span><span class="s1">&#39;YOUR-PRICE-API-KEY&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;quantity&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">}]</span>
+    <span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+    <span class="n">user_email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">subscribe</span><span class="p">(</span><span class="n">user_email</span><span class="p">,</span>
+      <span class="s1">&#39;MAILGUN_ALIAS&#39;</span><span class="p">,</span>
+      <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MAILGUN_SK&quot;</span><span class="p">))</span>
+
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+    <span class="n">checkout_id</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+    <span class="n">checkout_pk</span><span class="o">=</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;STRIPE_PK&#39;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   
+</code></pre></div>
+<p>We can now safely host our application.</p>
+<h3 id="pushing-to-github-and-hosting-the-application-on-code-capsules">Pushing to GitHub and hosting the application on Code Capsules</h3>
+<p>Before we create the Capsule that will host our code, take the following steps:</p>
+<ol>
+<li>Create a GitHub repository for the application.</li>
+<li>Send all code within the <code>project</code> directory to the repository on GitHub.</li>
+<li>Log in to <a href="https://codecapsules.io">Code Capsules</a>.</li>
+<li>Grant Code Capsules access to the repository.</li>
+<li>Create a Team and Space as necessary.</li>
+</ol>
+<p>Now let's create the Capsule:</p>
+<ol>
+<li>Click "Create A New Capsule".</li>
+<li>Select your repository.</li>
+<li>Choose the Backend Capsule type.</li>
+<li>Create the Capsule.</li>
+</ol>
+<p>All that's left is to set the environment variables. Navigate to the Capsule and click on the "Config" tab. Use the image below as a guide to properly add your environment variables. Replace each value with the appropriate API key.</p>
+<p><img alt="environment-variables" src="../../assets/tutorials/stripe-checkout-and-email-with-flask/enviro_vars.png" /></p>
+<p>After entering the API keys, <strong>make sure to click "Update"</strong>.</p>
+<p>All done – now anyone can view the web application and interact with the "Buy Now" and "Subscribe" buttons.</p>
+<h2 id="further-reading">Further Reading</h2>
+<p>We covered a lot in this tutorial: how to use Flask to implement functionality for frontend code, how to set up an email subscriber list, and how to work with Stripe.</p>
+<p>Earlier I mentioned more information on the <code>url_for()</code> function. Check out <a href="https://flask.palletsprojects.com/en/1.1.x/api/#flask.url_for">Flask's documentation</a> for more information.</p>
+<p>For further information on how Jinja templates work and what can be done with them, check out this link to learn more about <a href="https://realpython.com/primer-on-jinja-templating/">Flask templating and Jinja2</a>.</p>
+<p>Now that you have a functional email subscriber list, you may be interested in <a href="https://documentation.mailgun.com/en/latest/user_manual.html?highlight=template%20variables#sending-messages">sending emails to your list</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../host-a-frontend/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Front-end Portfolio" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Front-end Portfolio
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../FAQ/teams-spaces-capsules/" class="md-footer__link md-footer__link--next" aria-label="Next: Teams, Spaces and Capsules" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Teams, Spaces and Capsules
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

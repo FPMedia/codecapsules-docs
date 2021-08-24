@@ -1,0 +1,1756 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build and personalize your portfolio to showcase your skills in a unique way. Take a look at how to deploy the end product to Code Capsules.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/host-a-frontend/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Build and Deploy Portfolio - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Build and Deploy Portfolio" />
+      <meta name="twitter:description" content="Build and personalize your portfolio to showcase your skills in a unique way. Take a look at how to deploy the end product to Code Capsules." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/host-a-frontend/portfolio-1.jpg" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hosting-a-front-end-building-and-deploying-your-portfolio-to-code-capsules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Build and Deploy Portfolio
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-1/" class="md-nav__link">
+        Persistent Sleep Tracker Part 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Front-end Portfolio
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Front-end Portfolio
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-prerequisite-knowledge" class="md-nav__link">
+    Requirements &amp; Prerequisite Knowledge
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-portfolio" class="md-nav__link">
+    Creating a Portfolio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personalizing-the-template" class="md-nav__link">
+    Personalizing the Template
+  </a>
+  
+    <nav class="md-nav" aria-label="Personalizing the Template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#removing-the-tabs-dates-and-links" class="md-nav__link">
+    Removing the tabs, dates, and links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-unnecessary-content-and-further-personalisation" class="md-nav__link">
+    Removing unnecessary content and further personalisation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#personalising-portfolio-pieces" class="md-nav__link">
+    Personalising portfolio pieces
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-to-github" class="md-nav__link">
+    Uploading to GitHub
+  </a>
+  
+    <nav class="md-nav" aria-label="Uploading to GitHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-remote-repository" class="md-nav__link">
+    Creating the remote repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-files-to-the-github-repository" class="md-nav__link">
+    Sending files to the GitHub repository
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-to-code-capsules" class="md-nav__link">
+    Deploying to Code Capsules
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying to Code Capsules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linking-the-repository" class="md-nav__link">
+    Linking the repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-capsule-and-viewing-the-portfolio" class="md-nav__link">
+    Creating Capsule, and viewing the portfolio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-and-further-reading" class="md-nav__link">
+    Conclusion and Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements-prerequisite-knowledge" class="md-nav__link">
+    Requirements &amp; Prerequisite Knowledge
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-portfolio" class="md-nav__link">
+    Creating a Portfolio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#personalizing-the-template" class="md-nav__link">
+    Personalizing the Template
+  </a>
+  
+    <nav class="md-nav" aria-label="Personalizing the Template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#removing-the-tabs-dates-and-links" class="md-nav__link">
+    Removing the tabs, dates, and links
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-unnecessary-content-and-further-personalisation" class="md-nav__link">
+    Removing unnecessary content and further personalisation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#personalising-portfolio-pieces" class="md-nav__link">
+    Personalising portfolio pieces
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-to-github" class="md-nav__link">
+    Uploading to GitHub
+  </a>
+  
+    <nav class="md-nav" aria-label="Uploading to GitHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-remote-repository" class="md-nav__link">
+    Creating the remote repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-files-to-the-github-repository" class="md-nav__link">
+    Sending files to the GitHub repository
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-to-code-capsules" class="md-nav__link">
+    Deploying to Code Capsules
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploying to Code Capsules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linking-the-repository" class="md-nav__link">
+    Linking the repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-capsule-and-viewing-the-portfolio" class="md-nav__link">
+    Creating Capsule, and viewing the portfolio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion-and-further-reading" class="md-nav__link">
+    Conclusion and Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="hosting-a-front-end-building-and-deploying-your-portfolio-to-code-capsules">Hosting a Front-end: Building and Deploying Your Portfolio to Code Capsules</h1>
+<p><img alt="Portfolio Cover Image" src="../../assets/tutorials/host-a-frontend/portfolio-1.jpg" /></p>
+<p>Publishing your portfolio online requires a solid technical background – managing servers can be challenging. You need to choose a server's operating system, maintain and update the server, and figure out where to host the server itself. </p>
+<p>In this tutorial, we'll work with an alternative to the traditional method of hosting a front-end (content that visitors see when they load your website), called <a href="https://codecapsules.io">Code Capsules</a>. Code Capsules is a service that hosts front-end (and back-end) code online. Furthermore, Code Capsules:</p>
+<ul>
+<li>Manages all of the technical details – no server management required. </li>
+<li>Integrates with GitHub to deploy your code with a single <code>git push</code>.</li>
+</ul>
+<p>First, we'll take a look at choosing a portfolio template and personalising it. After, we'll push the portfolio to a GitHub repository and see how Code Capsules connects to GitHub and makes your portfolio visible to the world. </p>
+<h2 id="requirements-prerequisite-knowledge">Requirements &amp; Prerequisite Knowledge</h2>
+<p>Hosting a portfolio on Code Capsules requires no previous knowledge about servers or front-end development. To personalise a portfolio template and deploy it to Code Capsules, we'll need:</p>
+<ul>
+<li>A text editor, such as <a href="https://www.sublimetext.com/">Sublime Text</a>, or <a href="https://code.visualstudio.com/">VSCode</a>. </li>
+<li>A registered <a href="https://www.github.com">GitHub</a> account.</li>
+<li>The <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git command-line interface</a> installed. </li>
+</ul>
+<h2 id="creating-a-portfolio">Creating a Portfolio</h2>
+<p><a href="https://www.html5up.net">HTML5 UP</a> provides HTML site templates for free. We'll use the <a href="https://html5up.net/massively">Massively</a> template – an easy to modify and elegant HTML template.</p>
+<p>Follow these instructions <em>carefully</em>:</p>
+<ol>
+<li>Download the Massively template.</li>
+<li>Create a directory somewhere on your computer, then enter it.</li>
+<li><strong>Within this directory, create <em>another</em> directory, and extract the Massively template files into it</strong>.</li>
+</ol>
+<p>This last step is necessary for hosting a web-page on Code Capsules. The file structure should look something like this:</p>
+<div class="highlight"><pre><span></span><code>myPortfolio  
+    portFolder 
+        + assets
+        + images
+        + generic.html
+        + elements.html
+        + index.html
+</code></pre></div>
+<p>The <code>index.html</code> file contains all of the HTML code for our portfolio – any changes to this code will result in a change to the portfolio. To view changes you make as we begin to modify the template, double click the <code>index.html</code> file to open the portfolio in a web-browser.</p>
+<h2 id="personalizing-the-template">Personalizing the Template</h2>
+<p>This tutorial will following the creation of a portfolio for Abraham Lincoln – the 16th president of the USA. We'll take a closer look at some things Abraham Lincoln wouldn't want in a portfolio – and maybe you too. The next few sections will cover how to modify the following elements of the portfolio template:</p>
+<ul>
+<li>Any not personalized text.</li>
+<li>The "Generic Page" and "Elements Reference" tabs.</li>
+<li>Pagination.</li>
+<li>The email contact form.</li>
+<li>Personal information (address, social media account).</li>
+</ul>
+<p>Let's start with the title and subheading of the portfolio. Open the index.html file in your text editor. You'll see the following block of HTML near the top of the file:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Massively by HTML5 UP<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1, user-scalable=no&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;assets/css/main.css&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">noscript</span><span class="p">&gt;&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;assets/css/noscript.css&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">noscript</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Change the text within the <code>&lt;title&gt;</code> tags to whatever you'd like, such as: "Abraham Lincoln". This is what will appear in search engines and browser tabs.</p>
+<p>Now we'll change the text that displays at the top of the portfolio. Scroll down in your text editor, until you see the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="c">&lt;!-- Intro --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;intro&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This is<span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+        Massively<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>A free, fully responsive HTML5 + CSS3 site template designed by <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://twitter.com/ajlkn&quot;</span><span class="p">&gt;</span>@ajlkn<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> for <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://html5up.net&quot;</span><span class="p">&gt;</span>HTML5 UP<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+        and released for free under the <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://html5up.net/license&quot;</span><span class="p">&gt;</span>Creative Commons license<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;actions&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#header&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button icon solid solo fa-arrow-down scrolly&quot;</span><span class="p">&gt;</span>Continue<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Header --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">header</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;header&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;logo&quot;</span><span class="p">&gt;</span>Massively<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+</code></pre></div>
+<ol>
+<li>
+<p>Customise the words wrapped in the <code>&lt;h1&gt;...&lt;/h1&gt;</code> tags – this is the large text that displays at the top of the portfolio. </p>
+</li>
+<li>
+<p>Change the text within the <code>&lt;p&gt;...&lt;/p&gt;</code> tags to edit the subheading of the portfolio – the <code>&lt;br /&gt;</code> tags and the <code>&lt;a&gt;...&lt;/a&gt;</code> tags are safe to delete.</p>
+</li>
+<li>
+<p>Delete the "Massively" button that appears as you scroll down the portfolio by deleting the three lines under the <code>&lt;!-- Header --&gt;</code> text wrapped in <code>&lt;header&gt;...&lt;/header&gt;</code> tags.</p>
+</li>
+</ol>
+<p>Save the file and open it in a web browser. Our portfolio should now look something like this: </p>
+<p><img alt="image2" src="../../assets/tutorials/host-a-frontend/Image2.png" /></p>
+<p>Next, we'll take a look at deleting the date entries above each portfolio piece, removing the "Generic Page" and "Elements Reference" tabs, and modifying the social media links. </p>
+<h3 id="removing-the-tabs-dates-and-links">Removing the tabs, dates, and links</h3>
+<p>The default layout for Massively is designed for a blog or news website containing articles. To look like a portfolio, we should delete the dates above each article entry. Do so by locating and deleting all lines beginning with <code>&lt;span class="date"...&gt;</code>.</p>
+<p>To make this a single-page portfolio, we can delete the "Generic Page" and "Elements Reference" tabs by finding:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;index.html&quot;</span><span class="p">&gt;</span>This is Massively<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;generic.html&quot;</span><span class="p">&gt;</span>Generic Page<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;elements.html&quot;</span><span class="p">&gt;</span>Elements Reference<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>and deleting the last two lines. While we're at it, alter the title of the main tab by changing the "This is Massively" text.</p>
+<p>The code for social media accounts is located at the top and bottom of the index.html file. Starting at the top, find this block of code:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icons&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon brands fa-twitter&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label&quot;</span><span class="p">&gt;</span>Twitter<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon brands fa-facebook-f&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label&quot;</span><span class="p">&gt;</span>Facebook<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon brands fa-instagram&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label&quot;</span><span class="p">&gt;</span>Instagram<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon brands fa-github&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label&quot;</span><span class="p">&gt;</span>GitHub<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>Delete any social media account you don't need – Abraham Lincoln doesn't have Instagram, so he would delete the following line to remove the Instagram link: </p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon brands fa-instagram&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label&quot;</span><span class="p">&gt;</span>Instagram<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>If you'd like to link your social media accounts, enter the account link in place of the <code>#</code> in <code>href="#"</code>. For example, to link Abraham Lincoln's Twitter account, you'd edit the Twitter line like so: </p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://twitter.com/Abe_Lincoln&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon brands fa-twitter&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;label&quot;</span><span class="p">&gt;</span>Twitter<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>The social media code at the bottom of the <code>index.html</code> is nearly identical – follow this same process to edit the code at the bottom. </p>
+<h3 id="removing-unnecessary-content-and-further-personalisation">Removing unnecessary content and further personalisation</h3>
+<p>In this section we'll:</p>
+<ul>
+<li>
+<p>Remove the contact form</p>
+</li>
+<li>
+<p>Remove pagination
+    <img alt="pagination" src="../../assets/tutorials/host-a-frontend/pagination.png" /></p>
+</li>
+<li>
+<p>Update or remove contact information</p>
+</li>
+</ul>
+<p>1.Remove the contact form found at the bottom of the portfolio by deleting the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fields&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;field&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;field&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>Email<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;field&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;message&quot;</span><span class="p">&gt;</span>Message<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;message&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;message&quot;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&quot;3&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;actions&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Send Message&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>2.Remove pagination by deleting:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;pagination&quot;</span><span class="p">&gt;</span>
+      <span class="c">&lt;!--&lt;a href=&quot;#&quot; class=&quot;previous&quot;&gt;Prev&lt;/a&gt;--&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page active&quot;</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page&quot;</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page&quot;</span><span class="p">&gt;</span>3<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;extra&quot;</span><span class="p">&gt;</span><span class="ni">&amp;hellip;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page&quot;</span><span class="p">&gt;</span>8<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page&quot;</span><span class="p">&gt;</span>9<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;page&quot;</span><span class="p">&gt;</span>10<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;next&quot;</span><span class="p">&gt;</span>Next<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>3.To delete specific contact information sections (the address section is shown below), delete the <code>&lt;section&gt;</code> tag, the information you want to delete, and the corresponding <code>&lt;/section&gt;</code> tag. </p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;alt&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Address<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>1234 Somewhere Road #87257<span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+    Nashville, TN 00000-0000<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>If you'd like to personalise your contact information instead, edit the text within the <code>&lt;h3&gt;...&lt;/h3&gt;</code> tags and the <code>&lt;p&gt;...&lt;/p&gt;</code> tags.</p>
+<h3 id="personalising-portfolio-pieces">Personalising portfolio pieces</h3>
+<p>Our portfolio is almost complete – we just need to personalise the actual portfolio pieces – customising the images, button links, and other text. Let's start with the images.</p>
+<p>Gather any images you'd like to replace with the default images. Then, place your images in the <code>images</code> directory, located in the same directory as the <code>index.html</code> file.</p>
+<p>You can swap images by finding lines wrapped in <code>&lt;img.../&gt;</code> tags, like the below line.</p>
+<p><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;images/pic01.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+<code>images</code> is the name of the directory where you placed your image. To change the image, replace the text "pic01.jpg" with the <strong>name and file extension</strong> of your desired image.</p>
+<p>Once we've replaced the images, we should change the text for each portfolio entry. Find code blocks wrapped in <code>&lt;article&gt;...&lt;/article&gt;</code> tags, such as: </p>
+<p><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">article</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Sed magna<span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+        ipsum faucibus<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;image fit&quot;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;images/pic02.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;actions special&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>Full Story<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
+</code></pre></div>
+You can:</p>
+<ul>
+<li>Change the entry's title by editing the text within the <code>&lt;h2&gt;...&lt;/h2&gt;</code> tags. </li>
+<li>Personalise the entry text by editing the Latin wrapped in the <code>&lt;p&gt;...&lt;/p&gt;</code> tags.</li>
+<li>Customise buttons by finding the <code>&lt;li&gt;&lt;a href="#" class="button"&gt;Full Story&lt;/a&gt;&lt;/li&gt;</code> lines and replacing the "#" with a link to your portfolio piece.</li>
+<li>Replace "Full Story" text with something more appropriate.</li>
+</ul>
+<p>If you would like to remove a portfolio piece, delete the <code>&lt;article&gt;...&lt;/article&gt;</code> tags and all the text wrapped in the tags.</p>
+<p>Once finished with the portfolio, we need to push it to GitHub. After, the portfolio can be deployed to Code Capsules, making the portfolio publicly viewable. </p>
+<h2 id="uploading-to-github">Uploading to GitHub</h2>
+<p>If you already know how to push code from a local repository to a remote repository on GitHub, push the <strong>sub-directory</strong> containing the portfolio to GitHub and <a href="#deploying-to-code-capsules">skip</a> to the next section. </p>
+<p>Otherwise, we'll <em>push</em> (or send) our portfolio code to a GitHub remote repository (a place where your code stores on GitHub). Once complete, Code Capsules can connect to the repository and automatically "deploy" the portfolio online. Let's create the remote repository now. </p>
+<h3 id="creating-the-remote-repository">Creating the remote repository</h3>
+<p>Follow the steps below to create a remote repository on GitHub: </p>
+<ul>
+<li>Go to www.github.com and log in.</li>
+<li>Find the "Create new repository" button and click it.</li>
+<li>Name your repository anything (in this picture it was named "myPortfolio").</li>
+<li>
+<p>Copy the URL given to you under "Quick setup".</p>
+<p><img alt="image10" src="../../assets/tutorials/host-a-frontend/image10.png" />
+<em>Locate the link to your repository under "Quick Setup"</em></p>
+</li>
+</ul>
+<h3 id="sending-files-to-the-github-repository">Sending files to the GitHub repository</h3>
+<p>We've created the remote repository – now we need to push the portfolio to GitHub.</p>
+<p>Open a terminal and navigate to the top-level directory containing the portfolio. This directory should contain the sub-directory that has all the portfolio files. </p>
+<p>If your file structure looked like:
+<div class="highlight"><pre><span></span><code>myPortfolio  
+    portFolder 
+        + assets
+        + images
+        + generic.html
+        + elements.html
+        + index.html
+</code></pre></div></p>
+<p>You would open the terminal in the <code>myPortfolio</code> directory. <em>Not</em> the <code>portFolder</code> directory.</p>
+<p>Enter each command in order:</p>
+<div class="highlight"><pre><span></span><code>git init
+git add .
+git commit -m &quot;First commit!&quot;
+git branch -M main
+git remote add origin https://github.com/yourusername/yourrepositoryname.git  
+git push -u origin main
+</code></pre></div>
+<p>Replace the URL above with the URL to your remote repository (copied in the <a href="#creating-the-remote-repository">previous</a> section).</p>
+<p>Now you can see the portfolio code in your GitHub repository. Your repository should look similar to the below, where all of your portfolio code is contained in a sub-directory (in this image, the sub-directory is "portFolder"):</p>
+<p><img alt="image11" src="../../assets/tutorials/host-a-frontend/image11.png" /></p>
+<p>Now Code Capsules can host the portfolio. </p>
+<h2 id="deploying-to-code-capsules">Deploying to Code Capsules</h2>
+<p>To deploy the portfolio to Code Capsules, navigate to https://codecapsules.io/, create an account, and log in. </p>
+<p>After logging in, you'll be greeted with a page that looks like the below.</p>
+<p><img alt="team" src="../../assets/tutorials/host-a-frontend/team.png" /></p>
+<p>Notice the "Team Personal" at the top left. Every new account starts with a "Team Personal". Code Capsules provides Teams for collaborative development – you can invite other people to your Team and Team members can view and edit your web-applications. You can create other teams - but the default "Personal" team is fine for now. </p>
+<p>At the center, you'll see a clickable box, labeled "Personal". This is called a <em>Space</em>. Spaces act as a further layer of organisation. Spaces can contain one or many Capsules (more on Capsules shortly) and can help organise large projects. We'll take a look at this space soon, but we first need to link Code Capsules to Github.</p>
+<h3 id="linking-the-repository">Linking the repository</h3>
+<p>We need to give Code Capsules access to our portfolio. Click on your profile image at the top right of the screen, then find the "GitHub" button – click on it. Code Capsules will redirect you to GitHub.</p>
+<p><img alt="GitHubButton" src="../../assets/tutorials/host-a-frontend/github_button.png" /></p>
+<p>Then: </p>
+<ol>
+<li>Log in to GitHub.</li>
+<li>Click your username.</li>
+<li>Press "Only select repositories".</li>
+<li>From the drop-down menu, type the repository's name containing your portfolio and select it.</li>
+<li>
+<p>Press "Install &amp; Authorize".</p>
+<p><img alt="permissions_git" src="../../assets/tutorials/host-a-frontend/permissions_git.png" /></p>
+</li>
+</ol>
+<p>Now we can deploy our portfolio. Return back to your Team, and enter the space labeled "Personal"</p>
+<h3 id="creating-capsule-and-viewing-the-portfolio">Creating Capsule, and viewing the portfolio</h3>
+<p>The last step to deploying the Portfolio is creating a <em>Capsule</em>. Capsules provide the server for your application or code – in our case, we'll create a Capsule that'll host our portfolio. Click "Create a new Capsule for your Space". </p>
+<p>You'll be prompted to choose a Capsule type – our portfolio contains only front-end code, so choose a "Frontend" Capsule and:</p>
+<ol>
+<li>Select the "Trial" product type.</li>
+<li>Click the repository containing the portfolio.</li>
+<li>Press "Next".</li>
+<li>Leave the build command blank and enter the name of the sub-directory containing the portfolio files in the "Static Content Folder Path" entry box.</li>
+</ol>
+<p><img alt="Creating a capsule" src="../../assets/tutorials/host-a-frontend/new_capsule.gif" /></p>
+<ol>
+<li>Press "Create Capsule". </li>
+</ol>
+<p>Your Capsule is now building. This process will make your portfolio visible online. After it has deployed, click the "Overview" tab, then press the link under "Domains" to view your portfolio.</p>
+<p><img alt="image15" src="../../assets/tutorials/host-a-frontend/image15.png" /></p>
+<h2 id="conclusion-and-further-reading">Conclusion and Further Reading</h2>
+<p><img alt="finished_port" src="../../assets/tutorials/host-a-frontend/finished_port.png" /></p>
+<p>We've created a portfolio, pushed it to GitHub, and made the portfolio visible to the world. In the future, we'll take a look at "Backend" capsules. These "Backend" capsules will enable us to host back-end code and provide additional functionality – like implementing the contact form we removed at the beginning of the tutorial. </p>
+<p>We'll also take a look at customising your domain, so people can view your portfolio by typing something like <code>https://www.myportfolio.co.za</code></p>
+<p>If any of the HTML code was confusing, or you'd like to learn more for further customisation, check out this <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML">tutorial</a> written by Mozilla. </p>
+<p>For any help with GitHub, take a look at their <a href="https://docs.github.com/en">documentation</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../develop-persistent-sleep-tracker-part-2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Persistent Sleep Tracker Part 2" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Persistent Sleep Tracker Part 2
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../stripe-checkout-and-email-with-flask/" class="md-footer__link md-footer__link--next" aria-label="Next: Stripe Checkout and Email Subscription with Flask" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Stripe Checkout and Email Subscription with Flask
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>

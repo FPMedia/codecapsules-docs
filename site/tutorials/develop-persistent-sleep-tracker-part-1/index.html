@@ -1,0 +1,1821 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="First part in a two-part series that takes you through creating a web application to monitor sleep patterns of registered users and display them graphically.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://codecapsules.io/docs/tutorials/develop-persistent-sleep-tracker-part-1/">
+      
+      
+        
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2+insiders-2.12.2">
+    
+    
+      
+        <title>Develop a Persistent Sleep Tracker - Code Capsules</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.98acb380.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.73e53a79.min.css">
+        
+      
+      <link rel="preload" as="style" href="../../assets/stylesheets/vendor/mermaid.733f213f.min.css">
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script id="__analytics">function __md_analytics(){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-165274631-2","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})});var e=document.createElement("script");e.async=!0,e.src="https://www.google-analytics.com/analytics.js",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="codecapsules" />
+  <meta name="twitter:creator" content="codecapsules" />
+  
+      <meta name="twitter:title" content="Develop a Persistent Sleep Tracker" />
+      <meta name="twitter:description" content="First part in a two-part series that takes you through creating a web application to monitor sleep patterns of registered users and display them graphically." />
+      <meta name="twitter:image" content="https://codecapsules.io/docs/assets/tutorials/develop-persistent-sleep-tracker-part-1/code_capsules_sleep_tracker.jpg" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#developing-a-persistent-sleep-tracker-part-1-handling-users-with-flask-login" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Code Capsules" class="md-header__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Code Capsules
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Develop a Persistent Sleep Tracker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2m10-3a5 5 0 0 1 5 5 5 5 0 0 1-5 5H7a5 5 0 0 1-5-5 5 5 0 0 1 5-5h10M7 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h10a3 3 0 0 0 3-3 3 3 0 0 0-3-3H7z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="white" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Getting Started
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deployment/" class="md-tabs__link">
+        Deployment
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Tutorials
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-tabs__link">
+        FAQ
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../comparisons/" class="md-tabs__link">
+        Comparisons
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/introducing-code-capsules/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Code Capsules" class="md-nav__button md-logo" aria-label="Code Capsules" data-md-component="logo">
+      
+  <img src="../../assets/cclogo.png" alt="logo">
+
+    </a>
+    Code Capsules
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../deployment/">Deployment</a>
+          <label for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Deployment" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-angular-application-to-production/" class="md-nav__link">
+        Angular
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-express-application-to-production/" class="md-nav__link">
+        Express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-flask-application-to-production/" class="md-nav__link">
+        Flask
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-java-application-to-production/" class="md-nav__link">
+        Java
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-react-application-to-production/" class="md-nav__link">
+        React
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-static-html-to-production/" class="md-nav__link">
+        HTML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/how-to-deploy-vue-application-to-production/" class="md-nav__link">
+        Vue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../reference/">Reference</a>
+          <label for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/custom_domains/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-file-data-capsule/" class="md-nav__link">
+        File Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mongodb-data-capsule/" class="md-nav__link">
+        MongoDB Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/set-up-mysql-data-capsule/" class="md-nav__link">
+        MySQL Data Capsule
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../">Tutorials</a>
+          <label for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Tutorials" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-slackbot-with-node/" class="md-nav__link">
+        Slackbot with Node.js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-a-web-file-store/" class="md-nav__link">
+        Web File Store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-and-host-telegram-bot/" class="md-nav__link">
+        Telegram Bot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-and-hosting-a-flask-api/" class="md-nav__link">
+        Flask API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customising-domain/" class="md-nav__link">
+        Custom Domains
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Persistent Sleep Tracker Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Persistent Sleep Tracker Part 1
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb-data-capsule" class="md-nav__link">
+    MongoDB Data Capsule
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-setup-and-introduction" class="md-nav__link">
+    Project Setup and Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Setup and Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-virtual-env" class="md-nav__link">
+    Setting up Virtual Env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-requirements" class="md-nav__link">
+    Installing requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-file-structure" class="md-nav__link">
+    Creating the file structure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-html-templates" class="md-nav__link">
+    Creating the HTML Templates
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the HTML Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basehtml" class="md-nav__link">
+    Base.html
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-login-page" class="md-nav__link">
+    Creating the Login Page
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Login Page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-styles" class="md-nav__link">
+    Adding styles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-what-we-have" class="md-nav__link">
+    Testing what we have
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-user-registration-and-login" class="md-nav__link">
+    Handling User Registration and Login
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling User Registration and Login">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-user-class" class="md-nav__link">
+    Create the user class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-functionality-to-the-login-and-register-buttons" class="md-nav__link">
+    Add functionality to the login and register buttons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trying-out-the-login-system" class="md-nav__link">
+    Trying out the login system
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../develop-persistent-sleep-tracker-part-2/" class="md-nav__link">
+        Persistent Sleep Tracker Part 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-a-frontend/" class="md-nav__link">
+        Front-end Portfolio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stripe-checkout-and-email-with-flask/" class="md-nav__link">
+        Stripe Checkout and Email Subscription with Flask
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="FAQ" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/teams-spaces-capsules/" class="md-nav__link">
+        Teams, Spaces and Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-capsule/" class="md-nav__link">
+        What is a Capsule?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-space/" class="md-nav__link">
+        What is a Space?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/what-is-a-team/" class="md-nav__link">
+        What is a Team?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../FAQ/how-to-add-custom-domain/" class="md-nav__link">
+        How Do I Add a Custom Domain?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--container ">
+          <a href="../../comparisons/">Comparisons</a>
+          <label for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        </div>
+      
+      <nav class="md-nav" aria-label="Comparisons" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Comparisons
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules/" class="md-nav__link">
+        PaaS Providers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../comparisons/saas-paas-iaas/" class="md-nav__link">
+        SaaS vs PaaS vs IaaS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Community
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/introducing-code-capsules/" class="md-nav__link">
+        Introducing Code Capsules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/codecapsules-hack-days/" class="md-nav__link">
+        Hack Days and Free Tech Consulting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/founder-fridays/" class="md-nav__link">
+        Founder Fridays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mongodb-data-capsule" class="md-nav__link">
+    MongoDB Data Capsule
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-setup-and-introduction" class="md-nav__link">
+    Project Setup and Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Setup and Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-virtual-env" class="md-nav__link">
+    Setting up Virtual Env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-requirements" class="md-nav__link">
+    Installing requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-file-structure" class="md-nav__link">
+    Creating the file structure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-html-templates" class="md-nav__link">
+    Creating the HTML Templates
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the HTML Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basehtml" class="md-nav__link">
+    Base.html
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-login-page" class="md-nav__link">
+    Creating the Login Page
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Login Page">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-styles" class="md-nav__link">
+    Adding styles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-what-we-have" class="md-nav__link">
+    Testing what we have
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-user-registration-and-login" class="md-nav__link">
+    Handling User Registration and Login
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling User Registration and Login">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-user-class" class="md-nav__link">
+    Create the user class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-functionality-to-the-login-and-register-buttons" class="md-nav__link">
+    Add functionality to the login and register buttons
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trying-out-the-login-system" class="md-nav__link">
+    Trying out the login system
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                
+                <h1 id="developing-a-persistent-sleep-tracker-part-1-handling-users-with-flask-login">Developing a Persistent Sleep Tracker Part 1: Handling Users with Flask-Login</h1>
+<p><img alt="Sleep Tracker Cover" src="../../assets/tutorials/develop-persistent-sleep-tracker-part-1/code_capsules_sleep_tracker.jpg" /></p>
+<h2 id="introduction">Introduction</h2>
+<p>In this two-part tutorial series, we'll learn how to create a sleep tracker web application hosted on Code Capsules. Users will register an account with the sleep tracker and log in. To track their sleep data, users will enter a date and number of hours slept. We'll present users with a graph showing the sleep data they've logged, so users can get a visual representation of their sleep habits over time. </p>
+<p>Throughout this tutorial series, we'll use many tools to create an interactive experience. We'll learn how to: </p>
+<ul>
+<li>Create a user login and register system with Python's <a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a>.</li>
+<li>Use a <a href="https://www.mongodb.com/what-is-mongodb">MongoDB</a> NoSQL database to store data.</li>
+<li>Create interactive <a href="https://plotly.com/python/">Plotly</a> graphs. </li>
+</ul>
+<p>This tutorial series is best suited for those with some Python, HTML, and Flask experience. But even if you feel you don't have much experience with these, don't worry. We'll walk through this application step-by-step. Let's get started! </p>
+<h2 id="mongodb-data-capsule">MongoDB Data Capsule</h2>
+<p>One of the most important aspects of this tutorial is using a Mongo Database (MongoDB). With this MongoDB, we can track users' login information and sleep data. MongoDB is a <em>NoSQL</em> databases, which means we can store data easily, in variable formats, without having to first create tables, as we would have to with a traditional SQL databse. If you're unfamiliar with NoSQL databases or MongoDB in general, take a look at <a href="https://www.mongodb.com/nosql-explained">this explainer</a> by the MongoDB organisation. </p>
+<p>Follow <a href="../../reference/set-up-mongodb-data-capsule/">this short tutorial</a> to create a MongoDB data capsule that we'll use to store the user data for this sleep tracker application. This step is <em>extremely</em> important – without a database, our application will not function. </p>
+<p>Once you've set up a MongoDB data capsule, continue with this tutorial.</p>
+<h2 id="requirements">Requirements</h2>
+<p>In addition to creating a MongoDB Data Capsule, make sure you have the following:</p>
+<ul>
+<li><a href="https://git-scm.com/">Git</a> installed and a registered <a href="https://github.com">GitHub</a> account.</li>
+<li><a href="https://pypi.org/project/virtualenv/">Virtualenv</a> installed. </li>
+<li>A registered <a href="https://codecapsules.io">Code Capsules</a> account.</li>
+</ul>
+<h2 id="project-setup-and-introduction">Project Setup and Introduction</h2>
+<p>Creating this sleep tracker will be a two-part process. First, we will create a login and registration page and a user management backend. Second, we will create a page where users enter their sleep data and view a graph. </p>
+<p><img alt="login" src="../../assets/tutorials/develop-persistent-sleep-tracker-part-1/login.png" /></p>
+<p><img alt="sleep" src="../../assets/tutorials/develop-persistent-sleep-tracker-part-1/sleep.png" /></p>
+<p>This tutorial will focus on the first part: dealing with user management. To start, create a <code>sleep-tracker</code> directory somewhere on your computer. All of our project's files will be in this directory.</p>
+<h3 id="setting-up-virtual-env">Setting up Virtual Env</h3>
+<p>With our <code>sleep-tracker</code> directory created, we need to set up a <a href="https://realpython.com/python-virtual-environments-a-primer/">virtual environment</a>. Setting up a virtual environment will be useful when we host our web application on Code Capsules. Virtual environments ensure that only the libraries used in the development of our sleep tracker application will be installed by Code Capsule's servers. </p>
+<p>To create a virtual environment, navigate to the <code>sleep-tracker</code> directory in a terminal and enter <code>virtualenv env</code>.</p>
+<p>Then, activate the virtual environment with:</p>
+<ul>
+<li><strong>Linux/MacOSX:</strong> <code>source env/bin/activate</code></li>
+<li><strong>Windows:</strong> <code>\env\Scripts\activate.bat</code></li>
+</ul>
+<p>If the virtual environment activated correctly, you'll notice <code>(env)</code> to the left of your name in the terminal. Keep this terminal open – we'll install the project dependencies next.</p>
+<h3 id="installing-requirements">Installing requirements</h3>
+<p>Our sleep tracker will use the following Python libraries:</p>
+<ul>
+<li><a href="https://flask.palletsprojects.com/en/1.1.x/">Flask</a> is a lightweight Python web development framework.</li>
+<li><a href="https://flask-login.readthedocs.io/en/latest/">Flask-Login</a> provides user session management for Flask. This will help us implement a user login and registeration system without having to create one from scratch. </li>
+<li><a href="https://flask-bcrypt.readthedocs.io/en/latest/">Flask Bcrypt</a> is a <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hashing</a> extension for Flask. This allow us to store users' passwords securely and without knowing what they are.</li>
+<li><a href="https://gunicorn.org/">Gunicorn</a> is the <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">WSGI server</a> we'll use to host our application on Code Capsules.</li>
+<li><a href="https://pymongo.readthedocs.io/en/stable/">Pymongo</a> is a Python library that has tools for interacting with MongoDBs. We'll use Pymongo to connect and send data to our MongoDB.</li>
+</ul>
+<p>To install these libraries, activate the virtual environment in your terminal and type the following:</p>
+<div class="highlight"><pre><span></span><code>pip3 install flask flask-login flask-bcrypt gunicorn pymongo
+</code></pre></div>
+<p>Next, we'll create all the files and directories that we'll use in both parts of this series. </p>
+<h3 id="creating-the-file-structure">Creating the file structure</h3>
+<p>Because we'll use Flask to render our HTML files and serve static content, we need to have a specific project structure. Flask expects to find HTML files in a directory named <code>templates</code> and static content such as CSS stylesheets and images in a directory named <code>static</code>. In the <code>sleep-tracker</code> directory, create both of these directories.</p>
+<p>Inside <code>templates</code>, create three files: <code>base.html</code>, <code>login.html</code>, and <code>main.html</code>. </p>
+<ul>
+<li><code>base.html</code> will contain the skeleton for our website's other HTML pages. </li>
+<li><code>login.html</code> will contain the HTML for the main page of our web application. Here, users will log in or register an account with our sleep tracker.</li>
+<li><code>main.html</code> will contain the HTML for the page where users will enter their sleep data and view a graph of this data. We'll deal with this file in the second part of this tutorial.</li>
+</ul>
+<p>Next, open the <code>static</code> directory and create a file named <code>style.css</code>. This will be the only file in this directory, and will conain the CSS style for our website.</p>
+<p>Finally, in the main <code>sleep-tracker</code> directory, create a file named <code>app.py</code>. In this file, we'll write the Python code that serves our HTML content to user and manages their activities on the web application. </p>
+<h2 id="creating-the-html-templates">Creating the HTML Templates</h2>
+<p>Flask uses the <a href="https://jinja.palletsprojects.com/en/2.11.x/templates/">Jinja</a> templating library to allow us to embed Python-like code in HTML. This will allow us to create web pages which change dynamically in response to user actions such as registration, login and entering sleep tracking data. In this section, we will be populating the files we created in <code>templates</code> above, starting with <code>base.html</code>.</p>
+<h3 id="basehtml">Base.html</h3>
+<p>The <code>base.html</code> file will contain all of the HTML code common throughout our application. This allows us to use it as a skeleton for every other page and avoid repeating standard markup such as stylesheet links. Open the <code>base.html</code> file and enter the following markup:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span> Sleep Tracker <span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;author&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;your-name-here&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;This web-application</span>
+<span class="s">    helps you track your sleep!&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{url_for(&#39;static&#39;,filename=&#39;style.css&#39;)}}&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+{% block content %}{% endblock %}
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>This is our skeleton. When Flask serves our <code>login.html</code> or  <code>main.html</code> pages, it will replace the <code>{% block content %}{% endblock %}</code> with that page's unique content.</p>
+<p>Any code between <code>{%</code> and <code>%}</code> or <code>{{</code> and <code>}}</code> is Jinja syntax, which is largely similar to Python code. Flask will evaluate this code before <a href="https://flask.palletsprojects.com/en/1.1.x/tutorial/templates/">rendering</a> HTML files and serving them to users. In this example, we use Jinja syntax to call Flask's <code>url_for()</code> function. To link our stylesheet, Flask uses the <code>url_for()</code> function to find the <code>style.css</code> file in the <code>static</code> directory. </p>
+<h2 id="creating-the-login-page">Creating the Login Page</h2>
+<p>Now that we've created the <code>base.html</code> file, we can implement our <code>login.html</code> file. Open <code>login.html</code>and add the following markup:</p>
+<div class="highlight"><pre><span></span><code>{% extends &quot;base.html&quot; %}
+
+{% block content %}
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Login or register here to track your sleep!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span> 
+      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;username&quot;</span><span class="p">&gt;</span>Username:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;user_name&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">&gt;</span>Password:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;user_pw&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class </span><span class="o">=</span> <span class="s">&quot;button&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;login&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;Login&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#39;register&#39;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;Register&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+{% endblock %}
+</code></pre></div>
+<p>The line <code>{% extends "base.html" %}</code> tells Jinja to render this page by populating each of <code>base.html</code>'s named <a href="https://jinja.palletsprojects.com/en/2.11.x/templates/#template-inheritance"><code>block</code> directives</a> with the corresponding <code>block</code> content defined in <code>login.html</code>. In this instance, we've only defined a single block named <code>content</code>, but we could define multiple blocks. For example, we might want to have a <code>head</code> block that defines some page-specific content that needs to be in the HTML <code>&lt;head&gt;</code> tag.</p>
+<p>On this page, we've created a form containing input fields for users to enter their username and password, as well as login and register buttons. Note the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST"><code>POST</code></a> HTTP method – this will ensure that the username and password are sent as <code>POST</code> parameters in the HTTP request body, rather than as <code>GET</code> parameters in the URL. This allows us to differentate between when a user visits the login page (a <code>GET</code> request) versus when they click the register or login button.</p>
+<p>Before we take a look at our work so far, let's populate our <code>style.css</code> file to make our HTML look a bit better.</p>
+<h3 id="adding-styles">Adding styles</h3>
+<p>Open the <code>style.css</code> file in the <code>static</code> directory and add the following:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">form</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">500</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">form</span> <span class="nt">li</span> <span class="o">+</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="c">/* Remove unordered list dots */</span>
+  <span class="k">list-style</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mf">.1</span><span class="p">;</span>
+  <span class="k">margin</span><span class="p">:</span> <span class="mf">.1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">label</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">text-align</span><span class="p">:</span> <span class="kc">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">input</span><span class="o">,</span>
+<span class="nt">textarea</span> <span class="p">{</span>
+  <span class="k">font</span><span class="p">:</span> <span class="s2">&quot;Times New Roman&quot;</span><span class="p">,</span> <span class="kc">serif</span><span class="p">;</span>
+  <span class="c">/* Change border &amp; width of textarea */</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#000000</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">300</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="p">.</span><span class="nc">button</span> <span class="p">{</span>
+  <span class="c">/* Align w/ text box */</span>
+  <span class="k">padding-left</span><span class="p">:</span> <span class="mi">105</span><span class="kt">px</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="nt">h2</span> <span class="p">{</span>
+  <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+  <span class="k">font</span><span class="p">:</span> <span class="s2">&quot;Times New Roman&quot;</span><span class="p">,</span> <span class="kc">serif</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Feel free to add your own personal touches, such as a favourite colour or font. </p>
+<h3 id="testing-what-we-have">Testing what we have</h3>
+<p>Now that we've created our templates and stylesheet, let's add some initial functionality to <code>app.py</code>. Open the file and enter the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">## Login/Register page</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;login.html&#39;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/main&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;main.html&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Here we've created two <a href="https://flask.palletsprojects.com/en/1.1.x/quickstart/#routing">routes</a>:
++ <code>/</code>, which will be our web application's homepage and serve the content of <code>login.html</code>.
++ <code>/main</code>, which will be our web application's sleep tracker page and serve the content of <code>main.html</code>. </p>
+<p>Flask uses the <code>@app.route</code> <a href="https://realpython.com/primer-on-python-decorators/">function decorator</a> to determine which functions will be executed when the user visits different routes.</p>
+<p>View the application by opening a terminal in the <code>sleep-tracker</code> directory and and entering <code>flask run</code>.</p>
+<p>After running the application, Flask will provide you with URL. Enter this URL in your web browser, and you'll see the login screen. It should look something like this:</p>
+<p><img alt="" src="../../assets/tutorials/develop-persistent-sleep-tracker-part-1/login.png" /></p>
+<h2 id="handling-user-registration-and-login">Handling User Registration and Login</h2>
+<p>Rather than implementing a user registration and login system ourselves, we'll use the Flask Login library that we installed earlier to provide this functionality. This will help us to save time and avoid common usability and security pitfalls. We will store user information in the database we created <a href="#mongodb-data-capsule">at the beginning of this tutorial</a>.</p>
+<p>First, let's import the functionality we'll need from:
++ <code>flask-login</code>, <code>flask-bcrypt</code>, to handle users.
++ <code>pymongo</code>, to interface with MongoDB.
++ <code>re</code>, to validate user input. </p>
+<p>Enter the following code below the line that starts with <code>from flask import</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask_login</span> <span class="kn">import</span> <span class="n">LoginManager</span><span class="p">,</span> <span class="n">UserMixin</span><span class="p">,</span> <span class="n">login_required</span><span class="p">,</span> <span class="n">login_user</span><span class="p">,</span> <span class="n">logout_user</span><span class="p">,</span> <span class="n">current_user</span>
+<span class="kn">from</span> <span class="nn">flask_bcrypt</span> <span class="kn">import</span> <span class="n">Bcrypt</span>
+<span class="kn">import</span> <span class="nn">pymongo</span><span class="o">,</span> <span class="nn">re</span>
+</code></pre></div>
+<p>Now we can create an instance of the <code>LoginManager</code> class and set a <a href="https://flask.palletsprojects.com/en/1.1.x/quickstart/#sessions">secret key</a> for our application. Just below the line that defines <code>app</code>, add:</p>
+<div class="highlight"><pre><span></span><code><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;your-secret-key-here&#39;</span>
+<span class="n">login_manager</span> <span class="o">=</span> <span class="n">LoginManager</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</code></pre></div>
+<p>This class does exactly what it says – manages logged in users and communicates any necessary information about a user to Flask. Replace <code>your-secret-key-here</code> with a long randomly generated string. <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUIDs</a> are good for this purpose. You can generate one with the following terminal command:</p>
+<div class="highlight"><pre><span></span><code>python3 -c <span class="s1">&#39;import uuid; print(uuid.uuid4().hex.upper())&#39;</span>
+</code></pre></div>
+<p>Next, we need to initialise a bcrypt object for our application. Add the following code below the line that defines <code>login_manager</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">bcrypt</span> <span class="o">=</span> <span class="n">Bcrypt</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</code></pre></div>
+<p>When a user registers with our sleep tracker, we'll create a new entry in our MongoDB with the user's username and password. That way, when a user logs in to our sleep tracker, we can see if the information they entered matches the information in our MongoDB. Beneath the last line we added, add the following:</p>
+<div class="highlight"><pre><span></span><code><span class="n">client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="s1">&#39;mongodb+srv://YOURUSERNAME:YOURPASSWORD@cluster0.e2fw3.mongodb.net/&lt;dbname&gt;?retryWrites=true&amp;w=majorhostity&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">user_login</span>
+</code></pre></div>
+<p>Here we import the <code>pymongo</code> library and use it to connect to our MongoDB instance. Replace <code>YOURUSERNAME</code> and <code>YOURPASSWORD</code> with your data capsule account information.</p>
+<h3 id="create-the-user-class">Create the user class</h3>
+<p>For Flask Login to work, we need to create a <code>User</code> class. This <code>User</code> class will contain information pertaining to the user that is currently logged in to our sleep tracker.</p>
+<p>Flask Login expects us to implement four methods in our <code>User</code> class: <code>is_authenticated</code>, <code>is_active</code>, <code>is_anonymous</code> and <code>get_id</code>. Rather than implementing all of these ourselves, we will have our <code>User</code> class inherit from Flask's <code>UserMixin</code>, which provides generic implementations for the first three, leaving us with only <code>get_id</code>. In addition, we'll need to implement our own <code>load_user</code> and <code>check_password</code> methods.</p>
+<p>Below the line <code>db = client.user_login</code>, enter the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">UserMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span>
+</code></pre></div>
+<p>Here we've created the class, inherited from <code>UserMixin</code> and implemented the <code>get_id</code> method, which simply returns the user's username. To facilitate user login, we need to implement two methods, <code>load_user</code> and <code>check_password</code>. Let's implement <code>load_user</code> first. This method will be used to fetch a user from the MongoDB database corresponding to the username entered in the login form. Add the following code to the <code>User</code> class:</p>
+<div class="highlight"><pre><span></span><code>    <span class="nd">@login_manager</span><span class="o">.</span><span class="n">user_loader</span>
+    <span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span> <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">username</span> <span class="p">})</span>
+        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>The decorate <code>@login_manager.user_loader</code> tells the <code>login_manager</code> to use this method to load users.</p>
+<p>Now let's add a <code>check_password</code> method. This method will be called to determine whether a user has entered the correct password for the username they specify. When we register users, we will hash their passwords with the <a href="https://en.wikipedia.org/wiki/Bcrypt">bcrypt</a> one-way encryption function before storing them in MongoDB. This will keep our users' passwords secret from us and, should our application be compromised in future, ensure that hackers cannot easily recover our users' passwords and use them on other websites those users may have account on. Therefore, when checking the password a user has entered on login, we need to hash this input with bcrypt before comparing it to the password entry in our MongoDB database. To do this, add the following code to the <code>User</code> class:</p>
+<div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">check_password</span><span class="p">(</span><span class="n">password_entered</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">check_password_hash</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">password_entered</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+<p>By making <code>check_password</code> a <a href="https://realpython.com/instance-class-and-static-methods-demystified/">static method</a>, we enabled it to be called without instantiating an instance of our <code>User</code> class.</p>
+<p>That's all we need for user login. Now we need to link our login and registration form to this functionality. </p>
+<h3 id="add-functionality-to-the-login-and-register-buttons">Add functionality to the login and register buttons</h3>
+<p>When a user clicks the register button, we will create a new user document in our MongoDB users collection, containing their username and hashed password. When a user clicks "Login", we will log them in if they've entered a valid username and password combination and redirect them to the <code>main.html</code> file. </p>
+<p>To do this, we'll create a new function that handles login and registration. Add the following code below the <code>def login()</code> function:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login_or_register</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">name_entered</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_name&#39;</span><span class="p">))</span> <span class="c1"># Get username and password from form</span>
+        <span class="n">pw_entered</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_pw&#39;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">):</span> <span class="c1"># Log in logic</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">name_entered</span> <span class="p">})</span>
+            <span class="k">if</span> <span class="n">user</span> <span class="ow">and</span> <span class="n">User</span><span class="o">.</span><span class="n">check_password</span><span class="p">(</span><span class="n">pw_entered</span><span class="p">,</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]):</span>
+                <span class="n">usr_obj</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span>
+                <span class="n">login_user</span><span class="p">(</span><span class="n">usr_obj</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;Incorrect username or password.&quot;</span>
+
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;register&#39;</span><span class="p">):</span> <span class="c1"># Register logic</span>
+            <span class="c1"># Validate username and password</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;[a-zA-Z0-9_]{1,20}&quot;</span><span class="p">,</span> <span class="n">name_entered</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;Username must be between 1 and 20 characters. Letters, numbers and underscores allowed.&quot;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pw_entered</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;Password must be at least 8 characters.&quot;</span>
+
+            <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">name_entered</span> <span class="p">}):</span>
+                <span class="k">return</span> <span class="s2">&quot;User already exists.&quot;</span>
+
+            <span class="n">new_user</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">name_entered</span><span class="p">,</span>
+                         <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">generate_password_hash</span><span class="p">(</span><span class="n">pw_entered</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span><span class="n">new_user</span><span class="p">)</span> <span class="c1"># insert new user to db</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span> <span class="c1"># redirect after register</span>
+</code></pre></div>
+<p>First, note the <code>POST</code> method. As mentioned when we created our <code>login.html</code> file, using a <code>POST</code> method for user login and registration allows our application to transmit username and information more securely and allows us to differentiate between a user login or registration (<code>POST</code>) and a user merely visiting the page (<code>GET</code>).</p>
+<p>If the login button is pressed (<code>if request.form.get('login')</code>), we check our MongoDB for a username that matches the one entered. Then we check if the password entered matches that user's password in the MongoDB. If <code>check_password</code> evaluates to true, we log the user in and redirect to the <code>main</code> route (which we'll create in the <a href="https://codecapsules.io/docs/tutorials/develop-persistent-sleep-tracker-part-2/">next part of this series</a>. Otherwise, we provide the user with an error message. To redirect users, we use Flask's <code>redirect</code> function and <code>url_for</code> functions. The <code>url_for</code> function finds the <code>main</code> route, and the <code>redirect</code> function sends users to that route. </p>
+<p>If a user clicks "Register", we first validate the username and password they've provided. We're restricting usernames to a length of 20 characters, containing only alphanumeric characters and underscores. We're also ensuring that the chosen password is eight or more characters long. We then check whether the username they're trying to use is already taken. If their username and password are acceptable, we create a <code>new_user</code> dictionary with the specified name and a bcrypt hash of the specified password, which we then insert it into our MongoDB. Then we send the user back to the login page.</p>
+<h3 id="trying-out-the-login-system">Trying out the login system</h3>
+<p>We've implemented the login and register buttons. Try running the program by opening a terminal in the <code>sleep-tracker</code> directory and entering <code>flask run</code>. Test out registering a few new accounts and logging into them. Remember, we haven't put any HTML in our <code>main.html</code> file, so when you log in, you'll see a blank page. Don't worry, everything is working! </p>
+<p>In the <a href="https://codecapsules.io/docs/tutorials/develop-persistent-sleep-tracker-part-2/">next part of this series</a>, we'll implement the rest of the sleep tracker application. This means populating the <code>main.html</code> file and learning how to store user sleep data in MongoDB. </p>
+<h2 id="further-reading">Further Reading</h2>
+<p>To learn more about Flask-Login, take a look at <a href="https://flask-login.readthedocs.io/en/latest/">their documentation</a>. The Explore Flask documentation site also has <a href="https://explore-flask.readthedocs.io/en/latest/users.html">a guide</a> for handling users that goes into further depth than we have, including features such as a way for users to reset forgotten passwords.</p>
+<p>For more information on the Jinja templating language, <a href="https://jinja.palletsprojects.com/en/2.11.x/templates/">their documentation can be found here</a>.</p>
+<p>Finally, when you're ready, finish the sleep tracker application by <a href="https://codecapsules.io/docs/tutorials/develop-persistent-sleep-tracker-part-2/">following the second tutorial in this series</a>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../customising-domain/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Domains" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Custom Domains
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../develop-persistent-sleep-tracker-part-2/" class="md-footer__link md-footer__link--next" aria-label="Next: Persistent Sleep Tracker Part 2" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Persistent Sleep Tracker Part 2
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.61ac8e46.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.218b5f82.min.js"></script>
+      
+    
+  </body>
+</html>
