@@ -1,3 +1,8 @@
+---
+title: Deploy a MERN Stack Application
+description: A walkthrough on how to deploy a MERN Stack application from GitHub.
+---
+
 # How to Deploy a MERN Stack Application to Production on Code Capsules
 
 Deploy a MERN (MongoDB, Express, React, Node) stack application using a backend and data capsule for the full stack without a frontend capsule. 
