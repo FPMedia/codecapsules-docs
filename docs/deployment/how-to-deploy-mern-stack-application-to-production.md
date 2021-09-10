@@ -5,13 +5,13 @@ description: A walkthrough on how to deploy a MERN Stack application from GitHub
 
 # How to Deploy a MERN Stack Application to Production on Code Capsules
 
-Deploy a MERN (MongoDB, Express, React, Node) stack application using a backend and data capsule for the full stack without a frontend capsule. 
+Deploy a MERN (MongoDB, Express, React, Node) stack application using a backend and data capsule for a full stack application without the need for a frontend capsule. 
 
 ## Getting Started
 
 This guide is a walkthrough on how to deploy a MERN stack application that accepts a name as input and displays a personalized message for the user. The example application we will use can be found on [Code Capsules' GitHub](https://github.com/codecapsules-io/mern-stack) account.
 
-Fork the project in the above mentioned repository to your own GitHub repository and link it with your Code Capsules account. 
+Fork the project in the above mentioned repository to your own GitHub account and link the repository with your Code Capsules account. You can do this by clicking your username at the top right in Code Capsules, and choosing Edit Profile. Now you can click the GitHub button to link to the repo. 
 
 ## Setting Up the Capsules
 
@@ -23,13 +23,13 @@ First the data capsule.
 
 Followed by the backend capsule.  
 
-![Create Backend Capsule](../assets/deployment/python/creating-backend-capsule.gif)
+![Create Backend Capsule](../assets/deployment/mern/creating-backend-mern.gif)
 
 Select the repository you forked earlier and in the "Run Command" field enter `node index.js` to let the capsule know how to run your application.
 
 ## Binding the Capsules
 
-After successfully building the capsules the next step is to bind them together. Navigate to the backend capsule you just created and open the "Configure" tab. Scroll to the bottom and click on the "Bind" option in the bottm left to allow the capsule to use the MongoDB in the data capsule. 
+After successfully building the capsules the next step is to bind them together. Navigate to the backend capsule you just created and open the "Configure" tab. Scroll to "Bind Data Capsule" section and click on the "Bind" option in the bottom left to allow the capsule to use the MongoDB database in the data capsule. 
 
 ![Bind MERN Capsules](../assets/deployment/mern/bind-mern-capsules.png)
 
