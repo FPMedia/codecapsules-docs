@@ -23,7 +23,7 @@ The next step is to link the forked repository to your Code Capsules account. Yo
 
 Once on the "Profile" tab click the "GitHub" button to start the process of linking to the repo. 
 
-You now need to authorise Code Capsules to connect to the Django application by:
+You now need to authorise Code Capsules to connect to the Django application repository by:
 
 1. Clicking your GitHub username.
 2. Selecting "Only Select Repositories".
@@ -46,7 +46,7 @@ Click on "Team Settings" on the top navigation bar to switch to the _Team Settin
 
 Create a Space to contain the Backend Capsule that will host the django application we'll deploy shortly. To do this, navigate to the "Spaces" tab and click on the "Create A New Space For Your Apps" button.
 
-![create a new space](../assets/deployment/python/spaces.png)
+
 
 When this is done, a screen similar to the one shown below should slide in from the right.
 
@@ -58,7 +58,6 @@ Select an appropriate region and enter a name for your space and press "Create S
 
 Create a Backend Capsule by clicking on the "Create a New Capsule for Your Space" button from inside your Space.
 
-![space_image](../assets/deployment/python/space.png)
 
 Choose a Backend Capsule on the screen that follows, then:
 
@@ -71,10 +70,11 @@ Choose a Backend Capsule on the screen that follows, then:
 
 ## View Logs
 
-While the Capsule is building, you can view its logs under the "Build and Deploy" tab in the Capsule. Once built, you can navigate to the "Overview" tab and click on the provided URL to view the application. 
+While the Capsule is building, you can view its build logs under the "Deploy" tab in the Capsule.  
 
-![Build logs](../assets/deployment/python/backend-capsule-build-logs.png)
+![Build logs](../assets/deployment/django/backend-capsule-build-logs.png)
 
+Once built, you can navigate to the "Overview" tab and click on the provided URL to view the application.
 For a better understanding of Capsules, take a look at [this explanation](https://codecapsules.io/docs/FAQ/what-is-a-capsule).
 
 If you'd like to deploy your own Django application, take a close look at the [Django repository](https://github.com/codecapsules-io/django-demo) we forked. There, you'll find a file named `Procfile`. Code Capsules reads Procfiles to build and deploy Django applications. [Click here](https://pythonhosted.org/deis/using_deis/process-types/) to read more about Procfiles.
