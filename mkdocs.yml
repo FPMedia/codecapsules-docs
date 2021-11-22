@@ -54,6 +54,8 @@ nav:
     - Next + Mongo: deployment/how-to-deploy-next-mongo-application-to-production.md
     - Next + Express: deployment/how-to-deploy-next-express-application-to-production.md
     - Next + Express + Mongo: deployment/how-to-deploy-next-express-mongo-application-to-production.md
+    - NodeJS Telegram Bot: deployment/how-to-deploy-node-telegram-bot-to-production.md
+    - Python Telegram Bot: deployment/how-to-deploy-python-telegram-bot-to-production.md
     - React: deployment/how-to-deploy-react-application-to-production.md
     - Svelte: deployment/how-to-deploy-svelte-application-to-production.md
     - Vue: deployment/how-to-deploy-vue-application-to-production.md
