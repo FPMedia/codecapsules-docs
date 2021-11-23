@@ -1,17 +1,19 @@
 ---
-title: Deploy a Python Telegram Bot
-description: A guide to deploying a Python Telegram Bot from GitHub.
+title: Deploy a NodeJS Telegram Bot
+description: A guide to deploying a NodeJS Telegram Bot from GitHub.
 ---
 
-# How to Deploy a Python Telegram Bot to Production on Code Capsules For Free in 5 Minutes
+# How to Deploy a NodeJS Telegram Bot to Production on Code Capsules For Free in 5 Minutes
 
-Deploy a Python Telegram Bot and learn how to host backend code on Code Capsules for free in 5 minutes.
+*This guide uses polling which is easier but not recommended. See [this guide](./how-to-deploy-node-telegram-bot-to-production.md) which shows how to implement the same bot using webhooks.*
+
+Deploy a NodeJS Telegram Bot and learn how to host backend code on Code Capsules for free in 5 minutes.
 
 ## Set up
 
 Code Capsules connects to GitHub repositories to deploy applications. To follow this guide, you’ll need a [Code Capsules](https://codecapsules.io/) account and a [GitHub](https://github.com/) account.
 
-To demonstrate how to deploy a Python Telegram Bot with Code Capsules, we’ve provided an example bot which you can find on the [Code Capsules GitHub repository](https://github.com/codecapsules-io/python-telegram-echobot).
+To demonstrate how to deploy a NodeJS Telegram Bot with Code Capsules, we’ve provided an example bot which you can find on the [Code Capsules GitHub repository](https://github.com/codecapsules-io/polling-nodejs-telegram-echobot).
 
 Sign in to GitHub, and fork the example bot repository by clicking “Fork” at the top-right of your screen and selecting your GitHub account as the destination.
 
@@ -89,18 +91,8 @@ Once the build is complete, you have to add a `BOT_TOKEN` environment variable o
 
 Confirm your changes by clicking on "Update Capsule" then restart your capsule by toggling the radio button in the top right off and on again.
 
-## Add Webhook URL
-
-The next step is to add a webhook url in the bot's logic to tell Telegram how to notify your bot when it receives a message. Clone the repository you forked in the first step of this guide to your local development environment. Open `app.py` and edit the code snippet below by replacing `<YOUR-CAPSULE-URL-HERE>` with the actual value for your capsule's url. To get this value, navigate to your capsule's "Overview" tab and copy the value under the "Domains" section and paste it in place of `<YOUR-CAPSULE-URL-HERE>` in the line below.
-
-```py
-HOOK_URL = '<YOUR-CAPSULE-URL-HERE>' + '/' + TOKEN
-```
-
-Push your changes to GitHub by running `git push` in a terminal window while in the project's root folder. Code Capsules will automatically rebuild your bot after it notices changes to the `main` branch of your forked repository.
-
 ## Chat with the Bot
 
-The bot will be able to respond to messages after Code Capsules finishes building it. When this is done, search for your bot on Telegram using the username you assigned it and start a chat with it. The bot has been programmed to respond to `/start` and echo any messages you send it.
+The bot will be able to respond to messages after restarting the capsule. When this is done, search for your bot on Telegram using the username you assigned it and start a chat with it. The bot has been programmed to respond to `/start` and echo any messages you send it.
 
 If you’d like to deploy another application in a different language or framework, take a look at our other [deployment guides](/docs/deployment/).

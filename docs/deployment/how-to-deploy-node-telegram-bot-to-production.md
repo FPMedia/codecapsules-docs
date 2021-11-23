@@ -1,3 +1,8 @@
+---
+title: Deploy a NodeJS Telegram Bot
+description: A guide to deploying a NodeJS Telegram Bot from GitHub.
+---
+
 # How to Deploy a NodeJS Telegram Bot to Production on Code Capsules For Free in 5 Minutes
 
 Deploy a NodeJS Telegram Bot and learn how to host backend code on Code Capsules for free in 5 minutes.
@@ -80,7 +85,7 @@ Once your application is live, you can view the build log by selecting the “De
 
 Once the build is complete, you have to add a `BOT_TOKEN` environment variable on the "Configure" tab under the "Capsule parameters" section. Assign it the value of the access token you were given by the BotFather when you registered the bot.
 
-![Add a `BOT_TOKEN` Environment Variable](../assets/deployment/mern/edit-database-url.png)
+![Add a `BOT_TOKEN` Environment Variable](../assets/deployment/telegram/add-bot-token-env-var.png)
 
 Confirm your changes by clicking on "Update Capsule" then restart your capsule by toggling the radio button in the top right off and on again.
 
@@ -101,6 +106,6 @@ Push your changes to GitHub by running `git push` in a terminal window while in 
 
 ## Chat with the Bot
 
-After restarting the capsule, the bot will now be ready to be tested. Search for your bot on Telegram using the username you assigned it and start a chat with it. The bot has been programmed to respond to `/start` and echo any message you send it.
+The bot will be able to respond to messages after Code Capsules finishes building it. When this is done, search for your bot on Telegram using the username you assigned it and start a chat with it. The bot has been programmed to respond to `/start` and echo any messages you send it.
 
 If you’d like to deploy another application in a different language or framework, take a look at our other [deployment guides](/docs/deployment/).
