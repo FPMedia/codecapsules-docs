@@ -161,4 +161,36 @@ Code Capsules supports most front and backend frameworks and libraries. Here are
 </figure>
 </div>
 
+## Chatbots
+
+<div style="display: flex; flex-wrap: wrap;">
+<figure>
+  <a href="./how-to-deploy-node-telegram-bot-to-production/">
+    <img style="border-radius: 10px 10px 0" src="../assets/deployment/index/node-telegram-bot.png" width="150" />
+    <figcaption>Node.js Telegram <br/> Bot (Webhooks)</figcaption>
+  </a>
+</figure>
+
+<figure>
+  <a href="./how-to-deploy-python-telegram-bot-to-production">
+    <img style="border-radius: 10px 10px 0" src="../assets/deployment/index/py-telegram-bot.png" width="150" />
+    <figcaption>Python Telegram <br/> Bot (Webhooks)</figcaption>
+  </a>
+</figure>
+
+<figure>
+  <a href="./how-to-deploy-polling-node-telegram-bot-to-production/">
+    <img style="border-radius: 10px 10px 0" src="../assets/deployment/index/node-telegram-bot.png" width="150" />
+    <figcaption>Node.js Telegram <br/> Bot (Polling)</figcaption>
+  </a>
+</figure>
+
+<figure>
+  <a href="./how-to-deploy-polling-python-telegram-bot-to-production/">
+    <img style="border-radius: 10px 10px 0" src="../assets/deployment/index/py-telegram-bot.png" width="150" />
+    <figcaption>Python Telegram <br/> Bot (Polling)</figcaption>
+  </a>
+</figure>
+</div>
+
 We also support other backends and fullstack frameworks. See the full list of supported languages [here](https://github.com/GoogleCloudPlatform/buildpacks#language-idiomatic-configuration-options).
