@@ -88,6 +88,7 @@ nav:
     - comparisons/index.md
     - PaaS Providers: comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules.md
     - SaaS vs PaaS vs IaaS: comparisons/saas-paas-iaas.md
+    - South African Hosting Options: comparisons/hosting-options.md
   - Community:
     - Introducing Code Capsules: community/introducing-code-capsules.md
     - Hack Days and Free Tech Consulting: community/codecapsules-hack-days.md
