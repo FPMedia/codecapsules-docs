@@ -1,11 +1,11 @@
 ---
-title: South African Hosting Options
-description: Compare South African hosting solutions providers from the services they offer to how much they will cost you.
+title: South African ISP Options
+description: Compare South African ISPs from the services they offer to how much they will cost you.
 ---
 
-# Comparing South African Hosting Options
+# Comparing South African ISP Options
 
-There are plenty of hosting solution providers in the South African market and picking one for your next project can easily become cumbersome if you're not well informed. In this article, we compare the services offered by the most popular South African hosting companies. 
+There are plenty of ISPs in the South African market and picking one for your home or business can easily become cumbersome if you're not well informed. In this article, we compare the services offered by the most popular South African ISPs. 
 
 |  | Afrihost | Axxess |
 | ---- | --- | --- |
