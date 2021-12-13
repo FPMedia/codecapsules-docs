@@ -1,9 +1,9 @@
 ---
-title: South African ISP Options
-description: Compare South African ISPs from the services they offer to how much they will cost you.
+title: Afrihost vs Cool Ideas vs Webafrica vs Axxess vs Telkom vs RSAWeb
+description: Compare South African ISPs for wordpress hosting, linux hosting, web hosting and fibre.
 ---
 
-# Comparing South African ISP Options
+# Afrihost vs Cool Ideas vs Webafrica vs Axxess vs Telkom vs RSAWeb
 
 There are plenty of ISPs in the South African market and picking one for your home or business can easily become cumbersome if you're not well informed. In this article, we compare the services offered by the most popular South African ISPs. 
 
