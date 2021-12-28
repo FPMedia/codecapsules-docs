@@ -5,9 +5,9 @@ description: A guide to deploying a Python Telegram Bot from GitHub.
 
 # How to Deploy a Python Telegram Bot to Production on Code Capsules For Free in 5 Minutes
 
-*This guide uses polling which is easier but not recommended. See [this guide](./how-to-deploy-python-telegram-bot-to-production.md) which shows how to implement the same bot using webhooks.*
+*This guide uses polling, which is easier to deploy but not recommended. See [this guide](./how-to-deploy-python-telegram-bot-to-production.md) for how to implement the same bot using webhooks.*
 
-Deploy a Python Telegram Bot and learn how to host backend code on Code Capsules for free in 5 minutes.
+Deploy a Python Telegram Bot and learn how to host backend code on Code Capsules for free.
 
 ## Set up
 
@@ -19,7 +19,7 @@ Sign in to GitHub, and fork the example bot repository by clicking “Fork” at
 
 ## Create a Space for your Bot
 
-Log into your Code Capsules account and navigate to the "Spaces" tab. Once there, click the "Create A New Space For Your Apps" button. 
+Log into your Code Capsules account and navigate to the “Spaces” tab. Once there, click the “Create A New Space For Your Apps” button. 
 
 Follow the prompts, choosing your region and giving your Space a name, then click “Create Space”.
 
@@ -33,17 +33,17 @@ To link to GitHub, click your profile image at the top right of the Code Capsule
 
 Click the “GitHub” button, select your GitHub username, and do the following in the dialog box that appears:
 
-1. Select "Only Select Repositories".
+1. Select “Only Select Repositories”.
 2. Choose the GitHub repository we forked.
-3. Press "Install & Authorize".
+3. Press “Install & Authorize”.
 
 ![Install & authorize github](../assets/deployment/express/github-integration.png)
 
 ## Add Repository to Team
 
-Select "Team Settings" in the top navigation bar to switch to the Team Settings tab.
+Select “Team Settings” in the top navigation bar to switch to the Team Settings tab.
 
-Click on the "Modify" button under the Team Repos section, and an “Edit Team Repos” screen will slide in from the right. Click “Add” next to the demo repo, and then “Confirm”. All the Spaces in your Team will now have access to this repo.
+Click on the “Modify” button under the “Team Repos” section. An “Edit Team Repos” screen will slide in from the right. Click “Add” next to the demo repo, and then “Confirm”. All the Spaces in your Team will now have access to this repo.
 
 ![Edit Team Repos](../assets/deployment/python/team-repos.gif)
 
@@ -51,12 +51,12 @@ Click on the "Modify" button under the Team Repos section, and an “Edit Team R
 
 You'll need a Telegram user account before you can create a Telegram bot. Head over to Telegram and create an account if you don't already have one.
 
-When you've signed in to Telegram, search for "BotFather" (a bot for managing all other Telegram bots) and start a new chat with it. Follow the steps below to register a new bot with the BotFather:
+When you've signed in to Telegram, search for “BotFather” (a bot for managing all other Telegram bots) and start a new chat with it. Follow the steps below to register a new bot with the BotFather:
 
-1. Type /start and press send.
-2. Type /newbot and press send.
+1. Type `/start` and press send.
+2. Type `/newbot` and press send.
 3. Choose a name for your bot.
-4. Choose a username for your bot that ends in bot.
+4. Choose a username for your bot that ends in “bot”.
 
 The BotFather will respond with a message containing an access token for your newly created bot. This access token will allow our application to access the Telegram API and tell our bot what to do when receiving different messages from users.
 
@@ -85,14 +85,14 @@ Once your application is live, you can view the build log by selecting the “De
 
 ## Add a `BOT_TOKEN` Environment Variable
 
-Once the build is complete, you have to add a `BOT_TOKEN` environment variable on the "Configure" tab under the "Capsule parameters" section. Assign it the value of the access token you were given by the BotFather when you registered the bot.
+Once the build is complete, you have to add a `BOT_TOKEN` environment variable on the “Configure” tab under the “Capsule parameters” section. Assign it the value of the access token you were given by the BotFather when you registered the bot.
 
 ![Add a `BOT_TOKEN` Environment Variable](../assets/deployment/telegram/add-bot-token-env-var.png)
 
-Confirm your changes by clicking on "Update Capsule" then restart your capsule by toggling the radio button in the top right off and on again.
+Confirm your changes by clicking on “Update Capsule”, then restart your capsule by toggling the radio button in the top right off and on again.
 
 ## Chat with the Bot
 
-The bot will be able to respond to messages after restarting the capsule. When this is done, search for your bot on Telegram using the username you assigned it and start a chat with it. The bot has been programmed to respond to `/start` and echo any messages you send it.
+The bot will be able to respond to messages after restarting the Capsule. When this is done, search for your bot on Telegram using the username you assigned it and start a chat with it. The bot has been programmed to respond to `/start` and echo any messages you send it.
 
 If you’d like to deploy another application in a different language or framework, take a look at our other [deployment guides](/docs/deployment/).
