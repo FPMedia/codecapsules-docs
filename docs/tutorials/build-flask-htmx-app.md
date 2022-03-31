@@ -23,7 +23,7 @@ In this tutorial, we’ll explore the benefits of HTMx by building a full stack 
 After building our application, you’ll want to deploy it to production so you can show it to friends and family. You will therefore need the following to complete the tutorial:
 
 - Git set up and installed, and a registered GitHub account
-- Python3 installed 
+- Python 3 installed 
 - An IDE or text editor of your choice
 
 ## Setting up the Project
@@ -32,7 +32,7 @@ With all the requirements in place, we can go ahead and set up our project. Let�
 
 ### Create Project Folder
 
-Next, let’s create a folder to house our application’s source code. Run the commands below in the terminal to create the folder and navigate into it.
+Let’s create a folder to house our application’s source code. Run the commands below in the terminal to create the folder and navigate into it.
 
 ```
 mkdir flask-htmx
@@ -81,19 +81,19 @@ You might notice there’s no dependency for HTMx in our dependency list. This i
 
 ### Initialize an Empty Git Repository
 
-While in the project’s root folder, enter the command, `git init` to initialize a `git` repository. This will allow you to track changes to your app as you build it. 
+While in the project’s root folder, enter the command `git init` to initialize a `git` repository. This will allow you to track changes to your app as you build it. 
 
-Create a `.gitignore` file and within the file add the line below:
+Create a `.gitignore` file and add the line below to it:
 
 ``` 
 env/
 ```
 
-This excludes the `env` folder from being tracked by git as we only want to track changes in our project files.
+This excludes the `env` folder from being tracked by Git, as we only want to track changes in our project files.
 
 ### Linking to GitHub
 
-Head over to [GitHub](https://github.com/) and create a new repository. Then in your project's root folder run the command below from the terminal replacing the `username` and `repository_name` with your own values from GitHub.
+Head over to [GitHub](https://github.com/) and create a new repository. Then, in your project's root folder, run the command below from the terminal, replacing `username` and `repository_name` with your own values from GitHub.
 
 ```sh
 git remote add origin git@github.com:username/repository_name.git
@@ -103,7 +103,7 @@ This will link your local repository to the one on GitHub.
 
 ## Building the HTMx Frontend
 
-With the setup complete, we can now begin building our app. We will start with the HTMx frontend, and for this you need to create an `app/templates` folder inside the project’s root folder.
+With the set up complete, we can now begin building our app. We will start with the HTMx frontend, and for this you need to create an `app/templates` folder inside the project’s root folder.
 
 Next, create an `index.html` file inside the `templates` folder, and populate it with the code below:
 
@@ -148,7 +148,7 @@ Next, create an `index.html` file inside the `templates` folder, and populate it
 </html>
 ```
 
-There’s not much going on in the code snippet above, except for line 5 and 8, which are responsible for loading Bootstrap and HTMx into our `index.html` page. This gives you the power to build an interactive page just by including the `<script>` tag that links to HTMx, without needing to install any `npm` packages like with most SPAs. This is how HTMx allows you to build more lightweight sites compared to SPA frameworks. 
+There’s not much going on in the code snippet above, except for line 5 and 8, which are responsible for loading Bootstrap and HTMx into our `index.html` page. This gives you the power to build an interactive page just by including the `<script>` tag that links to HTMx, without needing to install any `npm` packages like with most SPAs. This is how HTMx allows you to build sites that are more lightweight compared to SPA frameworks. 
 
 The code in between the `<style>` tag adds CSS to style our frontend to make it more visually appealing. Now let’s add code that will be rendered in the body tag of our page. Copy and paste the code below underneath the `</head>` tag:
 
@@ -195,7 +195,7 @@ There are a couple of attributes here that aren’t used in traditional HTML. Le
 
 - **hx-target** – This attribute accepts the `id` of the element you want to update after a successful request or when an event is triggered. Take note of the preceding `#` that’s written before the `id` value. 
 
-    - You might have noticed that we didn’t use an `id` value in the table, but used a value of `closest tr` instead. This swaps the closest table row with the HTML that’ll be returned by the request when an action is triggered. The closest row will always be the same row in which an event or request was triggered either by the “Edit Title” button or the “Delete” button. 
+    - You might have noticed that we didn’t use an `id` value in the table, but used a value of `closest tr` instead. This swaps the closest table row with the HTML that will be returned by the request when an action is triggered. The closest row will always be the same row in which an event or request was triggered, either by the “Edit Title” button or the “Delete” button. 
 
 - **hx-swap** – The [hx-swap](https://htmx.org/docs/#swapping) attribute allows you to specify how you want to partially reload the page or swap elements with new ones. It updates the UI in the section specified in the `hx-target` attribute.
 
@@ -241,7 +241,7 @@ db.create_all()
 
 Here we declare our app object using the Flask package we installed earlier. We’ll be using a SQLite database, which we configure using the `app.config` lines. 
 
-We use SQLAlchemy to declare the database object we’ll interact with, as it allows us to read and write to the database using object notation, which is more familiar than raw SQL statements. It is important to import the models only after declaring the db object so that their respective tables are included in the database when it’s created. The last two lines handle the initialization of the database and the creation of all relevant tables in the database based on the models that are imported. 
+We use SQLAlchemy to declare the database object we’ll interact with, as it allows us to read and write to the database using object notation, which is more familiar than raw SQL statements. It is important to import the models only after declaring the database object so that their respective tables are included in the database when it’s created. The last two lines handle the initialization of the database and the creation of all relevant tables in the database based on the models that are imported. 
 
 ### Register App Models
 
@@ -264,7 +264,7 @@ class Book(db.Model):
     title = db.Column(db.String)
 ```
 
-Here we declare the two models we’re going to be saving in our database, which are `Author` and `Book`. It is worth noting the one-to-many relationship between an Author and Books, as an Author can have many Books but each Book can only have a single Author in the context of this application. We denote this relationship by using a foreign key in the `author_id` field of the Book and a `backref` in the books field of an Author.
+Here we declare the two models we’re going to be saving in our database, which are `Author` and `Book`. It is worth noting the one-to-many relationship between "author" and "books", as an author can have many Books but each book can only have a single author in the context of this application. We denote this relationship by using a foreign key in the `author_id` field of the book and a `backref` in the books field of an author.
 
 ### Create Views
 
@@ -283,7 +283,7 @@ def home():
 
 In the code snippet above, we’ve added the index route and bound the home function to it. The home function first queries the database to get a list of all books before returning the `index.html` template that’s populated with the list of books. 
 
-Add the code below to add the `/submit` route to our app’s `views.py` file. 
+Add the code below to add the `/submit` route to our app’s `views.py` file: 
 
 ```py
 @app.route("/submit", methods=["POST"])
@@ -333,7 +333,7 @@ def submit():
     return response
 ```
 
-When a person submits a new book, this is the route that’s called. The logic first checks if the author already exists in the database and if so, saves the book with the author’s `author_id`. Otherwise it creates a new author and then saves the book. As HTMx expects an HTML response, the submit method responds with an HTML table row that updates the list of books on the frontend. The new entry will be for the recently added book. 
+When a person submits a new book, this is the route that’s called. The logic first checks if the author already exists in the database and if so, saves the book with the author’s `author_id`. Otherwise, it creates a new author and then saves the book. As HTMx expects an HTML response, the `submit` method responds with an HTML table row that updates the list of books on the frontend. The new entry will be for the recently added book. 
 
 Next, let’s add the code for the `/delete` route. Copy and paste the code below:
 
