@@ -5,6 +5,8 @@ description: Create an application that generates cool graphics using Pillow, Fl
 
 # Build a Generative Graphics Application with Pillow, Flask and HTMx
 
+![Generative Graphics Cover](../assets/tutorials/generative-art/generative-art-cover.png)
+
 Image processing is an increasingly popular functionality among today’s apps as more and more pictures get digitized by the day. Python provides support for image manipulation through a package called `Pillow` and in this tutorial we’ll look at how to leverage it to create random graphic images.
 
 We’ll build a web app that creates images with rectangle graphics of different colours and sizes and makes them available for download when requested by a user.
