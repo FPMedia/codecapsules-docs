@@ -1,5 +1,5 @@
 site_name: Code Capsules
-site_url: !ENV [SITEURL, 'https://codecapsules.io/docs']
+site_url: !ENV [SITEURL, "https://codecapsules.io/docs"]
 site_description: >-
   The documentation for Code Capsules, the easiest deployment
   platform that lets you pull your code directly from your Github repository
@@ -34,89 +34,90 @@ markdown_extensions:
 nav:
   - Getting Started: index.md
   - Deployment:
-    - Overview: deployment/index.md
-    - Angular: deployment/how-to-deploy-angular-application-to-production.md
-    - Bootstrap: deployment/how-to-deploy-bootstrap-site-to-production.md
-    - Django: deployment/how-to-deploy-django-application-to-production.md
-    - Django + MySQL: deployment/how-to-deploy-django-mysql-application-to-production.md
-    - Django + MongoDB: deployment/how-to-deploy-django-mongodb-application-to-production.md
-    - Express: deployment/how-to-deploy-express-application-to-production.md
-    - Express + Mongo: deployment/how-to-deploy-express-mongo-application-to-production.md
-    - Flask: deployment/how-to-deploy-flask-application-to-production.md
-    - Flask + HTMx: deployment/how-to-deploy-flask-htmx-application-to-production.md
-    - Flask + MongoDB: deployment/how-to-deploy-flask-mongo-application-to-production.md
-    - Flask + MySQL: deployment/how-to-deploy-flask-mysql-application-to-production.md
-    - Go: deployment/how-to-deploy-go-application-to-production.md
-    - HTML: deployment/how-to-deploy-static-html-to-production.md
-    - HTML5up: deployment/how-to-deploy-html5up-template-to-production.md
-    - Java (Spring): deployment/how-to-deploy-java-application-to-production.md
-    - Java (Spring) + MySQL: deployment/how-to-deploy-java-mysql-application-to-production.md
-    - MEAN (Mongo, Express, Angular): deployment/how-to-deploy-mean-stack-application-to-production.md
-    - MERN (Mongo, Express, React): deployment/how-to-deploy-mern-stack-application-to-production.md
-    - Next: deployment/how-to-deploy-next-application-to-production.md
-    - Next + Mongo: deployment/how-to-deploy-next-mongo-application-to-production.md
-    - Next + Express: deployment/how-to-deploy-next-express-application-to-production.md
-    - Next + Express + Mongo: deployment/how-to-deploy-next-express-mongo-application-to-production.md
-    - NodeJS Discord Bot: deployment/how-to-deploy-node-discord-bot-to-production.md
-    - NodeJS Telegram Bot: deployment/how-to-deploy-node-telegram-bot-to-production.md
-    - Python Discord Bot: deployment/how-to-deploy-python-discord-bot-to-production.md
-    - Python Telegram Bot: deployment/how-to-deploy-python-telegram-bot-to-production.md
-    - Polling NodeJS Telegram Bot: deployment/how-to-deploy-polling-node-telegram-bot-to-production.md
-    - Polling Python Telegram Bot: deployment/how-to-deploy-polling-python-telegram-bot-to-production.md
-    - React: deployment/how-to-deploy-react-application-to-production.md
-    - Slack: deployment/how-to-deploy-slack-bot-to-production.md
-    - Svelte: deployment/how-to-deploy-svelte-application-to-production.md
-    - Vue: deployment/how-to-deploy-vue-application-to-production.md
-    - WhatsApp: deployment/how-to-deploy-whatsapp-bot-to-production.md
+      - Overview: deployment/index.md
+      - Angular: deployment/how-to-deploy-angular-application-to-production.md
+      - Bootstrap: deployment/how-to-deploy-bootstrap-site-to-production.md
+      - Django: deployment/how-to-deploy-django-application-to-production.md
+      - Django + MySQL: deployment/how-to-deploy-django-mysql-application-to-production.md
+      - Django + MongoDB: deployment/how-to-deploy-django-mongodb-application-to-production.md
+      - Express: deployment/how-to-deploy-express-application-to-production.md
+      - Express + Mongo: deployment/how-to-deploy-express-mongo-application-to-production.md
+      - Flask: deployment/how-to-deploy-flask-application-to-production.md
+      - Flask + HTMx: deployment/how-to-deploy-flask-htmx-application-to-production.md
+      - Flask + MongoDB: deployment/how-to-deploy-flask-mongo-application-to-production.md
+      - Flask + MySQL: deployment/how-to-deploy-flask-mysql-application-to-production.md
+      - Go: deployment/how-to-deploy-go-application-to-production.md
+      - HTML: deployment/how-to-deploy-static-html-to-production.md
+      - HTML5up: deployment/how-to-deploy-html5up-template-to-production.md
+      - Java (Spring): deployment/how-to-deploy-java-application-to-production.md
+      - Java (Spring) + MySQL: deployment/how-to-deploy-java-mysql-application-to-production.md
+      - MEAN (Mongo, Express, Angular): deployment/how-to-deploy-mean-stack-application-to-production.md
+      - MERN (Mongo, Express, React): deployment/how-to-deploy-mern-stack-application-to-production.md
+      - Next: deployment/how-to-deploy-next-application-to-production.md
+      - Next + Mongo: deployment/how-to-deploy-next-mongo-application-to-production.md
+      - Next + Express: deployment/how-to-deploy-next-express-application-to-production.md
+      - Next + Express + Mongo: deployment/how-to-deploy-next-express-mongo-application-to-production.md
+      - NodeJS Discord Bot: deployment/how-to-deploy-node-discord-bot-to-production.md
+      - NodeJS Telegram Bot: deployment/how-to-deploy-node-telegram-bot-to-production.md
+      - Python Discord Bot: deployment/how-to-deploy-python-discord-bot-to-production.md
+      - Python Telegram Bot: deployment/how-to-deploy-python-telegram-bot-to-production.md
+      - Polling NodeJS Telegram Bot: deployment/how-to-deploy-polling-node-telegram-bot-to-production.md
+      - Polling Python Telegram Bot: deployment/how-to-deploy-polling-python-telegram-bot-to-production.md
+      - React: deployment/how-to-deploy-react-application-to-production.md
+      - Slack: deployment/how-to-deploy-slack-bot-to-production.md
+      - Svelte: deployment/how-to-deploy-svelte-application-to-production.md
+      - Vue: deployment/how-to-deploy-vue-application-to-production.md
+      - WhatsApp: deployment/how-to-deploy-whatsapp-bot-to-production.md
   - Reference:
-    - Overview: reference/index.md
-    - Capsule Billing: reference/capsule-billing.md
-    - Capsule Management: reference/capsule-management.md
-    - Custom Domains: reference/custom_domains.md
-    - File Data Capsule: reference/set-up-file-data-capsule.md
-    - MongoDB Data Capsule: reference/set-up-mongodb-data-capsule.md
-    - MySQL Data Capsule: reference/set-up-mysql-data-capsule.md
-    - Procfile: reference/add-procfile-to-backend-application.md
-    - Python Development: reference/python-development-with-code-capsules.md
-    - Team Management: reference/team-management.md
+      - Overview: reference/index.md
+      - Capsule Billing: reference/capsule-billing.md
+      - Capsule Management: reference/capsule-management.md
+      - Custom Domains: reference/custom_domains.md
+      - File Data Capsule: reference/set-up-file-data-capsule.md
+      - MongoDB Data Capsule: reference/set-up-mongodb-data-capsule.md
+      - MySQL Data Capsule: reference/set-up-mysql-data-capsule.md
+      - Procfile: reference/add-procfile-to-backend-application.md
+      - Python Development: reference/python-development-with-code-capsules.md
+      - Team Management: reference/team-management.md
   - Tutorials:
-    - tutorials/index.md
-    - Slackbot with Node.js: tutorials/build-slackbot-with-node.md
-    - MERN Job Board: tutorials/build-mern-job-board.md
-    - Web File Store: tutorials/build-a-web-file-store.md
-    - Node.js Telegram Bot: tutorials/create-nodejs-telegram-bot.md
-    - Python Telegram Bot: tutorials/create-and-host-telegram-bot.md
-    - Flask API: tutorials/creating-and-hosting-a-flask-api.md
-    - Flask HTMx: tutorials/build-flask-htmx-app.md
-    - Custom Domains: tutorials/customising-domain.md
-    - Persistent Sleep Tracker Part 1: tutorials/develop-persistent-sleep-tracker-part-1.md
-    - Persistent Sleep Tracker Part 2: tutorials/develop-persistent-sleep-tracker-part-2.md
-    - Front-end Portfolio: tutorials/host-a-frontend.md
-    - Stripe Checkout and Email Subscription with Flask: tutorials/stripe-checkout-and-email-with-flask.md
-    - Game Catalogue API with Node.js and MySQL: tutorials/game-catalogue-with-nodejs-and-mysql.md
+      - tutorials/index.md
+      - Slackbot with Node.js: tutorials/build-slackbot-with-node.md
+      - MERN Job Board: tutorials/build-mern-job-board.md
+      - Web File Store: tutorials/build-a-web-file-store.md
+      - Node.js Telegram Bot: tutorials/create-nodejs-telegram-bot.md
+      - Python Telegram Bot: tutorials/create-and-host-telegram-bot.md
+      - Flask API: tutorials/creating-and-hosting-a-flask-api.md
+      - Flask HTMx: tutorials/build-flask-htmx-app.md
+      - Generative Graphics: tutorials/generative-art.md
+      - Custom Domains: tutorials/customising-domain.md
+      - Persistent Sleep Tracker Part 1: tutorials/develop-persistent-sleep-tracker-part-1.md
+      - Persistent Sleep Tracker Part 2: tutorials/develop-persistent-sleep-tracker-part-2.md
+      - Front-end Portfolio: tutorials/host-a-frontend.md
+      - Stripe Checkout and Email Subscription with Flask: tutorials/stripe-checkout-and-email-with-flask.md
+      - Game Catalogue API with Node.js and MySQL: tutorials/game-catalogue-with-nodejs-and-mysql.md
   - FAQ:
-    - Teams, Spaces and Capsules: FAQ/teams-spaces-capsules.md
-    - What is a Capsule?: FAQ/what-is-a-capsule.md
-    - What is a Space?: FAQ/what-is-a-space.md
-    - What is a Team?: FAQ/what-is-a-team.md
-    - How Do I Add a Custom Domain?: FAQ/how-to-add-custom-domain.md
+      - Teams, Spaces and Capsules: FAQ/teams-spaces-capsules.md
+      - What is a Capsule?: FAQ/what-is-a-capsule.md
+      - What is a Space?: FAQ/what-is-a-space.md
+      - What is a Team?: FAQ/what-is-a-team.md
+      - How Do I Add a Custom Domain?: FAQ/how-to-add-custom-domain.md
   - Comparisons:
-    - comparisons/index.md
-    - PaaS Providers: comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules.md
-    - Telegram Hosting Providers: comparisons/comparing-telegram-bot-hosting-providers.md
-    - SaaS vs PaaS vs IaaS: comparisons/saas-paas-iaas.md
+      - comparisons/index.md
+      - PaaS Providers: comparisons/comparing-paas-providers-heroku-vs-digitalocean-vs-code-capsules.md
+      - Telegram Hosting Providers: comparisons/comparing-telegram-bot-hosting-providers.md
+      - SaaS vs PaaS vs IaaS: comparisons/saas-paas-iaas.md
   - Community:
-    - Introducing Code Capsules: community/introducing-code-capsules.md
-    - Hack Days and Free Tech Consulting: community/codecapsules-hack-days.md
-    - Founder Fridays: community/founder-fridays.md
+      - Introducing Code Capsules: community/introducing-code-capsules.md
+      - Hack Days and Free Tech Consulting: community/codecapsules-hack-days.md
+      - Founder Fridays: community/founder-fridays.md
   - Video Guides:
-    - videos/index.md
+      - videos/index.md
 
 extra:
   generator: false
   analytics:
     provider: google
-    property: !ENV [GANALYTICS, 'UA-165274631-2']
+    property: !ENV [GANALYTICS, "UA-165274631-2"]
     feedback:
       title: Was this page helpful?
       ratings:
@@ -128,5 +129,5 @@ extra:
         - icon: material/emoticon-sad-outline
           name: This page could be improved
           data: 0
-          note: >- 
+          note: >-
             Thanks for your feedback! We'll do our best to improve.
