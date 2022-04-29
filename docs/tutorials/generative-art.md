@@ -3,9 +3,9 @@ title: Build a Generative Art Flask HTMx Application
 description: Create an application that generates cool graphics using Pillow, Flask and HTMx.
 ---
 
-# Build a Generative Graphics Application with Pillow, Flask and HTMx
+# Build a Generative Art Application with Pillow, Flask and HTMx
 
-![Generative Graphics Cover](../assets/tutorials/generative-art/generative-art-cover.png)
+![Generative Art Cover](../assets/tutorials/generative-art/generative-art-cover.png)
 
 Python’s Pillow package provides support for image manipulation that we can leverage to create random graphic images.
 
@@ -22,9 +22,9 @@ You can also add text to the generated images to create image covers and differe
 You will need the following to complete the tutorial and host your application on Code Capsules:
 
 - A [Code Capsules](https://codecapsules.io/) account
-- Git set up and installed, and a registered GitHub account
+- Git set up and installed, and a registered [GitHub](https://github.com/) account
 - IDE or text editor of your choice
-- Python3 installed
+- Python 3 installed
 
 ## Project Set Up
 
@@ -59,6 +59,8 @@ source env/bin/activate
 
 When you’ve activated the virtual environment, the name `env` will appear on the far left of your current line. This confirms that the activation was successful.
 
+![Activated virtual environment](../assets/tutorials/generative-art/envactive.png)
+
 Now we can **install dependencies** our app needs to the environment. Run the command below from a terminal in the project root folder to install the packages we’ll need:
 
 ```
@@ -67,7 +69,7 @@ pip install flask pillow gunicorn
 
 Let's **initialize a Git repository** so that we can make use of version control throughout the course of this tutorial and keep track of our changes. Run the command `git init` to create a new empty repository in the project root folder.
 
-The final set up step is to **link to GitHub**. We'll link our newly created local `git` repository to a remote one that we can deploy from. The remote repository can be thought of as a mirror image of the local one, and we'll update the remote repository when new code works as expected locally.
+The final set up step is to **link to GitHub**. We'll link our newly created local `git` repository to a remote one that we can deploy to Code Capsules from. The remote repository can be thought of as a mirror image of the local one, and we'll update the remote repository when new code works as expected locally.
 
 Head over to [GitHub](https://github.com/) and create a new repository. You’ll be presented with instructions for linking your new remote repository to a local one. Go back to your terminal in the project root folder and run the command below, taking care to replace the `username` and `repository_name` with your own values.
 
@@ -77,13 +79,13 @@ git remote add origin git@github.com:username/repository_name.git
 
 ## Build the Frontend
 
-We can now start building our generative graphics app and we’ll start with the frontend using Flask templates. Create an `app/templates` folder inside the project root folder and add a file named `home.html` to it. This file will contain the code for the landing page of our app. Populate it with the code below:
+We can now start building our generative art app and we’ll start with the frontend using Flask templates. Create an `app/templates` folder inside the project root folder and add a file named `home.html` to it. This file will contain the code for the landing page of our app. Populate it with the code below:
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Flask HTMX ALPINE App</title>
+    <title>Generate Art without NFTs</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -117,6 +119,8 @@ We can now start building our generative graphics app and we’ll start with the
       }
     </style>
   </head>
+
+<!-- Insert body code here -->
 </html>
 ```
 
@@ -128,34 +132,29 @@ Next, we'll add the code for the body of the home page. Copy and paste the snipp
 
 ```html
 <body>
-  <h1>Generate Cool Graphics</h1>
-  {% if image %}
-  <div class="image-frame">
-    <img id="new-image" src="data:image/png;base64,{{image}}" />
-  </div>
-  {% endif %}
+<h1>Generate Art</h1>
 
-  <div class="button-row">
+<p>The art below is unique. It will never be seen again if you press "I hate this art, make me another". If you like it, you can download it and keep it. No need to get blockchain or NFTs or Open Sea involved: just a few lines of Python. Read our <a href="https://codecapsules.io/docs/tutorials/generative-art-python.html">tutorial on how to make your own</a>.</p>
+{% if image %}
+<div class="image-frame">
+    <img id="new-image" src="data:image/png;base64,{{image}}" />
+</div>
+{% endif %}
+
+<div class="button-row">
     {% if image %}
     <form action="/download" method="post" enctype="multipart/form-data">
-      <input
-        type="text"
-        name="image"
-        value="{{image}}"
-        style="display: none;"
-      />
-      <button type="submit" class="btn btn-primary">Download</button>
+        <input type="text" name="image" value={{image}} style="display: none;" />
+        <button type="submit" class="btn btn-primary">Download</button>
     </form>
     {% endif %}
-    <button
-      class="btn btn-primary"
-      hx-target="#new-image"
-      hx-get="/generate-another"
-      hx-swap="outerHTML"
-    >
-      I hate this art, make me another
+    <button class="btn btn-primary"
+            hx-target="#new-image"
+            hx-get="/generate-another"
+            hx-swap="outerHTML">
+        I hate this art, make me another
     </button>
-  </div>
+</div>
 </body>
 ```
 
@@ -165,7 +164,7 @@ The `<img>` tag below the page header takes in a Base64 string as input and rend
 
 - `hx-target`: This attribute accepts an `id` value prefixed by a `#`. It lets HTMx know which element to swap on a successful request.
 - `hx-get`: The `hx-get` attribute sends a `GET` request to the specified URL. If we wanted to send a `POST` request, we would have used the `hx-post` attribute instead.
-- `hx-swap`: This attribute tells HTMx how to swap out the old and new elements after a successful request. In our case we’ve used the value of `“outerHTML”` to specify that the entire `<img>` element be replaced by the response. Other accepted values include but are not limited to `innerHTML`, `beforeend`, and `afterend`.
+- `hx-swap`: This attribute tells HTMx how to swap out the old with the new elements after a successful request. In our case we’ve used the value of `“outerHTML”` to specify that the entire `<img>` element be replaced by the response. Other accepted values include but are not limited to `innerHTML`, `beforeend`, and `afterend`.
 
 You can view other HTMx attributes and their functionalities [in this HTMx reference guide](https://htmx.org/reference/).
 
@@ -205,11 +204,14 @@ The next step is to add logic for the graphic image generation. Create a file na
 Next, let’s create the file that will make use of the palettes we defined. In the `/app` folder, add a file named `make_squares.py` and populate it with the code below:
 
 ```py
-from PIL import Image, ImageDraw, ImageFont
 import base64
-import random
 import json
+import random
 import io
+
+from PIL import Image, ImageDraw
+
+BLACK = (0, 0, 0, 255)
 
 palettes = []
 with open("palettes.json") as f:
@@ -218,31 +220,35 @@ with open("palettes.json") as f:
         palette = [tuple(x) for x in p]
         palettes.append(palette)
 
-BLACK = (0, 0, 0, 255)
 
-def create():
+def create(save_path):
     img = Image.new("RGBA", (1000, 1000), (255, 255, 255, 255))
     d = ImageDraw.Draw(img)
 
-
     num_recs = random.randrange(20, 40)
-    min_size = random.randrange(20,50)
-    max_size = min_size + random.randrange(20,100)
+    min_size = random.randrange(20, 50)
+    max_size = min_size + random.randrange(20, 100)
     colors = random.choice(palettes)
-    stroke_width = random.randrange(1,5)
+    stroke_width = random.randrange(1, 5)
     xoffset = 0
     yoffset = 0
     for row in range(num_recs):
         for rec in range(num_recs):
             topleftx = random.randrange(0, 50) + xoffset
             toplefty = random.randrange(0, 50) + yoffset
-            bottomrightx = topleftx + random.randrange(min_size,max_size)
-            bottomrighty = toplefty + random.randrange(min_size,max_size)
+            bottomrightx = topleftx + random.randrange(min_size, max_size)
+            bottomrighty = toplefty + random.randrange(min_size, max_size)
             color = random.choice(colors)
             xoffset += 50
-            r = d.rectangle([topleftx, toplefty, bottomrightx, bottomrighty], fill=color, outline=BLACK, width=stroke_width)
+            r = d.rectangle(
+                [topleftx, toplefty, bottomrightx, bottomrighty],
+                fill=color,
+                outline=BLACK,
+                width=stroke_width,
+            )
         yoffset += 50
         xoffset = 0
+    img.save(save_path)
     image = io.BytesIO()
     img.save(image, "PNG")
     image.seek(0)
@@ -250,7 +256,7 @@ def create():
     return img_b64
 ```
 
-The module defined in the code snippet above leverages the Pillow package to create new random images using the palettes we defined in the `palettes.json` file. In lines 8-12, we open the `palettes.json` file and add its contents to a local array named `palettes` that we’ll use in the `create()` method.
+The module defined in the code snippet above leverages the Pillow package to create new random images using the palettes we defined in the `palettes.json` file. In lines 10-15, we open the `palettes.json` file and add its contents to a local array named `palettes` that we’ll use in the `create()` method.
 
 The `create()` method is responsible for generating Base64 image strings for new random images. It does so by first creating a blank canvas and adding a random number of rectangles of different sizes and colours. When the image has been created, it’s returned as a Base64 image string, which is more efficient to transfer between our app modules.
 
@@ -266,39 +272,43 @@ import io, base64
 from PIL import Image
 import os
 
-db_directory = os.getenv('PERSISTENT_STORAGE_DIR')
+tmp_file_path = "/tmp/imgnew.png"
+
 
 @app.route("/", methods=["GET"])
 def index():
-    graphic_image = create()
-    img = Image.open(io.BytesIO(base64.decodebytes(bytes(graphic_image, "utf-8"))))
-    img.save(os.path.join(db_directory, "imgnew.png"))
-    return render_template('home.html', image=graphic_image)
+    graphic_image = create(tmp_file_path)
+    return render_template("home.html", image=graphic_image)
+
 
 @app.route("/generate-another", methods=["GET"])
 def generate_another():
-    graphic_image = create()
-    img = Image.open(io.BytesIO(base64.decodebytes(bytes(graphic_image, "utf-8"))))
-    img.save(os.path.join(db_directory, "imgnew.png"))
+    graphic_image = create(tmp_file_path)
     response = f"""
     <img id="new-image" src="data:image/png;base64,{graphic_image}" />
     """
     return response
 
+
 @app.route("/download", methods=["GET", "POST"])
 def download():
-    return send_file(os.path.join(db_directory, "imgnew.png"), mimetype='image/png', as_attachment=True, download_name="graphic.png")
+    return send_file(
+        tmp_file_path,
+        mimetype="image/png",
+        as_attachment=True,
+        download_name="graphic.png",
+    )
 ```
 
-At the top of the file, we import the `create` method from the `make_squares` module, since our views need to return the Base64 image string when responding. Our app will make use of the persistent file storage provided by Code Capsules, so we import `os` to allow us to read the `PERSISTENT_STORAGE_DIR` environment variable. Reading and writing to this file storage is the same as reading and writing to your local file system, but with the benefit of online access and persistence. We store the value of the `PERSISTENT_STORAGE_DIR` environment variable in the `db_directory` variable in an effort to follow clean code principles.
+At the top of the file, we import the `create` method from the `make_squares` module, since our views need to return the Base64 image string when responding.
 
-The `index` route is called when the app is first started, and it calls the `create()` method to generate a Base64 image string and returns it in the `home.html` template. The `/generate-another` route is called when a user clicks on the “I hate this art, make me another” button. It saves the new graphic image to the persistent file storage before returning it as part of an HTML response, since the request is triggered by HTMx. This allows our app to only refresh the image element and not the whole page, like in the case of rendering templates.
+The `index` route is called when the app is first started, and it calls the `create()` method to generate a Base64 image string and returns it in the `home.html` template. The `/generate-another` route is called when a user clicks on the “I hate this art, make me another” button. It saves the new graphic image to the `/tmp` folder before returning it as part of an HTML response, since the request is triggered by HTMx. This allows our app to only refresh the image element and not the whole page, like in the case of rendering templates.
 
 The last view we have is for the download feature. When a user clicks on the “Download” button, the `/download` route is called and it gets the most recently generated graphic image from the file storage before returning a response with the file added as an attachment.
 
 ## Prepare for Deployment
 
-Our Generate Graphics app is now complete and we are only left with adding the files necessary for deployment before we can publish it.
+Our generate art app is now complete and we are only left with adding the files necessary for deployment before we can publish it.
 
 ### Add Procfile and `requirements.txt`
 
@@ -308,9 +318,14 @@ We’ll start by creating a Procfile, which tells Code Capsules how to run our a
 web: gunicorn run:app
 ```
 
-We use the `gunicorn` package to run our app in production, since the built-in Flask server is less secure and only suitable for the development environment.
+We use the `gunicorn` server to run our app in production, since the built-in Flask server is less secure and only suitable to be used in a development environment.
 
-Next, we need to generate a `requirements.txt` file to tell Code Capsules which packages need to be installed first before our app can start. Run the command `pip freeze –local > requirements.txt` from a terminal while in the project’s root folder to create a `requirements.txt` file.
+Next, we need to generate a `requirements.txt` file to tell Code Capsules which packages need to be installed first before our app can start. Run the command below from a terminal while in the project’s root folder to create a `requirements.txt` file.
+
+```sh
+pip freeze –local > requirements.txt
+```
+
 
 ### Add Virtual Environment to `.gitignore`
 
@@ -326,14 +341,16 @@ Let's add and commit all the files we created to our local repository and then p
 
 ```
 git add -A
-git commit -m “Added generative graphics files”
-git push origin main
+git commit -m "Added generative graphics files"
+git push -u origin main
 ```
 
-Your remote repository will now be up to date with your local one.
+Your remote repository will now be up to date with your local one. 
 
 ## Deploy to Code Capsules
 
-The final step is to deploy our app. Log into your Code Capsules account and link your remote GitHub repository to Code Capsules. Create a Backend Capsule and deploy the app there. You will also need a file Data Capsule to persist your storage. When your app has been successfully built on the Backend Capsule, bind the Backend Capsule to the Data Capsule in order to connect the two. You can follow our [How to Set Up a Persistent File Data Capsule](https://codecapsules.io/docs/reference/set-up-file-data-capsule/) guide to see how to do this in greater detail.
+The final step is to deploy our app. Log into your Code Capsules account and link your remote GitHub repository to Code Capsules. Create a Backend Capsule and deploy the app there. You can follow this [deployment guide](https://codecapsules.io/docs/deployment/how-to-deploy-flask-application-to-production/) to see how to do this in greater detail.
 
-That’s it! Your “Generate Graphics” app should be live and fully functional now.
+That’s it! Your "Generate Art" app should be live and fully functional now.
+
+![Functional app](../assets/tutorials/generative-art/app.png)
