@@ -51,9 +51,9 @@ The database URL for a MySQL Data Capsule can be found in the “Configure” se
 
 ## Step 4: Create and Populate SQL Files
 
-Run the following command to create a folder to store migrations: 
+Run the following command to create a folder to store migrations (be sure to replace the migration name with your own): 
 
-`db-migrate create insert_unique_name --sql-file`
+`db-migrate create migration_name --sql-file`
 
 The folder should contain three files:
 
