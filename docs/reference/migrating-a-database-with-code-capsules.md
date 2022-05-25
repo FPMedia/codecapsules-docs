@@ -1,6 +1,6 @@
 # Migrating a Database with Code Capsules
 
-This guide will walk you through performing database migrations using an Express app and a MySQL data capsule.
+This guide will walk you through performing database migrations using an Express app and a MySQL Data Capsule.
 
 You might find our [guide to setting up a MySQL Data Capsule](https://codecapsules.io/docs/reference/set-up-mysql-data-capsule/) and our [creating an Express application with Code Capsules](https://codecapsules.io/docs/tutorials/game-catalogue-with-nodejs-and-mysql/) tutorial helpful.
 
@@ -37,13 +37,13 @@ The db-migrate package connects to a database through `database.json` file. Crea
 }
 ```
 
-Here we also add the`"sql-file": true` information to ensure our database migrations operate through sql files that will be created in the next step.
+Here we also add the`"sql-file": true` information to ensure our database migrations operate through SQL files that will be created in the next step.
 
 The database URL for a MySQL Data Capsule can be found in the “Configure” section of your backend capsule:
 
 ![DATABSE_URL](../assets/reference/database-migration-images/configure-tab.png)
 
- You can also access the database URL through an environment variable like so:
+ You can also access the database URL through an environment variable, like so:
 
 `"prod": {“ENV”:"DATABASE_URL"},`
 
@@ -51,7 +51,7 @@ The database URL for a MySQL Data Capsule can be found in the “Configure” se
 
 ## Step 4: Create and Populate SQL Files
 
-Run the command above to create a folder to store migrations: 
+Run the following command to create a folder to store migrations: 
 
 `db-migrate create insert_unique_name --sql-file`
 
@@ -61,7 +61,7 @@ The folder should contain three files:
 
 The two SQL files are named with an `up` and `down` suffix to hold your MySQL queries. The migrations that are performed look for MySQL queries in these files.
 
-Down-migration query
+**Down-migration query**
 
 Insert the following SQL query, to the SQL file with the `down` suffix, to drop a row from the database:
 
@@ -70,9 +70,9 @@ ALTER TABLE table_name
 DROP COLUMN drop_column_name; 
 ```
 
-Up-migration query
+**Up-migration query**
 
-Insert the following SQL query to the SQL file with the `up` suffix, to insert a row into the database:
+Insert the following SQL query to the SQL file with the `up` suffix to insert a row into the database:
 
 ```
 ALTER TABLE table_name
@@ -80,7 +80,7 @@ ADD new_row_name datatype;
 ```  
 
 
-Insert your own MySQL queries into these sql files to create your unique database migrations.
+Insert your own MySQL queries into these SQL files to create your unique database migrations.
 
 ## Step 5: Update Scripts
 
@@ -103,11 +103,12 @@ Here the scripts used to run up and down migrations are created in order to be r
 
 ## Step 6: Change Run Commands
 
-When you want to perform these migrations in the production environment, add the scripts created for your migrations to the “Run command” section found in your backend capsule’s “configure” section.
+When you want to perform these migrations in the production environment, add the scripts created for your migrations to the “Run command” section found in your Backend Capsule’s “configure” section.
 
 ![Run Command](../assets/reference/database-migration-images/configure-tab-run-command.png)
 
 ## Step 7: Push Changes
+
 Finally, commit and push your changes to your GitHub repository to update your project’s code base and perform your migrations. You should see your migrations in the “Logs” section of your Backend Capsule. It will have a similar structure to this output:
 
 ```
