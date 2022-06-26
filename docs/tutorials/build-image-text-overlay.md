@@ -13,7 +13,7 @@ At the end of the tutorial, you will be able to overlay images with any text or 
 
 ## Overview and Requirements
 
-We are going to deploy the application on Code Capsules so that you can showcase it to the world and also have access to it even when you’re not on your PC. To do that, you will need the following:
+We are going to deploy the application on Code Capsules where you can perform the edits as a background job using their new "Redis Data Capsule". To do that, you will need the following:
 
 - A [Code Capsules](https://codecapsules.io) account
 - Python 3 installed
@@ -172,22 +172,51 @@ Create an `__init__.py` file in the app folder and populate it with the code bel
 
 ```py
 from flask import Flask
+import os
+import redis
+
+redis_url = os.getenv('REDIS_URL')
+conn = redis.from_url(redis_url)
 
 app = Flask(__name__)
 
-from app import views
+from app import
 ```
 
-Here we declare our app object using the Flask package we installed earlier.
+Here we declare our app object using the Flask package we installed earlier and create a connection variable to the redis data capsule we'll be using.
+
+### Create the Worker
+
+Let's declare the worker that'll be responsible for completing the image edits as a background job using the redis queue. Create a file named `worker.py` in the root folder and add the below code to it:
+
+```py
+import os
+import redis
+from rq import Worker, Queue, Connection
+
+listen = ['high', 'default', 'low']
+
+redis_url = os.getenv('REDIS_URL')
+conn = redis.from_url(redis_url)
+
+if __name__ == '__main__':
+    with Connection(conn):
+        worker = Worker(map(Queue, listen))
+        worker.work()
+```
+
+The worker will continously listen for jobs in the `Queue` on the high, default and low channels.
 
 ### Create Views
 
 The next step is to create our application’s views. For this you will need to create a `views.py` file inside the `app` folder and add the following code to it:
 
 ```py
-from app import app
-import os
-from flask import render_template, request, send_file
+from app import app, conn
+from app.utils import process_job
+import redis, time, os, base64
+from rq import Queue
+from flask import render_template, request, send_file, redirect, url_for
 from PIL import Image, ImageFont, ImageDraw
 
 @app.route("/", methods=["GET"])
@@ -202,7 +231,34 @@ Copy and paste the code below for the `handle_submit` route at the bottom of the
 ```py
 @app.route('/handle_submit', methods=['POST'])
 def handle_submit():
-    overlay_text = request.form['overlay_text']
+    que = Queue(connection=conn)
+
+    logo = request.files['logo']
+    logo = Image.open(logo)
+    logo.save("logo.png")
+
+    with open("logo.png", "rb") as img_file:
+        b64_string = base64.b64encode(img_file.read())
+
+    result = que.enqueue(process_job, request.form['overlay_text'], b64_string)
+    time.sleep(3)
+    return send_file("../result.jpg", mimetype='image/jpg', as_attachment=True, download_name="result.jpg")
+```
+
+Next, paste the background image in the project’s root folder. You can download it [here](https://github.com/codecapsules-io/image-text-overlay/blob/main/app/static/fall-season.jpeg). You will also need a true type font file of your favourite font style or alternatively use the [Playfair Display](https://github.com/codecapsules-io/image-text-overlay/blob/main/PlayfairDisplay-Black.ttf) font which is the one used for the purposes of writing this tutorial. Paste the font file in the project’s root folder and if you’ve used a different font file make sure to replace the font file name in the line, `title_font = ImageFont.truetype('PlayfairDisplay-Black.ttf', 20)` with the name of your font file.
+
+The `handle_submit` route is responsible for starting the editing process and returning the edited background image as an attachment to the user. When it receives the form data it first converts the image to `base64` then passes the base64 string as an argument to the `process_job` method. This is because at the time of writing this tutorial, the `enqueue` method can't take binary data as a method argument without throwing errors. After queueing the task we pause code execution for 3 seconds to allow the worker to complete the task and save the image the `handle_submit` route will return as a response.
+
+### Create Worker Method
+
+In the `handle_submit` route we call the `process_job` method in the `utils.py` module but we haven't created it yet. Let's go ahead and create it now. Add a file named `utils.py` in the `app` folder and populate it with the contents below:
+
+```py
+from flask import send_file
+import io, base64
+from PIL import Image, ImageFont, ImageDraw
+
+def process_job(overlay_text, logo):
     title_font = ImageFont.truetype('PlayfairDisplay-Black.ttf', 20)
 
     my_image = Image.open("fall-season.jpeg")
@@ -210,6 +266,10 @@ def handle_submit():
 
     image_editable = ImageDraw.Draw(my_image)
     x, y = (width - 510, height-400)
+
+    slice_str = str(logo)[2:-1]
+
+    print("Job started")
 
     if len(overlay_text) > 25:
         string_center_index = len(overlay_text) / 2
@@ -223,20 +283,18 @@ def handle_submit():
 
     image_editable.text((x,y), overlay_text, (247, 250, 251), font=title_font)
 
-    if request.files:
-        logo = request.files['logo']
-        logo = Image.open(logo)
-        logo_width, logo_height = logo.size
-        logo = logo.convert("RGBA")
+    if logo:
+        img = Image.open(io.BytesIO(base64.decodebytes(bytes(slice_str, "utf-8"))))
+        logo_width, logo_height = img.size
+        logo = img.convert("RGBA")
         my_image.paste(logo, (width - logo_width, height - logo_height))
 
     my_image.save("result.jpg")
-    return send_file("../result.jpg", mimetype='image/jpg', as_attachment=True, download_name="result.jpg")
+    print("Job processed")
+    return "Done"
 ```
 
-Next, paste the background image in the project’s root folder. You can download it [here](https://github.com/codecapsules-io/image-text-overlay/blob/main/app/static/fall-season.jpeg). You will also need a true type font file of your favourite font style or alternatively use the [Playfair Display](https://github.com/codecapsules-io/image-text-overlay/blob/main/PlayfairDisplay-Black.ttf) font which is the one used for the purposes of writing this tutorial. Paste the font file in the project’s root folder and if you’ve used a different font file make sure to replace the font file name in the line, `title_font = ImageFont.truetype('PlayfairDisplay-Black.ttf', 20)` with the name of your font file.
-
-The `handle_submit` route is responsible for editing the background image by overlaying it with the text and logo supplied by the user. In order to do so, we make use of the Pillow package which makes image manipulation easier. After opening the background image we convert it to an `ImageDraw` object which can be edited.
+The `process_job` method is responsible for editing the background image by overlaying it with the text and logo supplied by the user. In order to do so, we make use of the Pillow package which makes image manipulation easier. After opening the background image we convert it to an `ImageDraw` object which can be edited.
 
 In addition to overlaying the image with text, we are also going to apply a black background to the text so that it’s always visible or readable against the background image. We do this by first getting the dimensions (width and height) of the text using the `getsize()` method of the `ImageFont` class. The black background will have the same dimensions as the text and we draw it using the `rectangle()` method of the `ImageDraw.Draw` class.
 
@@ -246,7 +304,7 @@ After the text background has been applied, the line `image_editable.text((x,y),
 
 Inside the last `if` block we get the dimensions of the logo image so that we’ll be able to place it in the bottom right corner of the background image. We first convert it to an “RGBA” image then pass it as an argument to the `paste()` method. If the user did not supply a logo then `request.files` will be false and the last `if` block won’t execute.
 
-The last step in the editing logic is to save the newly edited image and return it as an attachment which downloads it to the user’s PC.
+The last step in the editing logic is to save the newly edited image to allow the `handle_submit` route to return it as an attachment.
 
 ## Prepare for Deployment
 
@@ -257,10 +315,17 @@ Our app is now complete and we are only left with adding the files necessary for
 We’ll start by creating a Procfile, which tells Code Capsules how to run our app. Create a file named Procfile in the project root folder and add the following code to it:
 
 ```
-web: gunicorn run:app
+web: sh codecapsules.sh
 ```
 
-We use the gunicorn server to run our app in production, since the built-in Flask server is less secure and only suitable to be used in a development environment.
+Here, we tell Code Capsules to run the `codecapsules.sh` script in order to start our app. Add the script to the root folder by creating a file named `codecapsules.sh` there and fill it with the code below:
+
+```
+gunicorn run:app --daemon
+python worker.py
+```
+
+The script starts the flask application on a `gunicorn` server and the worker process using normal `python`.
 
 Next, we need to generate a requirements.txt file to tell Code Capsules which packages need to be installed first before our app can start. Run the command below from a terminal while in the project’s root folder to create a requirements.txt file.
 
@@ -282,6 +347,6 @@ Your remote repository will now be up to date with your local one.
 
 ## Deploy to Code Capsules
 
-The final step is to deploy our app. Log into your Code Capsules account and link your remote GitHub repository to Code Capsules. Create a Backend Capsule and deploy the app there. You can follow this [deployment guide](https://codecapsules.io/docs/deployment/how-to-deploy-flask-application-to-production/) to see how to do this in greater detail.
+The final step is to deploy our app. Log into your Code Capsules account and link your remote GitHub repository to Code Capsules. Create a Redis Database Capsule and a Backend Capsule and bind the two together after deploying your app. You can follow this [deployment guide](https://codecapsules.io/docs/deployment/how-to-deploy-flask-application-to-production/) to see how to do so in greater detail.
 
 That’s it! Your "Image Editing" app should be live and fully functional now.
