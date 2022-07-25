@@ -326,10 +326,10 @@ Here, we tell Code Capsules to run the `codecapsules.sh` script in order to star
 
 ```
 gunicorn run:app --daemon
-python worker.py
+python3 worker.py
 ```
 
-The script starts the flask application on a `gunicorn` server and the worker process using normal `python`.
+The script starts the flask application on a `gunicorn` server and the worker process using `python3`.
 
 Next, we need to generate a `requirements.txt` file to tell Code Capsules which packages need to be installed first before our app can start. Run the command below from a terminal while in the project’s root folder to create a `requirements.txt` file.
 
