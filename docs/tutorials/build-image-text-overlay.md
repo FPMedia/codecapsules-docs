@@ -5,6 +5,8 @@ description: Create an image editing application that overlays a background imag
 
 # Building an Image Editing Tool
 
+![cover image](../assets/tutorials/image-text-overlay/python-image-overlay-cover.png)
+
 Image editing is an important skill to have if you intend to have any sort of online presence for yourself or brand. In this tutorial, we’ll look at how to perform simple image edits in Python using the Pillow library.
 
 At the end of the tutorial, you will be able to overlay images with any text or smaller picture (ideally a logo) using your own program. See the image below to get an idea of what the application will look like once you’re done.
@@ -78,7 +80,7 @@ While in the project’s root folder, enter the command `git init` to initialize
 Create a `.gitignore` file and add the line below to it:
 
 ```
-/env
+env/
 ```
 
 This excludes the env folder from being tracked by Git, as we only want to track changes in our project files.
@@ -127,6 +129,8 @@ Next, create an `index.html` file inside the `templates` folder, and populate it
       }
     </style>
   </head>
+
+  <!-- Insert body code here -->
 </html>
 ```
 
@@ -180,7 +184,7 @@ conn = redis.from_url(redis_url)
 
 app = Flask(__name__)
 
-from app import
+from app import views
 ```
 
 Here we declare our app object using the Flask package we installed earlier and create a connection variable to the redis data capsule we'll be using.
@@ -322,12 +326,12 @@ Here, we tell Code Capsules to run the `codecapsules.sh` script in order to star
 
 ```
 gunicorn run:app --daemon
-python worker.py
+python3 worker.py
 ```
 
-The script starts the flask application on a `gunicorn` server and the worker process using normal `python`.
+The script starts the flask application on a `gunicorn` server and the worker process using `python3`.
 
-Next, we need to generate a requirements.txt file to tell Code Capsules which packages need to be installed first before our app can start. Run the command below from a terminal while in the project’s root folder to create a requirements.txt file.
+Next, we need to generate a `requirements.txt` file to tell Code Capsules which packages need to be installed first before our app can start. Run the command below from a terminal while in the project’s root folder to create a `requirements.txt` file.
 
 ```
 pip freeze –local > requirements.txt

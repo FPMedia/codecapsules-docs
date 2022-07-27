@@ -98,4 +98,11 @@ If you're looking to build cool applications that you can host on Code Capsules,
     <figcaption>Build an Express HTMx App</figcaption>
   </a>
 </figure>
+
+<figure>
+  <a href="./build-image-text-overlay/">
+    <img style="border-radius: 10px 10px 0" src="../assets/tutorials/image-text-overlay/python-image-overlay-cover.png" width="300" />
+    <figcaption>Build an Image Editing Tool</figcaption>
+  </a>
+</figure>
 </div>
